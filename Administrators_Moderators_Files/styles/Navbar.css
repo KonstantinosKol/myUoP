@@ -1,0 +1,248 @@
+.navbar1 {
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 70px;
+    padding:  0px 1.5em 5px 0 ;
+    background-color: #14A098;
+    font-family: 'Open Sans', sans-serif;  
+    border-bottom: 2px solid #105E62;
+    display: inline-block;
+    transition: .3s ease-in-out;
+    line-height: 70px;
+    text-decoration: none;
+    font-size: 1.25em;
+}
+
+.navbar1 button{
+    float: left;
+    display: inline-block;
+    border: none;
+    padding: 0;
+    line-height: 70px;
+    color: #0b5155;
+    background-color: #14A098;
+    text-decoration: none;
+    border-bottom: 2px solid #105E62;
+    font-size: 1em;
+    height: 70px;
+    width:120px;
+    font-weight: bold;
+}
+
+.navbar1 a{
+  float: right;
+  display: inline-block;
+  border: none;
+  padding: 0;
+  line-height: 70px;
+  color: #0b5155;
+  background-color: #14A098;
+  text-decoration: none;
+  border-bottom: 2px solid #105E62;
+  font-size: 1em;
+  height: 70px;
+  width:120px;
+  font-weight: bold;
+}
+.navbar1 #menuButton{
+    float: right;
+    font-size: 2em;
+    font-weight: bold;
+    color: #0b5155;
+}
+
+.navbar1 button:hover{
+  background-color: #2FBFB6;
+}
+
+.mobButton{
+    display: none;
+    cursor: pointer;
+}
+
+.mobButton b:hover{
+    background-color: #2FBFB6;
+    color: #0b5155;
+}
+
+.navbar2 {
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  padding: 0 1.5em;
+  background-color: #14A098;
+  font-family: 'Open Sans', sans-serif;  
+  border-bottom: 2px solid #105E62;
+  display: inline-block;
+  transition: .3s ease-in-out;
+  line-height: 70px;
+  text-decoration: none;
+  font-size: 1.25em;
+}
+
+.navbar2 button{
+  float: left;
+  display: inline-block;
+  border: none;
+  padding: 0;
+  line-height: 70px;
+  color: #0b5155;
+  background-color: #14A098;
+  text-decoration: none;
+  font-size: 1em;
+  height: 70px;
+  width:120px;
+  font-weight: bold;
+}
+
+.navbar2 button:hover{
+  background-color: #2FBFB6;
+}
+
+.navbar2 a{
+float: right;
+display: inline-block;
+border: none;
+padding: 0;
+line-height: 70px;
+color: #0b5155;
+background-color: #14A098;
+text-decoration: none;
+font-size: 1em;
+height: 70px;
+width:120px;
+font-weight: bold;
+}
+
+
+
+@media screen and (max-width:768px){
+.desktopMenu{
+    display: none;
+  }
+  .mobButton{
+	  display: block;
+	  cursor: pointer;
+  }
+  .navbar2 {
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    top: 0;
+ 
+    padding: 0 1.5em;
+    background-color: #14A098;
+    font-family: 'Open Sans', sans-serif;  
+    border-bottom: 2px solid #105E62;
+    display: inline-block;
+    transition: .3s ease-in-out;
+    line-height: 70px;
+    text-decoration: none;
+    font-size: 1.25em;
+  }
+
+
+
+  .navbar2 button{
+	  text-align: center;
+	  display: inline-block;
+	  line-height: 70px;
+	  color: #0b5155;
+	  text-decoration: none;
+	  font-size: 1em;
+	  width: 100%;
+      padding: 0 0.5em;
+      border: none;
+	    background-color: #14A098;
+      border-bottom: 2px solid #105E62;
+  }
+
+
+  .navbar2 button:hover{
+	  background-color: #2FBFB6;
+	  color: #0b5155;
+
+  }
+
+  .navbar2 #menuButton{
+	  float: right;
+    font-size: 2em;
+    font-weight: bold;
+    color: #0b5155;
+  }
+  
+  .desktopMenu{
+	  display: none;
+  }
+
+  .navbar2 a{
+    text-align: center;
+    display: inline-block;
+    border: none;
+    padding: 0;
+    line-height: 70px;
+    color: #0b5155;
+    background-color: #14A098;
+    text-decoration: none;
+    font-size: 1em;
+    height: 70px;
+    width: 100%;
+    font-weight: bold;
+  }
+	  
+}
+
+
+
+  @media screen and (max-width:600px){
+	
+	.desktopMenu{
+	  display: none;
+  }
+  .mobButton{
+	  display: block;
+	  cursor: pointer;
+  }
+  .navbar2 {
+	  position: fixed;
+	  z-index: 3;
+	  left: 0;
+	  right: 0;
+	  top: 0;
+	 
+	  font-family: 'Open Sans', sans-serif;  
+	  border-bottom: 2px solid #105E62;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: start;
+	  transition: .3s ease-in-out;
+	  padding-bottom:10px;
+  }
+  .navbar2 button{
+    text-align: center;
+	  display: inline-block;
+	  line-height: 70px;
+	  color: #0b5155;
+	  text-decoration: none;
+	  font-size: 1em;
+	  width: 100%;
+      padding: 0 0.5em;
+      border: none;
+	    background-color: #14A098;
+      border-bottom: 2px solid #105E62;
+  }
+ 
+
+  .desktopMenu{
+	  display: none;
+  }
+  
+  }
+  

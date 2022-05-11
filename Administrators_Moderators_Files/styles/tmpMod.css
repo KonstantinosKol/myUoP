@@ -1,0 +1,604 @@
+html { width: 100%; min-height: 100%; }
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+}
+
+body { 
+	width: 100%;
+	height:100%;
+	font-family: 'Open Sans', sans-serif;
+    background-color: #82b3b0;
+}
+
+/*====================================Sections==========================================*/
+#LessonsSection{
+	margin-top: 8%;
+	margin-bottom: 5%;
+	padding-left: 30px;
+	padding-right: 30px;
+	display: block;
+}
+
+
+/*====================================Table==========================================*/
+
+#LessonTable{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	table-layout: fixed;
+	border-collapse:separate;
+	border-spacing:0 5px;
+	border: 3px solid rgb(6,129,127);
+	border-radius:10px;
+	font-family: 'Open Sans', sans-serif;   
+}
+	
+#CollapsibleTable {
+	width: 100%;
+}
+
+#CollapsibleTable td{
+	padding:  5px 5px 5px 5px;
+	border: none;
+	border-bottom: 1px solid rgb(6,129,127);
+}
+
+
+
+#LessonTable caption{
+font-size: 20px;
+margin: .5em 0 .75em;
+}
+
+
+#LessonTable tr{
+background-color: #DEF2F1;
+
+}
+
+#LessonTable th{
+padding:  10px 10px 10px 10px;
+text-align: center;
+}
+
+#LessonTable  td {
+	text-align: center;
+	font-size:15px;
+	}
+
+#LessonTable th{
+	font-size: 15px;
+	letter-spacing: .1em;
+}
+
+.lesson{
+	padding: .625em;
+	font-size: 15px;
+}
+
+
+@media screen and (max-width: 768px) {
+#LessonTable {
+	border: 0;
+	width: 80%;
+	margin-left: 10%;
+}
+#CollapsibleTable {
+	width: 100%;
+}
+
+#CollapsibleTable td{
+	padding:  5px 5px 5px 5px;
+	border: none;
+	border-bottom: 1px solid rgb(6,129,127);
+	width: 100%;
+	text-align: center;
+}
+
+#LessonTable thead{
+	border: none;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+}
+
+
+ #LessonTable tr{
+	display: block;
+	margin-bottom: .625em;
+	box-shadow: 0px 5px 5px rgb(0 0 0 / 40%);
+}
+
+
+#LessonTable td{
+	border-bottom: 1px solid rgb(6,129,127);
+	display: block;
+	font-size: .8em;
+	text-align: center;
+	font-size:15px;
+}
+	
+#LessonTable td:nth-child(7),#LessonTable td:nth-child(9) ,#LessonTable td:nth-child(5) {
+	display: none;
+}
+
+#LessonTable .hidden {
+	display: none;
+}
+
+
+
+
+#LessonTable  td::before{
+	/*
+	* aria-label has no advantage, it won't be read inside a table
+	content: attr(aria-label);
+	*/
+	content: attr(data-label);
+	float: left;
+	font-weight: bold;
+}
+#LessonTable  td:last-child{
+	border-bottom: 0;
+}
+
+/* #LessonTable  td:first-child{
+	display: none;
+} */
+
+}
+
+@media screen and (max-width: 600px) {
+	 #LessonTable{
+	border: 0;
+	width: 100%;
+	margin-left: 0%;
+	}
+}
+/* ========================================================================= */
+.hidden{
+	display: none;
+}
+/* ============================Pop-Up Edit================================= */
+.popup .overlay {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:100vh;
+	background:rgba(0,0,0,0.7);
+	z-index:1;
+	display:none;
+	backdrop-filter: blur(5px);
+  }
+   
+  .popup .content {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%) scale(0);
+	/*background:rgb(92, 92, 92);*/
+	background-color: rgb(231, 240, 240);
+	border: 4px solid #14A098;
+	border-radius: 15px;
+	width:50%;
+	z-index:2;
+	text-align:center;
+	padding:30px;
+	box-sizing:border-box;
+	font-family:"Open Sans",sans-serif;
+	border-radius: 10px;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+  }
+  
+   
+  .popup.active .overlay {
+	display:block;
+  }
+   
+  .popup.active .content {
+	transition:all 300ms ease-in-out;
+	transform:translate(-50%,-50%) scale(1);
+  }
+  
+  
+  .title{
+	font-family:"Open Sans",sans-serif;
+	color:#DEF2F1; 
+  }
+  
+  
+	
+  @media screen and (max-width: 768px){
+	  .popup .content {
+	  top:50%;
+	  left:50%;
+	  width:80%;
+	  padding:20px 40px 20px 20px;
+	}
+  }  
+  
+  @media screen and (max-width: 600px){
+	  .popup .content {
+	  top:40%;
+	  left:50%;
+	  width:90%;
+	  padding:10px 20px 10px 10px;
+	}
+	
+	.popup .content {
+	  position:absolute;
+	  top:70%;
+	  left:50%;
+	  transform:translate(-50%,-50%) scale(0);
+	  background-color: rgb(231, 240, 240);
+	  width:90%;
+	  z-index:2;
+	  text-align:center;
+	  padding:20px;
+	  box-sizing:border-box;
+	  font-family:"Open Sans",sans-serif;
+	  border-radius: 10px;
+	  align-items: center;
+	  justify-content: center;
+	}
+   
+	
+  }  
+
+  /* --------------------------------------------- */
+
+  .radioButtonsGroup{
+	display: grid;
+	grid-template-columns: repeat(12,1.5fr);
+	grid-column-gap: 5px;
+	width:100%;
+  }
+
+  #form1{
+	color: black;
+	font-family:"Open Sans",sans-serif;
+	display: grid;
+	grid-template-columns: repeat(2,1fr);
+	grid-column-gap: 15px;
+	width:100%;
+	padding-left: 0px;
+	padding-right: 0px;
+  }
+
+  .column{
+	display: grid;
+	grid-template-columns: repeat(1,1fr);
+	grid-row-gap: 5px;
+	width:100%;
+	padding-left: 20px;
+	padding-right: 20px;
+  }
+
+  input { 
+	width: 100%; 
+	margin-bottom: 10px; 
+	background: rgba(24, 119, 79, 0.3);
+	border: none;
+	outline: none;
+	padding: 10px;
+	font-size: 15px;
+	color: rgb(0, 0, 0);
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: 4px;
+  
+	-webkit-transition: box-shadow .5s ease;
+	-moz-transition: box-shadow .5s ease;
+	-o-transition: box-shadow .5s ease;
+	-ms-transition: box-shadow .5s ease;
+	transition: box-shadow .5s ease;
+   
+  }
+  input[type=radio] {
+	width: 40%;
+	background: none;
+  }
+
+  textarea{
+	height: 150px;
+	border: 2px solid #14A098;
+	border-radius: 5px;
+	width: 100%;
+	resize: none;
+  }
+
+  .btn{
+	background:#14A098;
+	color:#DEF2F1;
+	font-family: 'Open Sans', sans-serif;   
+	position:relative;
+	text-align: center;
+	padding:10px;
+	border-radius:100px;
+	transition: all .5s;
+	width: 100%;
+	margin-top: 20px;
+	font-size: 18px;
+	border: none;
+	box-shadow:0px 5px 5px rgba(0,0,0,0.4);
+	transform: translateY(0px);
+  }
+  
+  .btn:hover{
+	transform: translateY(-10px);
+  }
+
+  .btn2{
+	background:#ca2830;
+	color:#DEF2F1;
+	font-family: 'Open Sans', sans-serif;   
+	position:relative;
+	text-align: center;
+	padding:10px;
+	border-radius:100px;
+	transition: all .5s;
+	width: 100%;
+	margin-top: 20px;
+	font-size: 18px;
+	border: none;
+	box-shadow:0px 5px 5px rgba(0,0,0,0.4);
+	transform: translateY(0px);
+  }
+  
+  .btn2:hover{
+	transform: translateY(-5px);
+  }
+
+  /* ============================Pop-Up Add new================================= */
+.popupAddNewLesson .overlay {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:100vh;
+	background:rgba(0,0,0,0.7);
+	z-index:1;
+	display:none;
+	backdrop-filter: blur(5px);
+  }
+   
+  .popupAddNewLesson .content {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%) scale(0);
+	/*background:rgb(92, 92, 92);*/
+	background-color: rgb(231, 240, 240);
+	border: 4px solid #14A098;
+	border-radius: 15px;
+	z-index:2;
+	text-align:center;
+	padding:30px;
+	box-sizing:border-box;
+	font-family:"Open Sans",sans-serif;
+	border-radius: 10px;
+	overflow: scroll;
+  }
+  
+   
+  .popupAddNewLesson.active .overlay {
+	display:block;
+  }
+   
+  .popupAddNewLesson.active .content {
+	transition:all 300ms ease-in-out;
+	transform:translate(-50%,-50%) scale(1);
+  }
+  
+  
+  .title{
+	font-family:"Open Sans",sans-serif;
+	color:#DEF2F1; 
+  }
+  
+  
+	
+  @media screen and (max-width: 768px){
+	  .popupAddNewLesson .content {
+	  top:50%;
+	  left:50%;
+	  width:80%;
+	  padding:20px 40px 20px 20px;
+	}
+  }  
+  
+  @media screen and (max-width: 600px){
+	  .popupAddNewLesson .content {
+	  top:40%;
+	  left:50%;
+	  width:90%;
+	  padding:10px 20px 10px 10px;
+	}
+	
+	.popupAddNewLesson .content {
+	  position:absolute;
+	  top:70%;
+	  left:50%;
+	  transform:translate(-50%,-50%) scale(0);
+	  background-color: rgb(231, 240, 240);
+	  width:90%;
+	  z-index:2;
+	  text-align:center;
+	  padding:20px;
+	  box-sizing:border-box;
+	  font-family:"Open Sans",sans-serif;
+	  border-radius: 10px;
+	  align-items: center;
+	  justify-content: center;
+	}
+
+	#form1{
+		color: black;
+		font-family:"Open Sans",sans-serif;
+		display: grid;
+		grid-template-columns: repeat(1,1fr);
+		grid-column-gap: 15px;
+		width:100%;
+		padding-left: 0px;
+		padding-right: 0px;
+	  }
+   
+  }  
+
+  #addNewLesson{
+	background:#14A098;
+	color:#DEF2F1;
+	font-family: 'Open Sans', sans-serif;   
+	position:relative;
+	text-align: center;
+	padding:10px 10px 10px 10px;
+	border-radius:100px;
+	transition: all .5s;
+	margin-bottom: 20px;
+	font-size: 18px;
+	border: none;
+	box-shadow:0px 5px 5px rgba(0,0,0,0.4);
+	transform: translateY(0px);
+  }
+   
+   /* ============================Pop-Up/Alert Delete Lesson================================= */
+.popupDeleteLesson .overlay {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:100vh;
+	background:rgba(0,0,0,0.7);
+	z-index:1;
+	display:none;
+	backdrop-filter: blur(5px);
+  }
+   
+  .popupDeleteLesson .content {
+	position:absolute;
+	top:40%;
+	left:50%;
+	transform:translate(-50%,-50%) scale(0);
+	/*background:rgb(92, 92, 92);*/
+	background-color: rgb(231, 240, 240);
+	color: black;
+	border-radius: 15px;
+	z-index:2;
+	text-align:center;
+	padding:30px;
+	box-sizing:border-box;
+	font-family:"Open Sans",sans-serif;
+	border-radius: 10px;
+	border: 4px solid rgb(230, 74, 74);
+  }
+  
+  .popupDeleteLesson.active .overlay {
+	display:block;
+  }
+   
+  .popupDeleteLesson.active .content {
+	transition:all 300ms ease-in-out;
+	transform:translate(-50%,-50%) scale(1);
+  }
+  
+	
+  @media screen and (max-width: 768px){
+	  .popupDeleteLesson .content {
+	  top:50%;
+	  left:50%;
+	  width:80%;
+	  padding:20px 40px 20px 20px;
+	}
+  }  
+  
+  @media screen and (max-width: 600px){
+	  .popupDeleteLesson .content {
+	  top:50%;
+	  left:50%;
+	  width:90%;
+	  padding:10px 20px 10px 10px;
+	}
+	
+	.popupDeleteLesson .content {
+	  position:absolute;
+	  margin-top:20%;
+	  left:50%;
+	  transform:translate(-50%,-50%) scale(0);
+	  width:90%;
+	  z-index:2;
+	  text-align:center;
+	  padding:20px;
+	  box-sizing:border-box;
+	  font-family:"Open Sans",sans-serif;
+	  border-radius: 10px;
+	  align-items: center;
+	  justify-content: center;
+	}
+   
+  }  
+
+  .EditButton{
+    background-color:#cec826;
+    padding: 10px 10px 10px 10px;
+    font-family:"Open Sans",sans-serif;
+    cursor: pointer;
+    width: 50%;
+	height: 80%;
+	text-decoration: none;
+	text-align: center;
+	border-radius: 10px;
+	border: none;
+  }
+  
+  .DeleteButton{
+    background-color:rgb(172, 23, 23);
+    padding: 10px 10px 10px 10px;
+    font-family:"Open Sans",sans-serif;
+    color: white;
+    width: 50%;
+	height: 80%;
+    cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  }
+
+  .LinkForLogout{
+	  text-align: center;
+	position: absolute;
+	top: 2.5%;
+	right:2.5%;
+	display: inline-block;
+	border-radius: 10px;
+	border: 2px solid #0b5155;
+	padding: 0px 5px 5px 5px ;
+	line-height: 50px;
+	color: #0b5155;
+	background-color: #14A098;
+	text-decoration: none;
+	font-size: 1em;
+	height: 50px;
+	font-weight: bold;
+
+  }
+
+
+  #warningOnAddLesson, #warningOnEditLesson{
+    color: rgb(230, 74, 74);
+    margin-top: 10px;
+    text-align:center;
+    font-family:"Open Sans",sans-serif;
+    display: block;
+    font-weight: bold;
+  }
+
+

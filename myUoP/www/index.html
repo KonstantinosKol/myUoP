@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale-1.0">
+        <title>index</title>
+
+        <!-- <script src="script.js"></script> -->
+        <!-- <script type="text/javascript" src="index.js"></script> -->
+        <link rel="stylesheet" type="text/css" href="font-awesome-css/all.min.css">
+        <link rel="stylesheet" type="text/css" href="font-awesome-css/fontawesome.css">
+        <link rel="stylesheet" type="text/css" href="font-awesome-css/fontawesome.min.css">
+        <!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
+
+        <link rel="stylesheet" type="text/css" href="./css/index.css" />
+        <link rel="stylesheet" type="text/css" href="./css/departments.css" />
+
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> Info icon -->
+        <script src="jquery.min.js"></script>
+        <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script> -->
+        
+    </head>
+    <script src="cordova.js"></script>
+    <body>
+
+      
+         <!-- ============================ Splach Screen ============================================-->
+        <div id="slide" class="before">
+            <!--  <img  class="before" src="./img/tree-3.jpg"> -->
+
+        
+            <!-- <div class="animate seven before">
+                <span>U</span><span>n</span><span>i</span><span>v</span><span>e</span><span>r</span><span>s</span><span>i</span><span>t</span><span>y</span>&nbsp;<span>A</span><span>p</span><span>p</span>
+            </div> --> 
+            <img  class="Label" src="./img/Label.png">
+
+            <div class="animated-title">
+              <div class="text-top">
+                <div>
+                  <span>Μαθήματα</span>
+                  <span>όπου θες</span>
+                </div>
+              </div>
+              <div class="text-bottom">
+                <div>όποτε θες!</div>
+              </div>
+            </div>
+
+        </div>
+
+
+
+<div class="containerS">
+
+        <!-- ============================ Menu ============================================-->
+        <div id="Menu" class="view" >
+            <p class="title">myUoP</p>
+        
+              <div class="MenuButton1-2">
+                  <button  class="MenuButton1" onclick="GoToDepartments1()"><p>Μαθήματα</p><img src="./img/Untitled-3.png" alt=""></button>
+                  <button  class="MenuButton2" onclick="GoToDepartments2()"><p>Ωρολόγια Προγράμματα</p><img src="./img/Untitled-4.png" alt=""></button>
+              </div>
+
+              <button  class="button3" onclick="location.href='https://eclass.uop.gr/';"><p>e - Class</p><img src="./img/Untitled-1.png"  alt=""></button>
+              <button  class="button4" onclick="location.href='https://e-secretary.uop.gr/UniStudent/';" ><p>Ηλεκτρονική Γραμματεία </p><img src="./img/Untitled-2Black.png" alt=""></button>
+              
+              <button  class="Help" onclick="OpenCloseHelpPopUp()">Βοήθεια &#9432;</button>
+
+        </div>
+
+        <!-- ============================ Help-Popup ============================================-->
+        <div class="popup" id="popup-1">
+            <div class="content">
+                  
+                  <div class="welcomeSection1">
+                    <p class="welcomeMessage1" >Καλωσήρθες</p>
+                    <p class="welcomeMessage2" >Στον ψηφιακό βοηθό για τους οδηγούς σπουδών των τμημάτων του Πανεπιστημίου Πελοποννήσου</p>
+                  </div>
+
+                  <div class="welcomeSection2" >
+
+                    <p class="manual">Οδηγίες</p>
+
+                    <p class="manualText"><i class='far fa-dot-circle'></i> Για να περιηγηθείς στα Τμήματα και να επιλέξεις εξάμηνο αρκεί να πατήσεις το κουμπί:</p>
+                    <p class="manualText1">"Μαθήματα"</p>
+                    <img class="images" src="./img/Menu1.png">
+
+                    <p class="manualText"><i class='far fa-dot-circle'></i> Μπορείς να περιηγηθείς στα τμήματα αλλά και να αναζητήσεις οποιοδήποτε απο αυτά.</p>
+                    <img class="images" src="./img/Menu2.png">
+
+                    <p class="manualText"><i class='far fa-dot-circle'></i> Μπορείς να εξερευνήσεις τα μαθήματα, πληροφορίες για αυτά αλλά και τις κατευθήνσεις του ανήκουν.</p>
+                    <img class="images" src="./img/Menu3.png">
+
+                    <p class="manualText"><i class='far fa-dot-circle'></i> Αν θέλεις μπορείς να αποθηκεύσεις μαθήματα και να δείς είτε σύνολο των ECTS είτε τα προαπαιτούμενα του τμήματος.</p>
+                    <img class="images" src="./img/Menu4.png">
+
+                    <p class="manualText"><i class='far fa-dot-circle'></i> Τα Ωρολόγια Προγράμματα κάθε τμήματος μπρείς να τα δείς απο το κουμπί:</p>
+                    <p class="manualText1">"Ωρολόγια Προγράμματα"</p>
+                    <img class="images" src="./img/Menu5.png">
+
+                      <p class="manualText">Σκούρο θέμα</p>
+                    
+                      <label class="switch">
+                        <input type="checkbox" id="switchDarkTheme" onchange="swapStyleSheet(this)">
+                          <span class="slider round"></span>
+                      </label>
+
+                    <button  class="Help" onclick="OpenCloseHelpPopUp()" style="margin-bottom:50px; border-style: solid; border-width: 2px; border-color: rgba(20,160,152,0.7); box-shadow:0px 5px 5px rgba(0,0,0,0.4);">Κλείσιμο &#10006;</button>
+
+                  </div>
+                                     
+            </div>
+        </div>
+
+    <!-- ======================================================================================================================================================= -->
+    <!-- ======================================================================================================================================================= -->
+    <!-- ======================================================================================================================================================= -->
+    <!-- ======================================================================================================================================================= -->
+        <p class="hidden" id="HiddenDepartment"></p>
+        <p class="hidden" id="HiddenExam"></p> 
+        <p class="hidden" id="HiddenECTS"></p>
+        <p class="hidden" id="HiddenReuired"></p>
+       
+        <!-- ==========================Tmimata======================== -->
+      <div id="GroupOfButtons" class="GroupOfButtons secondScreen view">
+
+          <!-- <div class="backANDchoose"> -->
+            <button class="backButton" onclick="back()"><i class="fa fa-long-arrow-left"></i></button>
+            <!-- <p class="title2">Διάλεξε τμήμα</p> -->
+          <!-- </div> -->
+
+            
+          <input type="text" id="myInput" onkeyup="searchFunc()" placeholder="Ψάξε Τμήμα..." >
+
+
+          <ul id="myUL">
+          
+          </ul>
+
+          <div id="loading1" class="loader1 show"></div>
+
+      </div> 
+
+      
+        <!-- ==========================SlideUp to EXAMINA======================== -->
+        <div class="popupExamina" id="popupExamina">
+                <div class="overlayExamina"></div>
+                <div id="popupExamina2" class="contentExamina">
+
+
+                  <div class="scrollingExam">
+                    <p style="font-family: 'Anton', Arial, sans-serif;font-size: 25px;color: #14A098; margin-bottom: 20px; margin-top: 10px">Διάλεξε εξάμηνο</p>
+        
+                    <b class="year">1ο Έτος</b>
+                    <div class="line"></div>
+                    <div class="duoExam">
+                      <button  class="examino" onclick="aJaxCall('1')">1o Εξάμηνo</button>
+                      <button  class="examino" onclick="aJaxCall('2')">2o Εξάμηνo</button>
+                    </div>
+                   
+                    
+                    <b class="year">2ο Έτος</b>
+                    <div class="line"></div>
+                    <div class="duoExam">
+                      <button  class="examino" onclick="aJaxCall('3')">3o Εξάμηνo</button>
+                      <button  class="examino" onclick="aJaxCall('4')">4o Εξάμηνo</button>
+                    </div>
+                 
+
+                    <b class="year">3ο Έτος</b>
+                    <div class="line"></div>
+                    <div class="duoExam">
+                      <button  class="examino" onclick="aJaxCall('5')">5o Εξάμηνo</button>
+                      <button  class="examino" onclick="aJaxCall('6')">6o Εξάμηνo</button>
+                    </div>
+                  
+
+                    <b class="year">4ο Έτος</b>
+                    <div class="line"></div>
+                    <div class="duoExam">
+                      <button  class="examino" onclick="aJaxCall('7')">7o Εξάμηνo</button>
+                      <button  class="examino" onclick="aJaxCall('8')">8o Εξάμηνo</button>
+                    </div>
+                   
+
+                    <b id="5thyearB" class="year">5ο Έτος</b>
+                    <div id="5thyearLine" class="line"></div>
+                    <div id="5thyear" class="duoExam"> 
+                      <button  class="examino" onclick="aJaxCall('9')">9o Εξάμηνo</button>
+                      <button  class="examino" onclick="aJaxCall('0')">10o Εξάμηνo</button>
+                    </div>
+                    
+                </div>
+        </div>
+
+        <!-- =============================================================================== -->
+        <!-- <div  class="middle" id="middle"></div> -->
+        <!-- =======================================SlideUpGiaProgrammata=========================================== -->
+              <div class="popupSeason" id="popupSeason">
+                <div class="overlaySeason"></div>
+                <div id="popupSeason2" class="contentSeason">
+
+                    <p style="font-family: 'Anton', Arial, sans-serif;font-size: 25px;color: #14A098; margin-bottom: 20px; margin-top: 10px">Διάλεξε εξάμηνο</p>
+                   
+                    <button  class="Season1" onclick="redirectToPDF('Winter')">Χειμερινό Εξάμηνο</button>
+                    <button  class="Season2" onclick="redirectToPDF('Summer')">Εαρινό Εξάμηνο</button>
+                    
+                </div>
+              </div> 
+
+
+      
+
+        <!-- ============================================Table===================================== -->
+        <div  id="Array" class="thirdScreen view">
+
+            <div class="navbar">
+              <button class="backButtonNavBar" ><i class="fa fa-long-arrow-left"></i></button>
+              <button class="PortfolioButton" onclick="">Μαθήματα <i class='fas fa-inbox'></i></button>
+            </div>
+            
+
+            <div class="scrollableArray">
+              <table id="userTable"  >
+                <thead id="tableHeaderId">
+                  <tr id="tableHeaderId" >
+                    <th width="80%" ></th>
+                    <th width="20%" class="hidden">id</th>
+                    <th width="20%" ></th>
+                    <th width="20%" class="hidden">Examino</th>
+                    <th width="20%" class="hidden">Infos</th>
+                    <th width="20%" class="hidden">Direction</th>
+                    <th width="20%" class="hidden">Required</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBodyId"></tbody>
+              </table>
+            </div>
+
+     
+            
+            <div id="loading2" class="loader2 show"></div>
+
+      <!-- =================================Alert-PopUp===================================== -->
+      <!-- ================================================================================= -->
+            <div class="Alert1" id="Alert-1">
+              <div class="overlayAlert"></div>
+               <div class="contentAlert">
+
+                    <div class="warningSection"><i class='fas fa-exclamation-circle'></i></div>
+
+                    <div class="contentSection">
+                      <p >Δεν είναι αποθηκευμένο κάποιο απο τα Προαπαιτούμενα Μαθήματα</p>
+  
+                      <div class="AlertButtons">
+                        <button class="closeAlert">Κλείσιμο</button>
+                      </div>
+                    </div>
+      
+               </div>
+            </div>
+             
+        </div>
+
+</div>
+        <!-- ==========================No-Connection Screen======================== -->
+        <!-- <div id="NoConnectionScreen" class="hidden NoConnectionScreen">
+
+          <button class="backButton" onclick="back1()">&larr;</button>
+          
+          <p>No connection</p>
+
+        </div>
+     -->
+       <!-- ==========================Portfolio======================== -->
+        <div class="popup2" id="popup-2">
+            <div class="content2">
+
+                      <div class="single-skill">
+                              
+                        <svg class="circle-chart"  >
+                          <circle class="circle-chart__background" cx="16.9" cy="16.9" r="15.9"></circle>
+                          <circle class="circle-chart__circle success-stroke" stroke-dasharray="0,100" cx="16.9" cy="16.9" r="15.9"></circle>
+                          <g class="circle-chart__info"> 
+                            <text id="ECTSunits" class="circle-chart__percent" x="17.9" y="15.5">0</text>
+                            <text class="circle-chart__subline" x="16.91549431" y="22">ECTS </text> 
+                          </g>
+                        </svg>
+                    
+                      </div>
+
+
+                      <div class="CurvedSection">
+                        <table id="portfolioTable">
+                          <thead>
+                            <tr id="tableHeadPortfolio" >
+                              <th  width="80%" ></th>
+                              <th   width="20%"  ></th>
+                              <th   width="20%"  ></th>
+                              <th  width="20%" ></th>
+                            </tr>
+                          </thead>
+                          <tbody id="tableBodyPortfolio">
+
+                          </tbody>
+                        </table>
+                    
+
+                      <p id="noSavedLesson">Δεν υπάρχουν αποθηκευμένα μαθήματα</p>
+                    </div>
+
+                    <div class="DepartmentInfos" id="DepartmentInfos"></div>
+
+                    <button id="clearPortfolio" ><i class="far fa-trash-alt" ></i></button>
+
+                    <button  class="ClosePortfolio" onclick="closePortfolio()" ><i class="fa fa-long-arrow-left"></i> </button>
+                
+            </div>
+      </div>
+
+
+
+      <!-- =================================Alert-PopUp===================================== -->
+      <!-- ================================================================================= -->
+      <div class="Alert2" id="Alert-2">
+        <div class="overlayAlert"></div>
+         <div class="contentAlert">
+
+                <div class="warningSection"><i class='fas fa-exclamation-triangle'></i></div>
+                          
+                <div class="contentSection">
+                  <p >Είσαι σίγουρος πως θέλεις να διαγράψεις όλα τα αποθηκευμένα μαθήματα;</p>
+
+                  <div class="AlertButtons">
+                    <button class="closeAlert">Κλείσιμο</button>
+                    <button class="deleteList">Διαγραφή</button>
+                  </div>
+                </div>
+            
+
+         </div>
+      </div>
+   
+       
+    </body>
+
+
+  
+    
+     
+    <!-- ===================================================Index========================================================== -->
+    <script>
+
+
+        var queryString = location.search.substring(1);             //========SOS(pernei to "false" apo to line PROSOXI)==========
+        var a = queryString.split("|"); 
+
+        //alert("->"+a[0]+"<");
+        if(a[0]=="false"){
+            document.getElementById("slide").className="after"
+        }                                                          //============================================
+     
+    </script>
+     <!-- ===================================================Department========================================================== -->
+     
+     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+
+   
+     <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" ></script>
+ 
+     <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.1.4/js/dataTables.rowGroup.min.js" ></script>
+ 
+     <script src="./js/script.js"></script>
+ 
+     <script src="./js/functionality.js"></script>    <!--======================SOS============================-->
+ 
+
+   
+    
+  
+</html>

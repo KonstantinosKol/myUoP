@@ -1,0 +1,566 @@
+/* @import url('https://fonts.googleapis.com/css?family=Open+Sans'); */
+@font-face {
+	font-family: 'Open Sans';
+	src: url('../static/OpenSans/OpenSans-Regular.ttf');
+  }
+  
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+  }
+  html { width: 100%; min-height: 100%; }
+
+  body {
+	  /* background-color: #4547ca; */
+	  margin: 0;
+	
+  }
+
+
+
+/*=====================================Splach Screen========================================*/
+.before{
+	position: absolute;
+	top:0px;
+	height: 100%;
+	width: 100%;
+	animation: mymove 3s forwards;
+	animation-delay: 3.3s;
+	z-index: 1;
+	background: rgb(20,180,171);
+	background: linear-gradient(180deg, rgba(20,180,171,1) 25%, rgba(36,115,109,1) 75%);
+}
+
+@keyframes mymove{
+	from{top:0px;}
+	to{top:-250%;}
+}
+
+.after{
+	position: absolute;
+	top:-100%;
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+}
+
+
+
+@media screen and (max-width:600px){
+	
+	.backgroudImage{
+		position: absolute; 
+		top: 0; 
+		left: -3px; 
+			
+		/* Preserve aspet ratio */
+		min-width: 100%;
+		min-height: 100%;
+	  }
+  
+  }
+/*====================================ANNIMATED TEXT https://codepen.io/kh-mamun/pen/NdwZdW===================================================*/
+
+/*==================================================Menu===================================================*/
+
+
+/* ?????????????????????????????????????????????????? */
+.containerS {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+.view {
+	will-change: transform;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	transition: -webkit-transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  }
+
+
+.secondScreen {
+	-webkit-transform: translateX(100%);
+	transform: translateX(100%);
+
+}
+
+.thirdScreen {
+	-webkit-transform: translateX(100%);
+  transform: translateX(100%);
+
+}
+
+.view-change #Menu {
+	-webkit-transform: translateX(-100%);
+	transform: translateX(-100%);
+}
+
+.view-change .secondScreen {
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+}
+
+.view-change2 .secondScreen {
+	-webkit-transform: translateX(-100%);
+	transform: translateX(-100%);
+}
+
+.view-change2 .thirdScreen {
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+}
+
+#Menu{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+
+	background:rgb(231, 240, 240);
+
+	padding-left: 5%;
+	padding-right:  5%;
+	margin: 0px;
+
+	display:grid;
+	place-items: center;
+}
+
+
+/* ?????????????????????????????????????????????????? */
+.MenuButton1-2{
+	display: grid;
+	grid-template-columns: repeat(2,1fr);
+	grid-row-gap: 0px;
+	grid-column-gap:5%;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	margin-top: 0px;
+	/* margin-left: 20px; */
+}
+ 
+.MenuButton1{
+	
+	background-color: #14A098;
+/* 
+	border-style: solid;
+	border-width: 2px;
+	border-color: #14A098; */
+	
+	border: none;
+
+	width: 100%;
+	height:110%;
+	
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	color: white;
+	
+	text-align: center;
+	/* padding:20px 20px 20px 20px; */
+	border-radius:10px;
+	font-size: 20px;
+	
+	box-shadow: rgba(54, 54, 54, 0.25) 0px 10px 12px, rgba(54, 54, 54, 0.25) 0px 7px 7px;
+
+}
+
+.MenuButton2{
+	background-color: #14A098;
+
+	/* border-style: solid;
+	border-width: 2px;
+	border-color: #14A098; */
+
+	width: 100%;
+	height:110%;
+
+	border: none;
+	
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	color: white;
+
+	text-align: center;
+	
+	padding:5px 5px 5px 5px;
+	border-radius:10px;
+	font-size: 20px;
+	
+	box-shadow: rgba(54, 54, 54, 0.25) 0px 10px 12px, rgba(54, 54, 54, 0.25) 0px 7px 7px;
+}
+.button3{
+	
+	background-color: rgb(231, 240, 240);
+	width: 100%;
+	height:80%;
+
+	border-style: solid;
+	border-width: 2px;
+	border-color: rgba(20,160,152,0.7);
+	font-family: "Open Sans", sans-serif;
+	font-size: large;
+	color: #14A098;
+	padding:10px 10px 10px 10px;
+	border-radius:10px;
+	letter-spacing: 1px;
+
+	box-shadow: rgba(54, 54, 54, 0.25) 0px 10px 12px, rgba(54, 54, 54, 0.25) 0px 7px 7px;	
+	text-align: center;
+	
+}
+.button4{
+	margin-top: 0%;
+	background-color: rgb(231, 240, 240);
+	width: 100%;
+	height:80%;
+
+	border-style: solid;
+	border-width: 2px;
+	border-color: rgba(20,160,152,0.7);
+	/* border:none; */
+
+	font-family: "Open Sans", sans-serif;
+	font-size: large;
+	color: #14A098;
+	padding:20px 20px 20px 20px;
+	border-radius:10px;
+	letter-spacing: 1px;
+	
+	box-shadow: rgba(54, 54, 54, 0.25) 0px 10px 12px, rgba(54, 54, 54, 0.25) 0px 7px 7px;	
+	text-align: center;
+	
+}
+
+.sec{
+	margin-top: 0px;
+	width: 100%;
+	height: 50%;
+	position: relative;
+	top: 10%;
+}
+.Help{
+	
+	background-color: Transparent;
+    background-repeat:no-repeat;
+    overflow: hidden;
+    outline:none;
+	width: 170px;
+
+	font-family: "Open Sans", sans-serif;
+	padding:10px 15px 10px 15px;
+	border-radius:100px;
+	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 1.5px;
+	border:none;
+	color: transparent;  
+	text-shadow: 0 0 0 #14A098 ;
+}
+/*===============================================Title in buttons=======================================================*/
+.title{
+	font-family: "Open Sans", sans-serif;
+	font-size: 35px;
+	padding-top:5%;
+	color: #14A098;
+	text-shadow: 0px 5px 10px rgba(0,0,0,0.5);
+}
+/*=======================================================PopUp===========================================================*/
+
+  .popup .content {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%) scale(0);
+	background:rgb(231, 240, 240);
+	width:100%;
+	height: 100%;
+
+	padding-top:10px;
+	font-family: "Open Sans", sans-serif;
+	color: white;
+	word-wrap: break-word;
+	opacity: 0;
+
+  }
+  
+ 
+  .popup.active .overlay {
+	display:block;
+  }
+   
+  .popup.active .content {
+	transition:all 300ms ease-in-out;
+	transform:translate(-50%,-50%) scale(1);
+	opacity: 1;
+  }
+
+/*=======================================================Text inside PopUp=================================================================*/
+.titlesInHelp{
+	font-size: 22px;
+	padding-left:20px;
+	padding-right:20px;
+}
+.textInHelp{
+	font-size: 18px;
+	padding-bottom:50px;
+	padding-left:20px;
+	padding-right:20px;
+}
+
+/*========================================================================================================================*/
+  
+
+  .hidden 
+  {
+  display: none;
+  }
+  .show {
+	  display: inline;
+  }
+ 
+
+  
+   
+/* =========================================Slide============================ */
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+	margin-bottom: 40px;
+	margin-top: 20px;
+  }
+  
+  .switch input { 
+	opacity: 0;
+	width: 0;
+	height: 0;
+  }
+  
+  .slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+  }
+  
+  .slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+  }
+  
+  input:checked + .slider {
+	background-color: #14A098;
+  }
+  
+  input:focus + .slider {
+	box-shadow: 0 0 1px #14A098;
+  }
+  
+  input:checked + .slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+	border-radius: 34px;
+  }
+  
+  .slider.round:before {
+	border-radius: 50%;
+  }
+  
+
+  .welcomeSection1{
+	position: absolute;
+	top: 40%;
+	color: #14A098;
+  }
+  .welcomeMessage1{
+	font-family: "Open Sans", sans-serif;
+	font-size: 30px;
+	text-align: center;
+	margin-bottom: 20px;
+	
+  }
+  .welcomeMessage2{
+	margin-top: 10%;
+	font-family: "Open Sans", sans-serif;
+	font-size: 20px;
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+  }
+  
+	.welcomeSection2{
+		opacity: 0;
+		color: #14A098;
+		position: absolute;
+		top: 0%;
+		width: 100%;
+		height: 100%;
+		overflow: scroll;
+		display: grid;
+		grid-template-columns: repeat(1,1fr);
+		grid-row-gap: 0px;
+		grid-column-gap: 0px;
+		place-items: center;
+	}
+	.manual{
+		font-size: 25px;
+		margin-bottom: 20px;
+		padding-left: 10px;
+		padding-right: 10px;
+		margin-top: 10%;
+	}
+
+	.manualText{
+		font-size: 20px;
+		padding-left: 10px;
+		padding-right: 10px;
+		margin-top:10%;
+	}
+	.manualText1{
+		font-size: 20px;
+		padding-left: 10px;
+		padding-right: 10px;
+		color: #C85E5E;
+	}
+
+	.images{
+		height: 70%;
+		width: 80%;
+	}
+
+	
+@keyframes showTopText {
+	0% { transform: translate3d(0, 100%, 0); }
+	40%, 60% { transform: translate3d(0, 50%, 0); }
+	100% { transform: translate3d(0, 0, 0); }
+  }
+  @keyframes showBottomText {
+	0% { transform: translate3d(0, -100%, 0); }
+	100% { transform: translate3d(0, 0, 0); }
+  }
+  .animated-title {
+	color: #DAF0EF;
+	text-shadow: 0px 5px 10px rgba(0,0,0,0.5);
+	font-family: "Open Sans", sans-serif;
+	height: 90vmin;
+	left: 50%;
+	position: absolute;
+	top: 65%;
+	transform: translate(-50%, -50%);
+	width: 90vmin;
+  }
+  .animated-title > div {
+	height: 50%;
+	overflow: hidden;
+	position: absolute;
+	width: 100%;
+  }
+  .animated-title > div div {
+	font-size: 12vmin;
+	padding: 2vmin 0;
+	position: absolute;
+  }
+  .animated-title > div div span {
+	display: block;
+  }
+  .animated-title > div.text-top {
+	border-bottom: 1vmin solid #24736d;
+	top: 0;
+  }
+  .animated-title > div.text-top div {
+	animation: showTopText 1s;
+	animation-delay: 0.5s;
+	animation-fill-mode: forwards;
+	bottom: 0;
+	transform: translate(0, 100%);
+  }
+  .animated-title > div.text-top div span:first-child {
+	color: white;
+	text-shadow: 0px 5px 10px rgba(0,0,0,0.5);
+  }
+  .animated-title > div.text-bottom {
+	bottom: 0;
+  }
+  .animated-title > div.text-bottom div {
+	animation: showBottomText 0.5s;
+	animation-delay: 1.75s;
+	animation-fill-mode: forwards;
+	top: 0;
+	transform: translate(0, -100%);
+  }
+
+  .Label {
+	position: absolute;
+	 width: 200px;
+	 height: 200px;
+	 animation:spinLabel 3s forwards ;
+	 animation-delay: 0.5s;
+	 transform-origin: top center;
+	 left: 20%;
+	 top: -500px;
+ }
+ 
+ @keyframes spinLabel { 
+    0% { 
+        transform:rotate(0deg); 
+    } 
+    20% { 
+		top: 5%;
+        transform:rotate(25deg); 
+    } 
+    40% { 
+		top: 5%;
+        transform:rotate(-20deg); 
+    } 
+    60% { 
+		top: 5%;
+        transform:rotate(15deg); 
+    }
+    80% { 
+        transform:rotate(-8deg); 
+    } 
+    100% { 
+		top: 5%;
+        transform:rotate(0deg); 
+    } 
+}
+
+  @media screen and (min-width:768px){
+	.Label {
+		 width: 400px;
+		 height: 400px;
+	 }
+  }
+  
+  
+  

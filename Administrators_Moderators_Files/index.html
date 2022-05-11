@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale-1.0">
+                <title>index</title>
+                <link rel="stylesheet" type="text/css" href="styles/index.css" />
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+        </head>
+        <body>
+               
+                <!--===================================Main================================-->
+        
+                <div class="row">
+                    <div class="col-6">
+                        <div  class="login" >
+                            <h1 >Login</h1>
+                        
+                            <input type="text" autocomplete="off" name="username" id="username" placeholder="Username" required />
+                            
+                            <div id="passwordIcon">
+                                <input type="password" name="password" id="password" placeholder="Password" required />
+                                <i class="bi bi-eye-slash" id="togglePassword"></i>
+                            </div>
+
+                            <button class="btn btn-white btn-animation-1" onclick="displayErrors()">Login</button>
+                            
+                            <div id="warning" class="warning"></div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="col-6">
+                        <img src="./media/Berlin.png" >
+                    </div>
+
+                </div>
+              
+                <script>
+                    function displayErrors() {
+        
+                        var username=document.getElementById("username").value;
+                        var password=document.getElementById("password").value;
+        
+                        if(window.XMLHttpRequest) {
+                            xmlhttp = new XMLHttpRequest ( ); 
+                        } // for "normal" browsers...
+                        else {
+                            xmlhttp = new ActiveXObject ("Microsoft.XMLHTTP"); } // for IE6, IE5
+                            xmlhttp.onreadystatechange = function() {
+                                if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                    if(xmlhttp.responseText =="doneAdmin" || xmlhttp.responseText =="doneMod"){
+                                        if(xmlhttp.responseText == "doneAdmin"){
+                                            window.location.href = "Main.php";
+                                        }else{
+                                            window.location.href = "tmpMod.php";
+                                        }
+                                    }else{
+                                        document.getElementById("warning").innerHTML = xmlhttp.responseText;
+                                    }
+                                    
+                                }
+                            }
+                        
+                            xmlhttp.open("GET","./php/login.php?username="+username+"&password="+password, true);
+                            xmlhttp.send();
+                    }
+
+                    var togglePassword = document.querySelector("#togglePassword");
+                    var password = document.querySelector("#password");
+
+                    togglePassword.addEventListener("click", function () {
+                        // toggle the type attribute
+                        const type = password.getAttribute("type") === "password" ? "text" : "password";
+                        password.setAttribute("type", type);
+                        
+                        // toggle the icon
+                        this.classList.toggle("bi-eye");
+                    });    
+                    
+                </script> 
+        </body>
+</html>

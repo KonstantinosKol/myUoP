@@ -1,0 +1,1492 @@
+/* @import url('https://fonts.googleapis.com/css?family=Open+Sans'); */
+/* @font-face {
+	font-family: 'Open Sans';
+	src: url('../static/OpenSans/OpenSans-Light.ttf') format('sans-serif');
+  } */
+  @font-face {
+	font-family: 'Open Sans';
+	src: url('../static/OpenSans/OpenSans-Regular.ttf');
+  }
+  
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+  }
+
+html { 
+	width: 100%; 
+	min-height: 100%;
+ }
+
+ 
+
+/*=================================Διάλεξε τμήμα==============================*/						/********************************/
+  .title2{
+	font-family: "Open Sans", sans-serif;
+	font-size: 25px;
+
+	display: inline-block;
+
+	/* margin-bottom:10%; */
+	color: #14A098;
+	text-shadow: 0px 5px 10px rgba(0,0,0,0.5);
+}
+/*=================================Buttons==============================*/							/********************************/
+.backANDchoose{
+	/* display: grid;
+	grid-template-columns: repeat(2,1fr);
+	grid-row-gap: 0px;
+	grid-column-gap: 0px; */
+
+	
+	margin-bottom: 20px;
+	margin-right: 50px;
+  }
+
+/*=======================================Slide up popUp==================================================*/
+
+.popupExamina .overlayExamina {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:100vh;
+	background:rgba(0,0,0,0.7);
+	display:none;
+
+	backdrop-filter: blur(5px);
+  }
+   
+  .popupExamina .contentExamina {
+	position:fixed;
+	top:100%;
+	height: 60%;
+	/* transform:translate(-50%,-50%) scale(0); */
+	background:rgb(231, 240, 240);
+	width:100%;
+	text-align:center;
+	border-top: 5px solid #14A098;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+
+	transition: all .3s ease-out;
+	
+
+  }
+
+  .popupExamina .overlaySeason {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:100vh;
+	background:rgba(0,0,0,0.7);
+	display:none;
+
+	backdrop-filter: blur(5px);
+  }
+
+  .popupSeason .contentSeason {
+	position:fixed;
+	top:100%;
+	height: 35%;
+	/* transform:translate(-50%,-50%) scale(0); */
+	background:rgb(231, 240, 240);
+	width:100%;
+	text-align:center;
+	border-top: 3px solid #14A098;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+
+	transition: all .3s ease-out;
+
+
+  }
+  
+   
+  .popupExamina.activeExamina .overlayExamina {
+	display:block;
+  }
+
+  .popupSeason.activeSeason .overlaySeason {
+	display:block;
+  }
+
+ 
+.scrollingExam {
+	width:100%;
+	height:100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	text-align: center;
+	
+	padding-bottom: 30px;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+}
+
+
+/*==============================================Line + Buttons gia examina=======================================================*/
+
+.line{
+	height: 2px;
+	background-color: rgba(1,179,163,0.7);
+	width: 100%;
+	box-shadow:0px 5px 5px rgba(1,179,163,0.5);
+}
+
+
+.examino{
+	margin-top: 5%;
+	margin-bottom: 15px;
+	background-color: #41AAA8;
+	width: 150px;
+	margin-left: 5%;
+	
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	color: white;
+	text-align: center;
+	padding:10px 10px 10px 10px;
+	border-radius:100px;
+	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	border:none;
+	box-shadow:0px 5px 5px rgba(0,0,0,0.4);
+}
+.examino:nth-of-type(even){
+	margin-right: 5%;
+}
+.examino:nth-of-type(odd){
+	margin-left: 5%;
+}
+.Season1{
+	margin-bottom:10%;
+	
+	/* background: rgb(65,168,170);
+	background: linear-gradient(63deg, rgba(65,168,170,1) 24%, rgba(60,209,139,1) 63%); */
+	background: rgb(6,129,127);
+	background: linear-gradient(90deg, rgba(6,129,127,1) 15%, rgba(65,168,170,1) 60%, rgba(76,180,182,1) 85%);
+	width: 65%;
+	
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	color: white;
+	text-align: center;
+	padding:10px 10px 10px 10px;
+	border-radius:100px;
+	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	border:none;
+	box-shadow:0px 5px 5px rgba(0,0,0,0.5);
+}
+
+
+.Season2{
+	margin-bottom:10%;
+	/* background: rgb(223,62,30);
+	background: linear-gradient(63deg, rgba(223,62,30,1) 16%, rgba(209,175,60,1) 63%); */
+	background: rgb(223,62,30);
+background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%, rgba(223,185,30,1) 85%);
+	width: 65%;
+	
+	font-family: "Open Sans", sans-serif;
+	color: white;
+	padding:10px 10px 10px 10px;
+	border-radius:100px;
+	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	border:none;
+	box-shadow:0px 5px 5px rgba(0,0,0,0.5);
+}
+
+.year{
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	font-size: 20px;
+	justify-items: center;
+	color: #41AAA8;
+	
+	display: inline-block;
+}
+
+
+.closeButtonPopUpExamina{
+	color: #41AAA8;
+	font-size: 25px;
+	right: 8% ;
+	top: 2.5% ;
+	position: absolute;
+	background-color: Transparent;
+    background-repeat:no-repeat;
+    overflow: hidden;
+    outline:none;
+	border: none;
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+}
+
+.duoExam{
+	display: grid;
+	place-items: center;
+	grid-template-columns: repeat(2,1fr);
+	grid-row-gap: 0px;
+	grid-column-gap: 0px;
+}
+
+
+
+/*=====================================================Array Place+Array Design+Navbar======================================*/
+.navbar{
+	top: 0%;
+	width: 100%;;
+	height: 12.5%;
+	position: fixed;
+	z-index: -1;
+	background-color: #14A098;
+	border-bottom: 3px solid #105E62;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+																									
+						
+.GroupOfButtons{
+	padding-top: 10%;
+	padding-bottom: 10%;
+
+	
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	transition: -webkit-transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+	transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+
+	background:rgb(231, 240, 240);
+
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+
+}
+
+.middle{
+	width: 100%;
+	height: 100%;
+	top: 0%;
+	left:0;
+	z-index: -4;
+	position:absolute;
+	background:#128225;
+}
+
+#myInput {
+	/* background-position: 10px 12px; */
+	background-repeat: no-repeat;
+	width: 80%;
+	font-size: 16px;
+	padding: 15px 20px 15px 30px;
+	border: 2px solid #14A098;
+	margin-bottom: 12px;
+	position: fixed;
+	top: 70px;
+	margin-bottom: 50px;
+	margin-top: 50px;
+	margin-left: 10%;
+	background:rgb(240, 239, 239);
+	box-shadow:5px 5px 5px rgba(0,0,0,0.3);
+	border-radius: 20px;
+/* 
+	position: absolute;
+	left: 50%;
+	top: 2%;
+	transform: translate(-50%,-2%);  */
+}
+::placeholder{
+	color: #969696; 
+
+}
+
+#myInput :focus{
+	border-color: #14A098; 
+}
+.button1{
+
+	margin-bottom: 30px;
+	background-color: #14A098;
+	width: 100%;
+	
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	color: white;
+	text-align: center;
+	padding:10px 20px 10px 20px;
+	border-radius:10px;
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 1.5px;
+	border:none;
+	box-shadow:0px 5px 5px rgba(0,0,0,0.3);
+}
+
+.pressedButton{
+
+	margin-bottom: 30px;
+	background:rgb(231, 240, 240);
+	width: 100%;
+	
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	color: #14A098;
+	border: 2px solid #14A098;
+	text-align: center;
+	padding:10px 20px 10px 20px;
+	border-radius:10px;
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 1.5px;
+	box-shadow:0px 5px 5px rgba(0,0,0,0.3);
+}
+
+
+#myUL li{
+	width: 75%;
+	display: table;
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+
+
+#myUL {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	position: fixed;
+	top: 215px;
+
+	width: 100%;
+}
+
+.backButton{
+
+	background-color: #14A098;
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
+    padding-top: 2px;
+    /* padding-left: 20px;
+    padding-bottom: 5px;
+    padding-right: 30px; */
+    border:none;
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+    font-size: 25px;
+    font-weight: bold;
+	width: 60px;
+	height: 40px;
+	position: fixed;
+	top:30px;
+
+	margin: 0 auto;
+    display: table-cell;
+    vertical-align: middle;
+ 
+    text-align: center;
+
+	left: 5%;
+    /* margin-top: 8%;
+    margin-left: 5%; */
+	box-shadow: rgba(54, 54, 54, 0.25) 0px 5px 5px, rgba(54, 54, 54, 0.25) 0px 5px 5px;
+    
+  }
+
+
+
+/* ======================================================================================= */
+
+#Array{																			/********************************/
+	width: 100%;
+	height: 100%;
+	top: 0%;
+	/* z-index: -8; */
+	background:#82b3b0;
+	padding-top: 10%;
+    
+	/* background-image: linear-gradient(to bottom, #41aaa8, #349696, #288385, #1c7073, #105e62); */
+}
+
+
+.scrollableArray{
+
+	position: relative;
+	width: 100%;
+	height: 100%;
+
+	/* z-index: -8; */
+
+	z-index: -2;
+	
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+
+#userTable {
+	border: none;
+	border-spacing: 0px;
+	margin-bottom: 50px;
+	margin-top: 10%;
+	height: 100%;
+	width: 100%;
+	background:transparent;
+	border-collapse:separate;
+	border-spacing:0 10px;
+	background:transparent;
+	
+}
+
+#userTable tbody tr { 
+	box-shadow:0px 3px 3px rgba(41, 41, 41, 0.3);
+	
+}
+
+
+/* #userTable  table,#userTable  tr,*/#userTable  td { 
+	font-family: "Open Sans", sans-serif;
+	border: 0px ;
+	background:transparent;
+	margin:0;
+	text-align: left;
+	align-items: left;
+	padding: 0px ;
+	border: none;
+	
+}
+
+
+.infosTableDiv{
+	padding-bottom: 5%;
+}
+
+table {
+    border-collapse: separate;
+    text-indent: initial;
+    border-spacing: 0px;
+}
+
+#slidedTable td{
+	border: none;
+	padding: 10px 10px 10px 10px;
+}
+
+
+#slidedTable  tr:last-child td{
+
+	border-top:1px solid rgb(6,129,127);
+}
+
+
+
+#slidedTable2{
+	border: none;
+	background:transparent;
+}
+
+
+
+#slidedTable2 td{
+	border-top:1px solid rgb(6,129,127);
+	border-bottom:1px solid rgb(6,129,127);
+	border-bottom:none;
+	padding: 10px 10px 10px 10px;
+}
+
+
+#slidedTable2  tr{
+	border-radius:20px;
+	padding: 10px 10px 10px 10px;
+}
+
+#slidedTable2  tr:last-child td{
+	border-bottom-right-radius:20px;
+	border-bottom-left-radius:20px;
+	border-bottom:1px solid rgb(6,129,127);
+}
+
+
+#userTable th {
+	height: 100%;
+	width:100%;						/*<<========*/
+	background:transparent;
+
+	font-weight:800;
+	text-align: left;
+	padding-bottom: 10px; 
+	padding-top: 15px;
+	padding-left: 10px;
+	font-size: 20px;
+}
+/* tr:nth-child(odd){
+	height: 50px;
+  } */
+  .CurvedSection{
+	background-color: rgb(231, 240, 240);
+	width: 100%;
+	height: 60%;
+	top: 45%;
+	z-index: 2;
+	position: relative;
+	border: none;
+	border-top: 2px solid #14A098;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+	box-shadow: -3px -5px 13px -3px rgba(0,0,0,0.25);
+  }
+
+  .DepartmentInfos{
+	border: 2px solid #14A098;
+	background-color: rgb(255, 255, 255);
+	border-radius: 25px;
+	width: 95%;
+	height: 250px;
+	position: absolute;
+	z-index: 1;
+	top:50%;
+	font-size:18px;
+	padding:10px 10px 10px 10px;
+	margin-left: 2.5%;
+	color: #000000;
+	overflow: scroll;
+	color: #14A098;
+	text-align: center;
+  }
+ 
+
+  .foo{
+	position: relative;
+	padding-bottom: 20px;
+}
+
+#infosTable td{
+	padding: 10px 10px 10px 10px;
+	font-family: "Open Sans", sans-serif;
+	border: 0px ;
+	border-bottom:1px solid rgb(6,129,127);
+}
+
+/* .tmp{
+	padding: 0px 0px 0p 0px;
+	margin: 0px 0px 0px 0px;
+	background-color: white;
+	height: 100%;
+} */
+
+.lessonInsideRows{
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	font-size: 20px;
+	font-weight:500;
+	border-top: 5px solid transparent;
+	
+	/* padding-right: 10px; */
+
+	height: 50px;
+}
+.ECTSInsideRows{
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	font-size: 18px;
+	font-weight: 700;
+	color: #14A098;
+	padding: 5px 5px 5px 5px; 
+}
+.RequiredInsideRows{
+	font-family: "Open Sans", sans-serif;
+	font-size: 18px;
+	color: #d31323;
+	padding: 5px 5px 5px 5px; 
+}
+.DirectionInsideRows{
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	font-size: 18px;
+	color: #01b3a3;
+	padding: 5px 5px 5px 5px; 
+}
+.InfosInsideRows{
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	font-size: 18px;
+	color: #000000;
+	padding: 5px 5px 5px 5px; 
+}
+
+
+
+
+@media only screen and (max-width: 720px){
+    table { width:100%}
+}
+
+p {
+    display: block;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.addToList{
+	width: 90%;
+	height: 40px;
+	/* background-color: #d3134d; */
+	background-color: #4ECB96;
+	border-radius: 5px;
+	padding: 5px 5px 5px 5px; 
+	text-align: center;
+	border: none;
+   	margin: 0px 0px 0px 0px;
+	font-size: 18px;
+	box-shadow:0px 3px 3px rgba(0,0,0,0.3);
+}
+
+
+.PortfolioButton{
+	float: right;
+	background-color: white;
+	border-radius: 10px;
+	padding: 10px 10px 10px 10px;
+	border: none;
+	margin-top: 5%;
+	margin-right: 6%;
+	font-family: "Open Sans", sans-serif;
+	font-size: 15px;
+
+	box-shadow:0px 3px 3px rgba(0,0,0,0.4);
+}
+
+
+.backButtonNavBar{
+	/* background-color: Transparent;
+    background-repeat:no-repeat;
+    overflow: hidden;
+    outline:none;
+	border: none; */
+	
+	/* font-family: 'Anton', Arial, sans-serif; */
+	float: left;
+	margin-top: 4%;
+	margin-left: 6%;
+	font-weight: bold;
+
+	background-color: #14A098;
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
+	border: 1px solid white;
+    /* padding-top: 0px;
+    padding-left: 5px;
+    padding-bottom: 3px;
+    padding-right: 5px; */
+   
+	font-family: "Open Sans", sans-serif;
+    font-size: 25px;
+	width: 60px;
+	height: 40px;
+	position: absolute;
+	top:5%;
+
+	left: 3%;
+    box-shadow:0px 3px 3px rgba(0,0,0,0.4);
+
+}
+/*=======================================================PopUp-Portfolio===========================================================*/
+
+.popup2 .content2 {
+	position:absolute;
+	top:0%;
+	left:-100%;
+	background:rgb(231, 240, 240);
+	width:100%;
+	height: 100%;
+
+	z-index: 0;
+
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	color: rgb(0, 0, 0);
+	word-wrap: break-word;
+
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+
+  }
+  
+ 
+
+
+  .hidden{
+	  display: none;
+  }
+
+  .show{
+	  display: inline;
+  }
+
+  .show2{
+	display:table-row;
+	}
+
+  /*==========================================No-Connection-Screeen==============================================*/
+  .NoConnectionScreen{
+	  width: 100%;
+	  height: 100%;
+	  background-color: rgb(83, 88, 94);
+	  position: absolute;
+  }
+
+/*==================================Loading Circle=========================================*/
+.loader1 {
+	
+	border: 16px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 16px solid rgba(20,160,152,0.7);
+	width: 120px;
+	height: 120px;
+	animation: spin 2s linear infinite;
+	z-index: 1;
+
+
+	position: absolute;
+	left: 38%;
+	top: 40%;
+	transform: translate(-50%,-50%);
+	
+	}
+	.loader2 {
+	
+		border: 16px solid #f3f3f3;
+		border-radius: 50%;
+		border-top: 16px solid rgba(20,160,152,0.7);
+		width: 120px;
+		height: 120px;
+		animation: spin 2s linear infinite;
+		z-index: 0;
+	
+	
+		position: absolute;
+		left: 38%;
+		top: 40%;
+		transform: translate(-50%,-50%);
+		
+		}
+	
+	
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+/*===============================================*/
+
+ 
+
+
+/* ============================TABLE IN PORTFOLIO=========================== */
+#portfolioTable{
+	width: 90%;
+	height: 0;
+	border-collapse:separate;
+	border-spacing:0 15px;
+	position: absolute;
+	margin-bottom: 40px;
+	top:0%;
+	margin-top: 0%;
+	margin-left: 5%;
+}
+
+.removeFromList, .removeFromArray{
+	width: 90%;
+	height: 40px;
+	/* background-color: #d3134d; */
+	background-color: #E64949;
+	border-radius: 5px;
+	padding: 8px 5px 8px 5px; 
+	text-align: center;
+	border: none;
+   	margin: 0px 0px 0px 0px;
+	font-size: 18px;
+	color: white;
+	box-shadow:0px 3px 3px rgba(0,0,0,0.3);
+}
+
+
+#portfolioTable  tr 
+{
+	background-color: Transparent;
+	box-shadow:0px 5px 5px rgba(0,0,0,0.4);
+	border-radius: 20px;
+	position: relative;
+	
+}
+
+
+
+#portfolioTable td:first-child {
+	border-radius: 10px 0 0 10px;
+}
+
+#portfolioTable td:last-child {
+	border-radius: 0 10px 10px 0;
+}
+
+
+.listLesson{
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	font-size: 20px;
+	font-weight:500;
+	
+	/* padding-right: 10px; */
+	padding-left: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-right: 10px;
+
+	overflow: hidden;
+	/* display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical; */
+	color: white;
+	background-color: #19afa8;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+
+/* #portfolioTable  tr:nth-child(even) td{
+	border-radius: 20px 20px 20px 20px;
+} */
+
+.DivContent{
+	background:#e4f5f4;
+	border-style: solid;
+	border-width: 2px;
+	border-color: rgba(20,160,152,0.7);
+	display: grid;
+	grid-template-columns: repeat(2,1fr);
+	grid-row-gap: 10px;
+	grid-column-gap: 0px;
+
+	padding-left: 10%;
+	padding-top: 10px;
+	padding-bottom: 5px;
+
+	border-radius: 20px;
+}
+
+#innerLessonTable tr{
+	background-color: #E7F0F0;
+	border-radius: 20px;
+	border: 2px solid #14A098;
+}
+
+#innerLessonTable td{
+	padding: 10px 5px 10px 10px;
+}
+
+#innerLessonTable td:first-child {
+	border-radius: 20px 0 0 20px;
+	border-top: 2px solid #14A098;
+	border-bottom: 2px solid #14A098;
+	border-left: 2px solid #14A098;
+}
+
+#innerLessonTable td:last-child {
+	border-radius: 0 20px 20px 0;
+	border-top: 2px solid #14A098;
+	border-bottom: 2px solid #14A098;
+	border-right: 2px solid #14A098;
+}
+
+
+
+#clearPortfolio{
+	background-color: #E64949;
+	color: white;
+	text-align: center;
+	border-radius: 100%;
+	position: absolute;
+	top:3%;
+	right: 5%;
+	padding: 15px 20px 15px 20px;
+	border: none;
+	font-weight: 500;
+	font-size: 20px;
+	box-shadow:2px 2px 2px rgba(0,0,0,0.35);
+}
+
+.ClosePortfolio{
+	font-family: "Open Sans", sans-serif;
+	color: rgb(20, 160, 152);
+	border: none;
+	/* border: 2px solid #14A098;
+	padding: 0px 10px 2px 10px;
+	border-radius: 10px; */
+    border-radius: 20px;
+	border: 1px solid #14A098;
+
+	font-family: "Open Sans", sans-serif;
+    font-size: 25px;
+	font-weight:500;
+	position: absolute;
+	top: 20px;
+	left: 5%;
+	width: 60px;
+	height: 40px;
+	line-height: 40px;
+	background-color: Transparent;
+	box-shadow:0px 3px 3px rgba(0,0,0,0.4);
+}
+
+.total-container{
+	position: absolute;
+	top: 20%;
+	font-size: 30px;
+	color: black;
+}
+
+/* =================================Alert-1======================================= */
+
+.warningSection{
+	background:#E64949;
+	width: 100%;
+	height: 25%;
+	font-size: 30px;
+	color: rgb(231, 240, 240);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding-top: 5%;
+}
+
+
+.contentSection{
+	padding:10px 15px 10px 15px;
+}
+.Alert1 .overlayAlert {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:100vh;
+	background:rgba(0,0,0,0.7);
+	z-index:2;
+	display:none;
+	backdrop-filter: blur(5px);
+  }
+   
+  .Alert1 .contentAlert {
+	position:absolute;
+	font-family: "Open Sans", sans-serif;
+	font-size: large;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%,0%) scale(0);
+	transform:translate(-50%,-50%) scale(0);
+	/* background:rgb(223, 88, 88); */
+	background-color: rgb(231, 240, 240);
+	color: rgb(0, 0, 0);
+	width:75%;
+	height:40%;
+	z-index:2;
+	text-align:center;
+	border-radius: 10px;
+	border: 2px solid #E64949;
+	/* box-shadow: rgba(223, 88, 88, 0.5) 0px 14px 28px, rgba(223, 88, 88, 0.5) 0px 10px 10px; */
+  }
+   
+   
+  .Alert1.activeAlert .overlayAlert {
+	display:block;
+  }
+   
+  .Alert1.activeAlert .contentAlert {
+	transition:all 300ms ease-in-out;
+	transform:translate(-50%,-50%) scale(1);
+  } 
+
+ 
+
+  .Alert1 .closeAlert{
+	width: 80%;
+	height: 100%;
+	/* background-color: #d3134d; */
+	background-color: #534e4e;
+	border-radius: 10px;
+	padding: 8px 5px 8px 5px; 
+	text-align: center;
+	border: none;
+   	margin: 0px 0px 0px 0px;
+	font-size: 18px;
+	color: white;
+	margin-top:10%;
+	font-weight: 500;
+	box-shadow: rgba(54, 54, 54, 0.25) 0px 10px 12px, rgba(54, 54, 54, 0.25) 0px 7px 7px;
+  }
+
+/* ==============================Alert-2=================================== */
+
+
+  .Alert2 .overlayAlert {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:100vh;
+	background:rgba(0,0,0,0.7);
+	z-index:2;
+	display:none;
+	backdrop-filter: blur(5px);
+  }
+   
+  .Alert2 .contentAlert {
+	position:absolute;
+	font-family: "Open Sans", sans-serif;
+	font-size: large;
+	top:45%;
+	left: 50%;
+	transform: translate(-50%,0%) scale(0);
+	transform:translate(-50%,-50%) scale(0);
+	/* background:rgb(223, 88, 88); */
+	background-color: rgb(231, 240, 240);
+	color: rgb(0, 0, 0);
+	width:75%;
+	height:40%;
+	z-index:2;
+	text-align:center;
+	border-radius: 10px;
+	border: 2px solid #E64949;
+  }
+   
+  
+   
+  .Alert2.activeAlert .overlayAlert {
+	display:block;
+  }
+   
+  .Alert2.activeAlert .contentAlert {
+	transition:all 300ms ease-in-out;
+	transform:translate(-50%,-50%) scale(1);
+  } 
+
+  
+
+  .Alert2 .closeAlert{
+	width: 100%;
+	height: 100%;
+	/* background-color: #d3134d; */
+	background-color: #534e4e;
+	border-radius: 10px;
+	padding: 8px 5px 8px 5px; 
+	text-align: center;
+	border: none;
+   	margin: 0px 0px 0px 0px;
+	font-size: 18px;
+	color: white;
+	box-shadow: rgba(54, 54, 54, 0.25) 0px 10px 12px, rgba(54, 54, 54, 0.25) 0px 7px 7px;
+  }
+
+  .Alert2 .deleteList{
+	width: 100%;
+	height: 100%;
+	/* background-color: #d3134d; */
+	background-color: #d82a2a;
+	border-radius: 10px;
+	padding: 8px 5px 8px 5px; 
+	text-align: center;
+	border: none;
+   	margin: 0px 0px 0px 0px;
+	font-size: 18px;
+	font-weight: 500;
+	color: white;
+	box-shadow: rgba(54, 54, 54, 0.25) 0px 10px 12px, rgba(54, 54, 54, 0.25) 0px 7px 7px;
+  }
+
+  .Alert2 .AlertButtons{
+	display: grid;
+	grid-template-columns: repeat(2,1fr);
+	grid-row-gap: 0px;
+	grid-column-gap: 10%;
+
+	margin-top: 15%;
+
+	position: relative;
+	left: 50%;
+	transform: translate(-50%,0%);
+
+  }
+
+
+
+  /* ========================================================================= */
+  /* ========================================================================= */
+  /**
+ * Inspiration for this project found at:
+ * https://markus.oberlehner.net/blog/pure-css-animated-svg-circle-chart
+ * 1. The `reverse` animation direction plays the animation backwards
+ *    which makes it start at the stroke offset 100 which means displaying
+ *    no stroke at all and animating it to the value defined in the SVG
+ *    via the inline `stroke-dashoffset` attribute.
+ * 2. Rotate by -90 degree to make the starting point of the
+ *    stroke the top of the circle.
+ * 3. Using CSS transforms on SVG elements is not supported by Internet Explorer
+ *    and Edge, use the transform attribute directly on the SVG element as a
+ * .  workaround.
+ */
+
+
+  
+ .circle-chart__circle {
+	/* stroke: #c10000; */
+	stroke-width: 2px;
+	stroke-linecap: round;
+	fill: none;
+	animation: circle-chart-fill 1s reverse; /* 1  <<===How fast cycle animation*/ 	
+	transform: rotate(-90deg); /* 2, 3 */
+	transform-origin: center; /* 4 */
+  }
+  
+  /**
+   * 1. Rotate by -90 degree to make the starting point of the
+   *    stroke the top of the circle.
+   * 2. Scaling mirrors the circle to make the stroke move right
+   *    to mark a positive chart value.
+   * 3. Using CSS transforms on SVG elements is not supported by Internet Explorer
+   *    and Edge, use the transform attribute directly on the SVG element as a
+   * .  workaround.
+   */
+  
+  .circle-chart__circle--negative {
+	transform: rotate(-90deg) scale(0,0); /* 1, 2, 3 */
+  }
+  
+  .circle-chart__background {
+	stroke: #c7ece0;
+	stroke-width: 1px;
+	fill: none; 
+  }
+
+  
+  .circle-chart__info {
+	/* animation: circle-chart-appear 2s forwards; */
+	opacity: 1;
+	transform: translateY(0em);
+  }
+  
+  .circle-chart__percent {
+	alignment-baseline: central;
+	text-anchor: middle;
+	text-align: center;
+	font-size: 8px;
+  }
+  
+  .circle-chart__subline {
+	  alignment-baseline: central;
+	  text-anchor: middle;
+	  font-size: 3px;
+  }
+  
+  .Percentage25{
+	stroke: #f56d12;
+	border-radius: 10px;
+  }
+  
+  .Percentage50 {
+	stroke: #ffbb33;
+  }
+
+  .Percentage75 {
+	stroke: #94e70d;
+  }
+  
+  .Percentage100 {
+	stroke: #00C851;
+  }
+  
+  
+  @keyframes circle-chart-fill {
+	to { stroke-dasharray: 0 100; }
+  }
+  
+  /* @keyframes circle-chart-appear {
+	to {
+	  opacity: 1;
+	  transform: translateY(0);
+	}
+  }
+   */
+  
+  
+
+ @keyframes up {
+	0%   {  transform: translateY(0px);
+		transform: scale(1);}
+	50%  {  transform: translateY(-10px);
+	transform: scale(1.07);}
+	100% {  transform: translateY(0px);transform: scale(1);}
+
+}
+
+/* @keyframes rotate {
+	from { 
+        transform: rotateY(0deg); 
+    } 
+    to 
+    { 
+        transform: rotateY(-360deg); 
+	}
+}
+  */
+
+  /* Extra small devices (portrait phones, less than 576px) */
+  /* @media (max-width: 575.98px) { */
+  
+	  .single-skill {
+		position: absolute;
+		top: 11%;
+		width: 100%;
+		height: 35%;
+		margin-left: 7%;
+		font-family: "Open Sans", sans-serif;
+		padding-top: 0px;
+	  }
+  
+	  .circle-chart {
+		width:55vw;
+		height:30vh;
+		margin-left: 16%;
+		border-radius: 100%;
+		box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+		animation: up 1s ;	
+		animation-delay: 0.5s; 
+		font-family: "Open Sans", sans-serif;
+		}
+	  
+  /* } */
+
+  #noSavedLesson{
+	color: #14A098;
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	text-align: center;
+	font-weight:700 ;
+	font-size: large;
+	margin-top: 30%;
+	margin-bottom: 50%;
+	padding-left: 20px;
+	padding-right: 20px;
+  }
+
+  .orderingClass{
+
+	font-size:20px;
+	color:#ffffff;
+	padding-left: 20px;  
+	padding-bottom: 8px; 
+	padding-top: 8px;
+  }
+  .infosRow{
+	font-size:19px;
+}
+.orderingClass2{
+	font-size:20px;
+	color:#14A098;
+	font-weight:500;
+	padding-bottom: 20px;
+}
+
+#innerLessonTable {
+	width: 100%;
+}
+
+#innerLessonTable td{
+	font-size: 20px;
+	padding: 10px 5px 10px 10px;
+}
+
+  @media screen and (min-width:768px){
+	.button1{
+		margin-bottom: 50px;
+
+		padding:20px 30px 20px 30px;
+	}
+	.pressedButton{
+		margin-bottom: 50px;
+		padding:20px 30px 20px 30px;
+	}
+	
+	.examino{
+		margin-top: 5%;
+		margin-bottom: 15px;
+
+		width: 250px;
+		margin-left: 0%;
+		
+		font-family: "Open Sans", sans-serif;
+		font-size: x-large;
+		text-align: center;
+		padding:15px 15px 15px 15px;
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.examino:nth-of-type(even){
+		margin-right: 5%;
+	}
+	.examino:nth-of-type(odd){
+		margin-left: 5%;
+	}
+	.year{
+		font-size: x-large;
+		font-size: 25px;
+		justify-items: center;
+
+	}
+
+	.lessonInsideRows{
+		font-size: x-large;
+		font-size: 25px;
+		font-weight:500;
+	
+	
+		height: 50px;
+	}
+	.orderingClass{
+		text-align:left; 
+		font-size:25px;
+		color:#ffffff;
+		font-weight:500;
+		padding-bottom: 20px;
+	  }
+
+	.addToList{
+		font-size: 22px;
+	}
+	.removeFromArray{
+		font-size: 22px;
+	}
+	.infosRow{
+		font-size:22px;
+	}
+	.backButtonNavBar{
+		margin-top: 2%;
+		margin-left: 6%; 
+		font-size: 25px;
+		width: 80px;
+		height: 50px;
+		position: absolute;
+		top:4%;
+	}
+	.navbar{
+		height: 9%;
+	}
+	.PortfolioButton{
+		padding: 15px 15px 15px 15px;
+		font-size: 20px;
+		margin-top: 2%;
+	}
+	.ClosePortfolio{
+		font-size: 30px;
+		font-weight:500;
+		top: 30px;
+		left: 5%;
+		width: 70px;
+		height: 50px;
+		line-height: 50px;
+	}
+
+	#clearPortfolio{
+		border-radius: 100%;
+		top:3%;
+		right: 5%;
+		width: 10%;
+		height: 6%;
+		font-weight: 500;
+		font-size: 25px;
+	}
+	.single-skill {
+		top: 13%;
+		width: 85%;
+		height: 35%;
+	  margin-left: 15%;
+	}
+
+	.circle-chart {
+	  width: 42%;
+	  height: 65%;
+	  margin-left: 20%;
+	  }
+	.DepartmentInfos{
+		height: 400px;
+	}
+	.listLesson{
+		font-size: 25px;
+		font-weight:500;
+	}
+	#innerLessonTable {
+		width: 100%;
+	}
+	
+	#innerLessonTable td{
+		font-size: 25px;
+		padding: 15px 8px 15px 15px;
+	}
+	.orderingClass2{
+		font-size:25px;
+		color:#14A098;
+		font-weight:500;
+		padding-bottom: 20px;
+	}
+	.Alert1 .contentAlert {
+		font-size: 25px;
+		top:50%;
+		left: 50%;
+
+		width:65%;
+		height:30%;
+	}
+	.Alert1 .AlertButtons{
+		height: 70px;
+	}
+
+	.Alert2 .AlertButtons{
+		height: 70px;
+	}
+
+	.Alert2 .contentAlert {
+	font-size: 25px;
+	top:50%;
+	left: 50%;
+
+	width:65%;
+	height:30%;
+	}
+	.contentSection{
+		padding:10px 20px 30px 20px;
+	}
+	.warningSection{
+		font-size: 40px;
+	}
+	.closeAlert{
+		font-size: 25px;
+		font-weight: 500;
+	}
+	.deleteList{
+		font-size: 25px;
+		font-weight: 500;
+	}
+	
+}
+
