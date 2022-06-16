@@ -22,5 +22,5 @@ if( $pathSummer !="-"){
 $query = "DELETE FROM departmentsinfos WHERE id = $id;";
 $result = mysqli_query($con,$query);
 
-header('Location: '."../Main.php");
+header('Location: '."../Administrator.php");
 ?>

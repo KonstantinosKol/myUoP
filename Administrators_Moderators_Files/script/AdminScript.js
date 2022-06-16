@@ -1,8 +1,4 @@
-const myURL="http://yourURL";
-
-
-var adminTable = document.getElementById("UsersTable");
-
+  var adminTable = document.getElementById("UsersTable");
 for (var i=0; i<adminTable.rows.length; i++) {
     adminTable.rows[i].onclick = function() {
         document.getElementById("moderatorIDText").value = this.cells[0].innerHTML;
@@ -40,14 +36,27 @@ togglePassword2.addEventListener("click", function () {
 //===========Add-moderator==================================================
 
 function addModerator(){
+   
     document.getElementById("popup-AddModerator").classList.toggle("activeUserAdd"); 
-    $('html, body').animate({scrollTop:0}, '300'); 
-    $('html, body').css("overflow","hidden");     
+    $('html, body').animate({scrollTop:0}, '300');
+    
+     //=====clear inputs====
+     $("#AddModeratorUsername").val("");
+     $("#DepartmentAddModerator").prop('selectedIndex',0);
+     $("#AddPasswordModerator1").val("");
+     $("#AddPasswordModerator2").val("");  
+   
 }
 
 $(".overlayUserAdd").click(function(event) {
     document.getElementById("popup-AddModerator").classList.toggle("activeUserAdd"); 
-    $('html, body').css("overflow","auto");                 
+    $('html, body').css("overflow","auto");   
+
+    //=====clear inputs====
+    $("#AddModeratorUsername").val("");
+    $("#DepartmentAddModerator").prop('selectedIndex',0);
+    $("#AddPasswordModerator1").val("");
+    $("#AddPasswordModerator2").val("");              
 });
 $(".closeAddPopupOnAdmins").click(function(event) {
     document.getElementById("popup-AddModerator").classList.toggle("activeUserAdd");
@@ -60,7 +69,6 @@ $(".closeAddPopupOnAdmins").click(function(event) {
 function deleteModeratorPopUp() {
     document.getElementById("popup-Alert1").classList.toggle("activeUserDelete");
     $('html, body').animate({scrollTop:0}, '300');
-    $('html, body').css("overflow","hidden"); 
 }
 
 $(".overlayUserDelete").click(function(event) {
@@ -72,7 +80,7 @@ $(".overlayUserDelete").click(function(event) {
 function editModerator() {
     document.getElementById("popup-EditModerator").classList.toggle("activeUserEdit");
     $('html, body').animate({scrollTop:0}, '300');
-    $('html, body').css("overflow","hidden"); 
+    // $('html, body').css("overflow","hidden"); 
 }
 
 $(".overlayUserEdit").click(function(event) {
@@ -143,6 +151,9 @@ for (var i=0; i<adminTable.rows.length; i++) {
         document.getElementById("InfosOnEdit").value = this.cells[4].innerHTML;
         document.getElementById("ECTSonEdit").value = this.cells[2].innerHTML;
         document.getElementById("ExamOnEdit").value = this.cells[3].innerHTML;
+        
+        document.getElementById("newSite").value = this.cells[5].innerHTML;
+      
 
         // document.getElementById("PDFpath2").value = this.cells[2].innerHTML;
         // $(".WinterExamLink").attr("href", this.cells[2].innerHTML)
@@ -161,7 +172,7 @@ for (var i=0; i<adminTable.rows.length; i++) {
 function deleteINFOS(str) {
     if(str =="1"){
         document.getElementById("popup-Alert2").classList.toggle("activeINFOSDelete");
-        $('html, body').css("overflow","hidden");
+      
         $('html, body').animate({scrollTop:0}, '300');
     }else{
         document.getElementById("popup-Alert2").classList.toggle("activeINFOSDelete");
@@ -184,12 +195,16 @@ function editINFOS(str) {
     }else{
         document.getElementById("popup-EdiINFOS").classList.toggle("activeINFOSEdit");
         $('html, body').css("overflow","auto");
+        document.getElementById("newWinterPDF").value="";
+        document.getElementById("newSummerPDF").value="";
     }
 }
 
 $(".overlayEditINFOS").click(function(event) {
     document.getElementById("popup-EdiINFOS").classList.toggle("activeINFOSEdit"); 
-    $('html, body').css("overflow","auto");                
+    $('html, body').css("overflow","auto");  
+     document.getElementById("newWinterPDF").value="";
+        document.getElementById("newSummerPDF").value="";
 });
 
 //============================Alert On Add PDF-path=============
@@ -202,7 +217,16 @@ function addINFOS(str) {
     }else{
         document.getElementById("popup-AddINFOS").classList.toggle("activeINFOSAdd");
         $('html, body').css("overflow","auto"); 
+        console.log(str);
     }
+
+    $("#newPdfWinter").val("");
+    $("#newPdfSummer").val("");
+    $("#DepartmentOnAdd").val("");
+    $("#InfosOnAdd").val("");
+    $("#ECTSonADD").val("4");
+    $("#ExamOnADD").val("8");
+    $("#ADDnewSite").val("");
 }
 
 $(".overlayAddINFOS").click(function(event) {
@@ -258,7 +282,7 @@ function checkNewUser(){
             var username = document.getElementById("AddModeratorUsername").value;
             $.ajax({
                 type: 'POST',
-                url: myURL+"/php/CheckUser.php",
+                url: "http://localhost/Thesis/php/CheckUser.php",
                 data:{  
                     "username":username,  
                 }, 
@@ -295,6 +319,7 @@ function checkNewUser(){
 
 function checkNewInfo(){
 
+    console.log("11111")
     var Department = document.getElementById("DepartmentOnAdd").value.replace(/\s+/, '').length;
     var Site = document.getElementById("ADDnewSite").value.replace(/\s+/, '').length;
     var ECTS = document.getElementById("ECTSonADD").value;
@@ -304,7 +329,7 @@ function checkNewInfo(){
             var Department1 = document.getElementById("DepartmentOnAdd").value;
             $.ajax({
                 type: 'POST',
-                url: myURL+"/php/CheckInfo.php",
+                url: "http://localhost/Thesis/php/CheckInfo.php",
                 data:{  
                     "Department":Department1,  
                 }, 
@@ -312,6 +337,7 @@ function checkNewInfo(){
                   if(data == "ok"){
                     //   alert("ok");
                     document.getElementById("submitButtonOnAddNewInfo").click();
+                    console.log("click")
                   }else{
                     $("#warningOnAddInfo").html("Το τμήμα υπάρχει")
                     $("#warningOnAddInfo").css("display","block")

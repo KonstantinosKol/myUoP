@@ -20,7 +20,7 @@
 
 
 /*=====================================Splach Screen========================================*/
-.before{
+.Splach_Screen{
 	position: absolute;
 	top:0px;
 	height: 100%;
@@ -28,6 +28,10 @@
 	animation: mymove 3s forwards;
 	animation-delay: 3.3s;
 	z-index: 1;
+
+	display: grid;
+	place-items: center;
+	
 	background: rgb(20,180,171);
 	background: linear-gradient(180deg, rgba(20,180,171,1) 25%, rgba(36,115,109,1) 75%);
 }
@@ -137,6 +141,7 @@
 }
 
 
+
 /* ?????????????????????????????????????????????????? */
 .MenuButton1-2{
 	display: grid;
@@ -201,10 +206,10 @@
 	box-shadow: rgba(54, 54, 54, 0.25) 0px 10px 12px, rgba(54, 54, 54, 0.25) 0px 7px 7px;
 }
 .button3{
-	
+	margin-top: 3%;
 	background-color: rgb(231, 240, 240);
 	width: 100%;
-	height:80%;
+	height:77%;
 
 	border-style: solid;
 	border-width: 2px;
@@ -469,6 +474,7 @@
 	100% { transform: translate3d(0, 0, 0); }
   }
   .animated-title {
+	  
 	color: #DAF0EF;
 	text-shadow: 0px 5px 10px rgba(0,0,0,0.5);
 	font-family: "Open Sans", sans-serif;
@@ -521,13 +527,13 @@
 
   .Label {
 	position: absolute;
-	 width: 200px;
-	 height: 200px;
-	 animation:spinLabel 3s forwards ;
-	 animation-delay: 0.5s;
-	 transform-origin: top center;
-	 left: 20%;
-	 top: -500px;
+	width: 50%;
+	height: 30%;
+	animation:spinLabel 3s forwards ;
+	animation-delay: 0.5s;
+	transform-origin: top center;
+
+	top: -500px;
  }
  
  @keyframes spinLabel { 

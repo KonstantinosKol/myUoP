@@ -32,7 +32,7 @@ if (!empty($username) && !empty($password) && !is_numeric($username)) {
                    
     }
     else {
-        $message="Inavlid username or password";
+        $message="Invalid username or password";
     }
 }
 else {

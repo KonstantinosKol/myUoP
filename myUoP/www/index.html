@@ -16,18 +16,18 @@
         <link rel="stylesheet" type="text/css" href="./css/departments.css" />
 
         <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> Info icon -->
-        <script src="jquery.min.js"></script>
+        <script src="./js/jquery.min.js"></script>
+        <script src="./js/lottie.min.js"></script>
         <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script> -->
         
     </head>
     <script src="cordova.js"></script>
-    <body>
 
+    <body>
       
          <!-- ============================ Splach Screen ============================================-->
-        <div id="slide" class="before">
+        <div id="slide" class="Splach_Screen">
             <!--  <img  class="before" src="./img/tree-3.jpg"> -->
-
         
             <!-- <div class="animate seven before">
                 <span>U</span><span>n</span><span>i</span><span>v</span><span>e</span><span>r</span><span>s</span><span>i</span><span>t</span><span>y</span>&nbsp;<span>A</span><span>p</span><span>p</span>
@@ -47,7 +47,6 @@
             </div>
 
         </div>
-
 
 
 <div class="containerS">
@@ -85,16 +84,16 @@
                     <p class="manualText1">"Μαθήματα"</p>
                     <img class="images" src="./img/Menu1.png">
 
-                    <p class="manualText"><i class='far fa-dot-circle'></i> Μπορείς να περιηγηθείς στα τμήματα αλλά και να αναζητήσεις οποιοδήποτε απο αυτά.</p>
+                    <p class="manualText"><i class='far fa-dot-circle'></i> Μπορείς να περιηγηθείς στα τμήματα αλλά και να αναζητήσεις οποιοδήποτε από αυτά.</p>
                     <img class="images" src="./img/Menu2.png">
 
-                    <p class="manualText"><i class='far fa-dot-circle'></i> Μπορείς να εξερευνήσεις τα μαθήματα, πληροφορίες για αυτά αλλά και τις κατευθήνσεις του ανήκουν.</p>
+                    <p class="manualText"><i class='far fa-dot-circle'></i> Μπορείς να εξερευνήσεις τα μαθήματα, πληροφορίες για αυτά αλλά και τις κατευθύνσεις του ανήκουν.</p>
                     <img class="images" src="./img/Menu3.png">
 
-                    <p class="manualText"><i class='far fa-dot-circle'></i> Αν θέλεις μπορείς να αποθηκεύσεις μαθήματα και να δείς είτε σύνολο των ECTS είτε τα προαπαιτούμενα του τμήματος.</p>
+                    <p class="manualText"><i class='far fa-dot-circle'></i> Αν θέλεις μπορείς να αποθηκεύσεις μαθήματα και να δεις είτε σύνολο των ECTS είτε τα προαπαιτούμενα του τμήματος.</p>
                     <img class="images" src="./img/Menu4.png">
 
-                    <p class="manualText"><i class='far fa-dot-circle'></i> Τα Ωρολόγια Προγράμματα κάθε τμήματος μπρείς να τα δείς απο το κουμπί:</p>
+                    <p class="manualText"><i class='far fa-dot-circle'></i> Τα Ωρολόγια Προγράμματα κάθε τμήματος μπορείς να τα δεις από το κουμπί:</p>
                     <p class="manualText1">"Ωρολόγια Προγράμματα"</p>
                     <img class="images" src="./img/Menu5.png">
 
@@ -137,7 +136,8 @@
           
           </ul>
 
-          <div id="loading1" class="loader1 show"></div>
+          <!-- <div id="loading1" class="loader1 show"></div> -->
+          <!-- <div id="svg__No_Connection" class="lottie" style="display: none"></div> -->
 
       </div> 
 
@@ -191,7 +191,8 @@
                     </div>
                     
                 </div>
-        </div>
+             </div>
+       </div>  
 
         <!-- =============================================================================== -->
         <!-- <div  class="middle" id="middle"></div> -->
@@ -209,8 +210,6 @@
               </div> 
 
 
-      
-
         <!-- ============================================Table===================================== -->
         <div  id="Array" class="thirdScreen view">
 
@@ -219,6 +218,10 @@
               <button class="PortfolioButton" onclick="">Μαθήματα <i class='fas fa-inbox'></i></button>
             </div>
             
+            <div id="noConnAnim">
+
+            </div>
+            <!-- <div id="svg__No_Connection2" class="lottie" style="display:none"></div> -->
 
             <div class="scrollableArray">
               <table id="userTable"  >
@@ -236,42 +239,14 @@
                 <tbody id="tableBodyId"></tbody>
               </table>
             </div>
-
-     
             
-            <div id="loading2" class="loader2 show"></div>
-
-      <!-- =================================Alert-PopUp===================================== -->
-      <!-- ================================================================================= -->
-            <div class="Alert1" id="Alert-1">
-              <div class="overlayAlert"></div>
-               <div class="contentAlert">
-
-                    <div class="warningSection"><i class='fas fa-exclamation-circle'></i></div>
-
-                    <div class="contentSection">
-                      <p >Δεν είναι αποθηκευμένο κάποιο απο τα Προαπαιτούμενα Μαθήματα</p>
-  
-                      <div class="AlertButtons">
-                        <button class="closeAlert">Κλείσιμο</button>
-                      </div>
-                    </div>
-      
-               </div>
-            </div>
+            <!-- <div id="loading2" class="loader2 show"></div> -->
+         
              
         </div>
 
-</div>
-        <!-- ==========================No-Connection Screen======================== -->
-        <!-- <div id="NoConnectionScreen" class="hidden NoConnectionScreen">
-
-          <button class="backButton" onclick="back1()">&larr;</button>
-          
-          <p>No connection</p>
-
-        </div>
-     -->
+ </div> <!-- End od containerS -->
+   
        <!-- ==========================Portfolio======================== -->
         <div class="popup2" id="popup-2">
             <div class="content2">
@@ -288,7 +263,6 @@
                         </svg>
                     
                       </div>
-
 
                       <div class="CurvedSection">
                         <table id="portfolioTable">
@@ -314,19 +288,21 @@
                     <button id="clearPortfolio" ><i class="far fa-trash-alt" ></i></button>
 
                     <button  class="ClosePortfolio" onclick="closePortfolio()" ><i class="fa fa-long-arrow-left"></i> </button>
-                
+            
             </div>
       </div>
 
 
-
-      <!-- =================================Alert-PopUp===================================== -->
+     
+      <!-- =================================Alert-PopUp for Delete All===================================== -->
       <!-- ================================================================================= -->
       <div class="Alert2" id="Alert-2">
         <div class="overlayAlert"></div>
          <div class="contentAlert">
 
-                <div class="warningSection"><i class='fas fa-exclamation-triangle'></i></div>
+                <div class="warningSection2">
+
+                </div>
                           
                 <div class="contentSection">
                   <p >Είσαι σίγουρος πως θέλεις να διαγράψεις όλα τα αποθηκευμένα μαθήματα;</p>
@@ -340,15 +316,32 @@
 
          </div>
       </div>
+
+        <!-- =================================Alert-PopUp for No-Sche/No-Required===================================== -->
+      <!-- ================================================================================= -->
+      <div class="Alert1" id="Alert-1">
+        <div class="overlayAlert"></div>
+         <div class="contentAlert">
+
+              <div class="warningSection1">
+                <!-- <i class='fas fa-exclamation-circle'></i> -->
+              </div>
+
+              <div class="contentSection">
+                <p id="alertText">Δεν είναι αποθηκευμένο κάποιο από τα Προαπαιτούμενα Μαθήματα</p>
+
+                <div class="AlertButtons">
+                  <button class="closeAlert">Κλείσιμο</button>
+                </div>
+              </div>
+
+         </div>
+      </div>
    
-       
+     
     </body>
 
 
-  
-    
-     
-    <!-- ===================================================Index========================================================== -->
     <script>
 
 
@@ -358,10 +351,9 @@
         //alert("->"+a[0]+"<");
         if(a[0]=="false"){
             document.getElementById("slide").className="after"
-        }                                                          //============================================
+        }                                                        
      
     </script>
-     <!-- ===================================================Department========================================================== -->
      
      <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
 

@@ -75,7 +75,7 @@ html {
 
   }
 
-  .popupExamina .overlaySeason {
+  .popupSeason .overlaySeason {
 	position:fixed;
 	top:0px;
 	left:0px;
@@ -537,7 +537,7 @@ table {
 	background-color: rgb(231, 240, 240);
 	width: 100%;
 	height: 60%;
-	top: 45%;
+	top: 50%;
 	z-index: 2;
 	position: relative;
 	border: none;
@@ -645,12 +645,14 @@ p {
 	height: 40px;
 	/* background-color: #d3134d; */
 	background-color: #4ECB96;
+	color: #1d1d1d;
 	border-radius: 5px;
 	padding: 5px 5px 5px 5px; 
 	text-align: center;
 	border: none;
    	margin: 0px 0px 0px 0px;
-	font-size: 18px;
+	font-size: 20px;
+	font-weight:bold;
 	box-shadow:0px 3px 3px rgba(0,0,0,0.3);
 }
 
@@ -802,7 +804,7 @@ p {
 	border-collapse:separate;
 	border-spacing:0 15px;
 	position: absolute;
-	margin-bottom: 40px;
+	margin-bottom: 50px;
 	top:0%;
 	margin-top: 0%;
 	margin-left: 5%;
@@ -961,7 +963,7 @@ p {
 
 /* =================================Alert-1======================================= */
 
-.warningSection{
+.warningSection1, .warningSection2{
 	background:#E64949;
 	width: 100%;
 	height: 25%;
@@ -969,7 +971,7 @@ p {
 	color: rgb(231, 240, 240);
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-	padding-top: 5%;
+	padding-top: 0%;
 }
 
 
@@ -1110,7 +1112,6 @@ p {
 	border: none;
    	margin: 0px 0px 0px 0px;
 	font-size: 18px;
-	font-weight: 500;
 	color: white;
 	box-shadow: rgba(54, 54, 54, 0.25) 0px 10px 12px, rgba(54, 54, 54, 0.25) 0px 7px 7px;
   }
@@ -1256,18 +1257,19 @@ p {
   
 	  .single-skill {
 		position: absolute;
-		top: 11%;
+		top: 7%;
 		width: 100%;
 		height: 35%;
-		margin-left: 7%;
+		display: grid;
+		place-items: center;
 		font-family: "Open Sans", sans-serif;
 		padding-top: 0px;
 	  }
   
 	  .circle-chart {
 		width:55vw;
-		height:30vh;
-		margin-left: 16%;
+		height:auto;
+		
 		border-radius: 100%;
 		box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
 		animation: up 1s ;	
@@ -1305,7 +1307,16 @@ p {
 	font-size:20px;
 	color:#14A098;
 	font-weight:500;
-	padding-bottom: 20px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+}
+
+.orderingClass3{
+	font-size:20px;
+	color:#14A098;
+	font-weight:500;
+	padding-bottom: 0px;
+	padding-top: 25px;
 }
 
 #innerLessonTable {
@@ -1487,6 +1498,25 @@ p {
 		font-size: 25px;
 		font-weight: 500;
 	}
+	
+}
+
+#svg__No_Connection, #svg__No_Connection2
+{
+	margin-top: 40%;
+	width: 70%;
+	height: 50%;
+	margin-left: 15%;
+	z-index: 5;
+}
+
+#svg__Warning{
+	
+	margin-top: 0%;
+	width: 100%;
+	height: 100%;
+	margin-bottom: 40%;
+
 	
 }
 

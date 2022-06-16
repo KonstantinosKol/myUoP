@@ -55,7 +55,7 @@
     // }else{
     //     echo "222";
     // }
-    header('Location: '."../tmpMod.php");
+    header('Location: '."../Moderator.php");
 
     // mysqli_query($db,"INSERT INTO stockdetails (`itemdescription`,`itemnumber`,`sellerid`,`purchasedate`,`otherinfo`,`numberofitems`,`isitdelivered`,`price`) VALUES ('$itemdescription','$itemnumber','$sellerid','$purchasedate','$otherinfo','$numberofitems','$numberofitemsused','$isitdelivered','$price')") or die(mysqli_error($db));
 ?>

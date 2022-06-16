@@ -9,5 +9,5 @@ $newDepartment=$_POST['Department'];
 $query = "UPDATE users SET Department = '".$newDepartment."' WHERE id = $id";
 $result = mysqli_query($con,$query);
 
-header('Location: '."../Main.php");
+header('Location: '."../Administrator.php");
 ?>

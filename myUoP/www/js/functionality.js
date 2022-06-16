@@ -2,9 +2,7 @@
 
 function closePortfolio() {
   
-  //document.getElementById("popup-2").classList.toggle("active2");
   aJaxCall2(); 
-
   $('.popup2').animate({
     left: "-100%"
   });
@@ -14,21 +12,19 @@ function closePortfolio() {
   });
 
   $( ".single-skill" ).animate({
-    top: "10.5%",
+    top: "7%",
   }, 500 );
   $( "#DepartmentInfos" ).animate({
       top: "55%",
   }, 500 );
-  $( ".CurvedSection" ).animate({
-    top: "45%",
-}, 500 );
+ 
 
 
   setTimeout(function() {
-    //your code to be executed after 1 second
+  
     var table = $('#portfolioTable').DataTable();
         table.clear().destroy();
-    }, 500);
+  }, 500);
   
 
 }
@@ -64,6 +60,10 @@ function closePortfolio() {
 
     displayTotal("OpenScreen");      //<<===================
 
+    setTimeout(function() {
+      $('#svg__No_Connection2').remove();
+    }, 500);
+  
     }
   });
 
@@ -78,6 +78,9 @@ function closePortfolio() {
     //your code to be executed after 1 second
     var table = $('#userTable').DataTable();
         table.clear().destroy();
+    }, 500);
+    setTimeout(function() {
+      $('#svg__No_Connection2').remove();
     }, 500);
   });
 
@@ -103,23 +106,19 @@ function closePortfolio() {
     $( "#DepartmentInfos" ).animate({
         top: "11.5%",
     }, 500 );
-    $( ".CurvedSection" ).animate({
-      top: "50%",
-  }, 500 );
+   
 });
 
 
 
 $('#DepartmentInfos').on('click', function(e){
     $( ".single-skill" ).animate({
-        top: "10.5%",
+        top: "7%",
     }, 500 );
     $( "#DepartmentInfos" ).animate({
         top: "55%",
     }, 500 );
-    $( ".CurvedSection" ).animate({
-      top: "45%",
-  }, 500 );
+  
 });
 
   
@@ -236,16 +235,16 @@ function makeCircleAnimation(percentage,total,totalECTS,Status){
     var svg = '<svg class="circle-chart" data-id="closed" viewbox="0 0 33.83098862 33.83098862">'
     + '<circle class="circle-chart__background" cx="16.9" cy="16.9" r="15.9" />'
     + '<circle class="circle-chart__circle '+classes+'"'
-    + 'stroke-dasharray="'+ abs_percentage+',100"  cx="16.9" cy="16.9" r="15.9" />'
+    + 'stroke-dasharray="'+ abs_percentage+',100"  cx="16.9" cy="16.9" r="15.9" /> '
     + '<g class="circle-chart__info">'
     + '<text id="ECTSunits" class="circle-chart__percent" x="17.9" y="15.5">0</text>'
-    + '<text class="circle-chart__subline" x="16.91549431" y="22">'+total+"/"+totalECTS+' ECTS</text>';
+    + '<text class="circle-chart__subline" x="16.91549431" y="22">'+total+"/"+totalECTS+' ECTS</text> </g>';
 
   /* if(inner_text){
     svg += '<text class="circle-chart__subline" x="16.91549431" y="22">'+inner_text+'</text>'
   } */
   
-  svg += ' </g></svg>';
+  svg += ' </svg>';
   $('.single-skill').html(svg);
 
   }else{
@@ -253,6 +252,10 @@ function makeCircleAnimation(percentage,total,totalECTS,Status){
     $('.circle-chart__circle').attr("stroke-dasharray",abs_percentage+",100");
     $('.circle-chart__subline').text(total+"/"+totalECTS);
   }
+
+  
+
+
 
   if(localStorage.getItem("darkTheme") !== null){
     if(localStorage.getItem("darkTheme") == "on"){
@@ -270,8 +273,6 @@ function makeCircleAnimation(percentage,total,totalECTS,Status){
 
 
 }
-
-
 
 
 
@@ -388,7 +389,7 @@ function displayPortfolioTable() {
         "destroy": true,
         "retrieve": false,
         "paging":   false,              //Ta epipleon features pou exei to DataTable
-        "ordering": false,
+        "ordering": true,
         "info":     false,
         "searching":   false,
         "columns": [
@@ -423,7 +424,7 @@ function displayPortfolioTable() {
                             }else{
                                 $(rows).eq(i).before(
                                 '<tr class="group" style="box-shadow: none;">'+
-                                    '<td colspan="8" class="orderingClass2" style="background-color: Transparent ;"><i class="fas fa-caret-right"></i> ' + group  + '</td>'
+                                    '<td colspan="8" class="orderingClass3" style="background-color: Transparent ;"><i class="fas fa-caret-right"></i> ' + group  + '</td>'
                                 +'</tr>'
                                 );
                             }
@@ -436,7 +437,7 @@ function displayPortfolioTable() {
                     $('#portfolioTable tbody').find('.group').each(function (i,v) {
                       var rowCount = $(this).nextUntil('.group').length;
                       $(this).find('td:first').append($('<span />', { 'class': 'rowCount-grid' }).append($('<b />', { 'text': ' ('+rowCount+')' })));
-                      });
+                    });
         }
                 
     } );
@@ -528,18 +529,21 @@ function displayPortfolioTable() {
     const Department1 = document.getElementById("HiddenDepartment").innerHTML;                 //tr.cells[3].innerHTML;
 
     var tmpRequired=Required;
+  
     if(Required.includes("`H")){
-      tmpRequired = Required.replaceAll("`H","@");
+      tmpRequired = Required.replace(/`H/g,"@");
     }
-    if(tmpRequired.includes("ΚΑΙ")){
-      tmpRequired = tmpRequired.replaceAll("ΚΑΙ","#");
+
+    if(tmpRequired.includes("KAI")){
+      tmpRequired = tmpRequired.replaceAll('KAI',"#");
     }
 
     // ========================Spliting========================
-  var t=tmpRequired.split(/(?: @ | # )+/) 
+
+    var t=tmpRequired.replaceAll("(","").replaceAll(")","").split(/(?: @ | # )+/) 
+
 
   //=====================Union1=============================
-
       var LessonArray=[];
       db.executeSql("SELECT * FROM savedLessonsTable  WHERE Department='"+Department1+"'", [], function(result) {
   
@@ -548,50 +552,63 @@ function displayPortfolioTable() {
             LessonArray.push(result.rows.item(i).Lesson);
           }  
                         
-          var a = 0;
-          var p=tmpRequired;
-          for(a = 0;a<t.length;a++){
+          for(var a = 0;a<t.length;a++){
               if(LessonArray.includes(t[a])){
-                  p=p.replace(t[a],"true")
+                tmpRequired=tmpRequired.replace(t[a],"true");
               }else{
-                p=p.replace(t[a],"false")
+                tmpRequired=tmpRequired.replace(t[a],"false");
               }
           }
 
           //===========================Union2================================
 
-          if(p.includes("#")){
-              p = p.replaceAll("#","&&");
+          if(tmpRequired.includes("#")){
+            tmpRequired = tmpRequired.replace(/#/g,"&&");
           }
-          if(p.includes("@")){
-              p = p.replaceAll("@","||");
+          if(tmpRequired.includes("@")){
+            tmpRequired = tmpRequired.replace(/@/g,"||");
           }
 
-          var safe = p.replaceAll("true", "1").replaceAll("false", "0");
-          
-          var match = safe.match(/[0-9&| ]*/ig);
-          
-          if(match) {
-            var result = !!eval(match[0]);
-            if(result){
-                  //===================All-Good============================
-                  
-                  clickedBtn.className ="removeFromArray";
-                  clickedBtn.innerHTML="<i class='far fa-trash-alt'></i>";
+          // if(p.includes("&&")){
+          //   var t1;
+          //   t1=p.split(/(?: && )+/) ;
+         
+          //   p=t1.toString()
+          //   p="("+p+")"
+          //   p=p.replaceAll(",",")&&(");
+        
+          // }
 
-                  db.transaction(function(tx) {
-                    tx.executeSql('INSERT INTO savedLessonsTable (id, Lesson,ECTS,Department,Examino,Direction) VALUES (?,?,?,?,?,?)', [productId, Lesson,ECTS,Department1,Examino,Direction]);
-                  }, function(error) {
-                      //alert('Transaction ERROR: ' + error.message);
-                  });
-            }
-            else{
-              document.getElementById("Alert-1").classList.toggle("activeAlert");
-            }
-            
-          }else{
+          var safe = tmpRequired.replace(/true/g, "1").replace(/false/g, "0");
+    
+          var result = !!eval(safe);
+
+          if(result){
+                //===================All-Good============================
+                
+                clickedBtn.className ="removeFromArray";
+                clickedBtn.innerHTML="<i class='far fa-trash-alt'></i>";
+
+                db.transaction(function(tx) {
+                  tx.executeSql('INSERT INTO savedLessonsTable (id, Lesson,ECTS,Department,Examino,Direction) VALUES (?,?,?,?,?,?)', [productId, Lesson,ECTS,Department1,Examino,Direction]);
+                }, function(error) {
+                    //alert('Transaction ERROR: ' + error.message);
+                });
+          }
+          else{
+            $('#alertText').html("Δεν είναι αποθηκευμένο κάποιο από τα Προαπαιτούμενα Μαθήματα")
             document.getElementById("Alert-1").classList.toggle("activeAlert");
+            $('.warningSection1').append('<div id="svg__Warning" class="lottie" ></div>');
+            const animationInline2 = bodymovin.loadAnimation({
+                container: document.getElementById('svg__Warning'),
+                autoplay: true,
+                renderer: 'svg',
+                loop: false,
+                animationData: {"v":"5.6.5","fr":30,"ip":0,"op":30,"w":400,"h":400,"nm":"Error","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"POINT","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[200,269.5,0],"ix":2},"a":{"a":0,"k":[0,70,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.585,0.585,0.585],"y":[0.754,0.754,-28.504]},"o":{"x":[0.178,0.178,0.178],"y":[0,0,0]},"t":16,"s":[0,0,100]},{"i":{"x":[0.701,0.701,0.701],"y":[1,1,1]},"o":{"x":[0.348,0.348,0.348],"y":[-1.651,-1.651,33.01]},"t":19,"s":[120,120,100]},{"t":23.0000009368092,"s":[100,100,100]}],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[400,400],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Ellipse Path 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[1,1,1,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,70.168],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[8.39,8.39],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Ellipse 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":1.00000004073083,"op":901.000036698482,"st":1.00000004073083,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Ex","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[200.27500000000003,202.99999999999997,0],"ix":2},"a":{"a":0,"k":[6,-16,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,-31.833]],"o":[[0,0],[0,0]],"v":[[6,-96],[6,-0.5]],"c":false},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":32,"ix":5},"lc":2,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.8980392156862745,0.1803921568627451,0.1803921568627451,1],"ix":4},"o":{"a":0,"k":0,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[90.821,90.821],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false},{"ty":"tm","s":{"a":0,"k":0,"ix":1},"e":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":9,"s":[0]},{"t":16.0000006516934,"s":[100]}],"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":2,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim","hd":false}],"ip":1.00000004073083,"op":901.000036698482,"st":1.00000004073083,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"MAIN 3","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[200,200,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":0,"s":[0,0,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":6,"s":[114.99999999999999,114.99999999999999,100]},{"i":{"x":[0.833,0.833,0.833],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[0,0,0]},"t":12,"s":[85,85,100]},{"t":16.0000006516934,"s":[90,90,100]}],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[400,400],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Ellipse Path 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.8980392156862745,0.1803921568627451,0.1803921568627451,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[72.319,72.319],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Ellipse 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":900.000036657751,"st":0,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"RAY 2","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[200,200,0],"ix":2},"a":{"a":0,"k":[-20,2,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0]],"o":[[0,0],[0,0]],"v":[[-158.5,2.25],[-191.75,2.25]],"c":false},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[0.8980392156862745,0.1803921568627451,0.1803921568627451,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":16,"ix":5},"lc":2,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.8980392156862745,0.1803921568627451,0.1803921568627451,1],"ix":4},"o":{"a":0,"k":0,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false},{"ty":"tm","s":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":9,"s":[0]},{"t":18.000000733155,"s":[100]}],"ix":1},"e":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":4,"s":[0]},{"t":9.00000036657752,"s":[100]}],"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":2,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim","hd":false},{"ty":"rp","c":{"a":0,"k":8,"ix":1},"o":{"a":0,"k":0,"ix":2},"m":1,"ix":3,"tr":{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[-20,3],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":-45,"ix":4},"so":{"a":0,"k":100,"ix":5},"eo":{"a":0,"k":100,"ix":6},"nm":"Transform"},"nm":"Repeater 1","mn":"ADBE Vector Filter - Repeater","hd":false}],"ip":-3.00000012219251,"op":897.000036535559,"st":-3.00000012219251,"bm":0}],"markers":[]}
+            })
           }
+            
+        
           
       });
   }
@@ -650,7 +667,6 @@ function displayPortfolioTable() {
      // alert('SELECT SQL statement ERROR test1: ' + error.message);
     });
     
-
     
   }
 
@@ -662,22 +678,32 @@ function displayPortfolioTable() {
   // when add to cart button is clicked
   lessonsTable.addEventListener("click", function(e) {
 
-    if (e.target.classList.contains("addToList")) {
+    var clickedBtn;
+    //---If the icon <i> is pressed-------
+    if(e.target.tagName=="I"){
+      clickedBtn = e.target.parentElement;
+     
+    }else{
+      clickedBtn = e.target;
+    }
+
+    
+
+    if (clickedBtn.classList.contains("addToList")) {
      // alert("lessonsTable2");
-      e.preventDefault();
-      const clickedBtn = e.target;
       saveProduct(clickedBtn);
     
     }
-    else if(e.target.classList.contains("removeFromArray")){
-      e.preventDefault();
-      const clickedBtn = e.target;
+    else if(clickedBtn.classList.contains("removeFromArray")){
       const productId = clickedBtn.getAttribute("data-id");
       removeLessonFromSQL(productId);
       displayPortfolioTable();
+      
+      //===============================AJAX=====================================
 
       clickedBtn.className ="addToList";
-      clickedBtn.innerHTML="&#10010;";
+      clickedBtn.innerHTML="<i class='fas fa-plus'></i>";
+      //========================================================================
     }
     
 
@@ -855,15 +881,18 @@ function displayPortfolioTable() {
     clearPortfolioTable();
     displayTotal("screen");
     document.getElementById("Alert-2").classList.toggle("activeAlert");
+    $('.warningSection2').empty();
   });
 
 
   $('#Alert-2').on('click', '.closeAlert', function(e){
     document.getElementById("Alert-2").classList.toggle("activeAlert");
+    $('.warningSection2').empty();
   });
 
    $('#Alert-1').on('click', '.closeAlert', function(e){
     document.getElementById("Alert-1").classList.toggle("activeAlert");
+    $('.warningSection1').empty();
   });
 
   // bind the button to clear the cart both to the function that
@@ -872,8 +901,17 @@ function displayPortfolioTable() {
 
     document.getElementById("Alert-2").classList.toggle("activeAlert");
 
+    $('.warningSection2').append('<div id="svg__Warning" class="lottie" ></div>');
+    const animationInline2 = bodymovin.loadAnimation({
+        container: document.getElementById('svg__Warning'),
+        autoplay: true,
+        renderer: 'svg',
+        loop: false,
+        animationData: {"v":"5.6.5","fr":30,"ip":0,"op":30,"w":400,"h":400,"nm":"Error","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"POINT","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[200,269.5,0],"ix":2},"a":{"a":0,"k":[0,70,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.585,0.585,0.585],"y":[0.754,0.754,-28.504]},"o":{"x":[0.178,0.178,0.178],"y":[0,0,0]},"t":16,"s":[0,0,100]},{"i":{"x":[0.701,0.701,0.701],"y":[1,1,1]},"o":{"x":[0.348,0.348,0.348],"y":[-1.651,-1.651,33.01]},"t":19,"s":[120,120,100]},{"t":23.0000009368092,"s":[100,100,100]}],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[400,400],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Ellipse Path 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[1,1,1,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,70.168],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[8.39,8.39],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Ellipse 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":1.00000004073083,"op":901.000036698482,"st":1.00000004073083,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Ex","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[200.27500000000003,202.99999999999997,0],"ix":2},"a":{"a":0,"k":[6,-16,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,-31.833]],"o":[[0,0],[0,0]],"v":[[6,-96],[6,-0.5]],"c":false},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":32,"ix":5},"lc":2,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.8980392156862745,0.1803921568627451,0.1803921568627451,1],"ix":4},"o":{"a":0,"k":0,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[90.821,90.821],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false},{"ty":"tm","s":{"a":0,"k":0,"ix":1},"e":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":9,"s":[0]},{"t":16.0000006516934,"s":[100]}],"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":2,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim","hd":false}],"ip":1.00000004073083,"op":901.000036698482,"st":1.00000004073083,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"MAIN 3","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[200,200,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":0,"s":[0,0,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":6,"s":[114.99999999999999,114.99999999999999,100]},{"i":{"x":[0.833,0.833,0.833],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[0,0,0]},"t":12,"s":[85,85,100]},{"t":16.0000006516934,"s":[90,90,100]}],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[400,400],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Ellipse Path 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":0,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.8980392156862745,0.1803921568627451,0.1803921568627451,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[72.319,72.319],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Ellipse 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":900.000036657751,"st":0,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"RAY 2","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[200,200,0],"ix":2},"a":{"a":0,"k":[-20,2,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0]],"o":[[0,0],[0,0]],"v":[[-158.5,2.25],[-191.75,2.25]],"c":false},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[0.8980392156862745,0.1803921568627451,0.1803921568627451,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":16,"ix":5},"lc":2,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.8980392156862745,0.1803921568627451,0.1803921568627451,1],"ix":4},"o":{"a":0,"k":0,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 1","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false},{"ty":"tm","s":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":9,"s":[0]},{"t":18.000000733155,"s":[100]}],"ix":1},"e":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":4,"s":[0]},{"t":9.00000036657752,"s":[100]}],"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":2,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim","hd":false},{"ty":"rp","c":{"a":0,"k":8,"ix":1},"o":{"a":0,"k":0,"ix":2},"m":1,"ix":3,"tr":{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[-20,3],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":-45,"ix":4},"so":{"a":0,"k":100,"ix":5},"eo":{"a":0,"k":100,"ix":6},"nm":"Transform"},"nm":"Repeater 1","mn":"ADBE Vector Filter - Repeater","hd":false}],"ip":-3.00000012219251,"op":897.000036535559,"st":-3.00000012219251,"bm":0}],"markers":[]}
+    })
 
   });
+
 
 })();//============================end 0f function==========================================
 
@@ -882,6 +920,22 @@ function displayPortfolioTable() {
 
 
 function aJaxCall2(){
+
+  // device went offline
+  var networkState = navigator.connection.type; 
+  //=========================== Animation for No Network ====================
+  if(networkState == "none"){
+      // alert(networkState)
+      $('#noConnAnim').append('<div id="svg__No_Connection2" class="lottie" ></div>');
+      const animationInline2 = bodymovin.loadAnimation({
+          container: document.getElementById('svg__No_Connection2'),
+          autoplay: true,
+          renderer: 'svg',
+          loop: false,
+          animationData:{"v":"4.8.0","meta":{"g":"LottieFiles AE 1.0.0","a":"","k":"","d":"","tc":""},"fr":29.9700012207031,"ip":0,"op":61.0000024845809,"w":260,"h":260,"nm":"Not Done","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Shape Layer 2","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[131,130,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":0,"s":[0,0,100]},{"i":{"x":[0.667,0.667,0.667],"y":[-0.137,-0.137,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":4,"s":[0,0,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[28.416,28.416,0]},"t":24,"s":[100,100,100]},{"t":29.0000011811942,"s":[100,100,100]}],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0]],"o":[[0,0]],"v":[[153.888,72.281]],"c":false},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[0.00784313725490196,0.06274509803921569,0.18823529411764706,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":9,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.2901960784313726,0.5647058823529412,0.8862745098039215,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 2","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false},{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0]],"o":[[0,0],[0,0]],"v":[[-35.743,34.684],[34.684,-35.743]],"c":false},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"st","c":{"a":0,"k":[0.00784313725490196,0.06274509803921569,0.18823529411764706,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":9,"ix":5},"lc":2,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"fl","c":{"a":0,"k":[0.2901960784313726,0.2901960784313726,0.2901960784313726,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 1","np":3,"cix":2,"bm":0,"ix":2,"mn":"ADBE Vector Group","hd":false},{"ty":"tm","s":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":24,"s":[100]},{"t":29.0000011811942,"s":[0]}],"ix":1},"e":{"a":0,"k":100,"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":3,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim","hd":false}],"ip":0,"op":899.000036617021,"st":0,"bm":0},{"ddd":0,"ind":5,"ty":4,"nm":"wifi_black_24dp1 Outlines","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[130,130,0],"ix":2},"a":{"a":0,"k":[12,12,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":0,"s":[0,0,100]},{"i":{"x":[0.667,0.667,0.667],"y":[0.763,0.763,1]},"o":{"x":[0.333,0.333,0.333],"y":[0,0,0]},"t":4,"s":[0,0,100]},{"i":{"x":[0.667,0.667,0.667],"y":[1,1,1]},"o":{"x":[0.333,0.333,0.333],"y":[-0.816,-0.816,0]},"t":24,"s":[478.824,478.824,100]},{"t":29.0000011811942,"s":[444,444,100]}],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[3.87,-3.86],[0,0],[-2.76,-2.76],[0,0]],"o":[[0,0],[2.76,-2.76],[0,0],[-3.86,-3.86]],"v":[[-7,1.535],[-5,3.535],[5,3.535],[7,1.535]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ind":1,"ty":"sh","ix":2,"ks":{"a":0,"k":{"i":[[1.66,-1.66],[0,0],[0,0]],"o":[[0,0],[0,0],[-1.65,-1.66]],"v":[[-3,5.535],[0,8.535],[3,5.535]],"c":true},"ix":2},"nm":"Path 2","mn":"ADBE Vector Shape - Group","hd":false},{"ind":2,"ty":"sh","ix":3,"ks":{"a":0,"k":{"i":[[6.08,-6.07],[0,0],[-4.97,-4.97],[0,0]],"o":[[0,0],[4.97,-4.97],[0,0],[-6.07,-6.07]],"v":[[-11,-2.465],[-9,-0.465],[9,-0.465],[11,-2.465]],"c":true},"ix":2},"nm":"Path 3","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"mm","mm":1,"nm":"Merge Paths 1","mn":"ADBE Vector Filter - Merge","hd":false},{"ty":"fl","c":{"a":0,"k":[0.3215686274509804,0.9176470588235294,0.7607843137254902,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[12,11.465],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Group 1","np":5,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":899.000036617021,"st":0,"bm":0},{"ddd":0,"ind":8,"ty":4,"nm":"Settings Outlines","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[130,130,0],"ix":2},"a":{"a":0,"k":[95.067,95.067,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.116,0.116,0.667],"y":[1,1,1]},"o":{"x":[1,1,0.333],"y":[-0.004,-0.004,0]},"t":0,"s":[0,0,100]},{"i":{"x":[0.833,0.833,0.833],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[0,0,0]},"t":24,"s":[100,100,100]},{"t":29.0000011811942,"s":[90,90,100]}],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[-52.366,0],[0,-52.366],[52.366,0],[0,52.366]],"o":[[52.366,0],[0,52.366],[-52.366,0],[0,-52.366]],"v":[[0,-94.817],[94.817,0],[0,94.817],[-94.817,0]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[1,1,1,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[95.067,95.067],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Group 1","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":899.000036617021,"st":0,"bm":0}],"markers":[]}
+      })
+  }
+
   var table = $('#userTable').DataTable();
   table.clear().destroy();
   
@@ -898,7 +952,7 @@ function aJaxCall2(){
 
     $.ajax({
       type: 'GET',
-      url: myUrl+"/FindLessons.php",
+      url: "https://undes1red.com/FindLessons.php",
       data:{  
           "tmima":HiddenDepartment,  
           "examino":HiddenExam,  
@@ -956,7 +1010,7 @@ function fillLessonsTable2(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino
           tr_str=tr_str+"<td  width='20%' id='aa' class='tmp' ><button class='removeFromArray' id='addButton' data-id="+id+"><i class='far fa-trash-alt'></i></button></td>" 
       } else {
           //ADD
-          tr_str=tr_str+"<td  width='20%' id='aa' class='tmp' ><button class='addToList' id='addButton' data-id="+id+">&#10010;</button></td>";
+          tr_str=tr_str+"<td  width='20%' id='aa' class='tmp' ><button class='addToList' id='addButton' data-id="+id+"><i class='fas fa-plus'></i></button></td>";
       }
       tr_str=tr_str+ 
           "<td  width='0%' class='hidden'>" +ECTS + "</td>" +     //<<<=====2
@@ -984,7 +1038,7 @@ function fillLessonsTable2(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino
     "<tr data-id='mainTr'>" +
         "<td  width='80%' class='lessonInsideRows' data-id='closed'><p style='padding-left:5px;padding-right:10px; padding-top:5px; padding-bottom:5px;'>" +Lesson + "</p></td>" ;     //<<<=====0
         //ADD
-        tr_str=tr_str+"<td  width='20%' id='aa' class='tmp' ><button class='addToList' id='addButton' data-id="+id+">&#10010;</button></td>";
+        tr_str=tr_str+"<td  width='20%' id='aa' class='tmp' ><button class='addToList' id='addButton' data-id="+id+"><i class='fas fa-plus'></i></button></td>";
     tr_str=tr_str+ 
         "<td  width='0%' class='hidden'>" +ECTS + "</td>" +     //<<<=====2
         "<td  width='0%' class='hidden'>" +changeZero(Examino) + "</td>"+ //<<<=====3
@@ -997,7 +1051,7 @@ function fillLessonsTable2(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino
     if(i==len-1){
         if(darkTheme == true){
             $('#userTable tr').each(function() {
-                $(this).find("td").css({"background":"#525252","color":"#e1e1e1"});
+                $(this).find("td").css({"background":"#525252","color":"#EFEFEF"});
             });
         }else{
             $('#userTable tr').each(function() {
@@ -1059,13 +1113,12 @@ function formLessonsTable2() {
                         );
                     }else{
                       $(rows).eq(i).before(
-                        '<tr style="box-shadow: none;"><td colspan="8" style="padding: 20px 20px;background:#transparent""></td></tr>'+
+                        '<tr style="box-shadow: none;"><td colspan="8" style="padding: 20px 20px;background:#transparent; style="box-shadow: none;""></td></tr>'+
                         '<tr class="group" style="box-shadow: none;">'+
                             '<td colspan="8"  style="background-color:transparent;  padding-left: 10px;" class="orderingClass" ><i class="fas fa-caret-right"></i> ' + group  + '</td>'
                         +'</tr>'
                         );
                     }
-
                           last = group;
                       }
                   });

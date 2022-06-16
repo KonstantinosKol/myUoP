@@ -1,4 +1,4 @@
-const myURL="http://yourURL";
+
 
 $(function() {
     $("td[colspan=5]").find("#aa").hide();
@@ -106,31 +106,35 @@ function AddNewLessonPopUp(str) {
     }else{
         document.getElementById("popup-AddNewLesson").classList.toggle("active");
         $('html, body').css("overflow","auto");
-        // document.getElementById("LessonOnADD").value="";
-        // document.getElementById("RequiredOnAdd").value="";
-
-        // document.getElementById("Exam1o").checked = false;
-        // document.getElementById("Exam3o").checked = false;
-        // document.getElementById("Exam5o").checked = false;
-        // document.getElementById("Exam7o").checked = false;
-        // document.getElementById("Exam9o").checked = false;
-        // document.getElementById("Exam2o").checked = false;
-        // document.getElementById("Exam4o").checked = false;
-        // document.getElementById("Exam6o").checked = false;
-        // document.getElementById("Exam8o").checked = false;
-        // document.getElementById("Exam10o").checked = false;
-
-        // document.getElementById("InfosOnAdd").value="";
-        // document.getElementById("ECTSonADD").value="";
-        // document.getElementById("DirectionOnAdd").value="";
     }
+      
+   
+    $("#DepartmentInputOnAdd").val("");
+    $("#LessonOnADD").val("");
+    $("#RequiredOnAdd").val("");
+    $("#InfosOnAdd").val("");
+    $("#InfosOnAdd").val("");
+    $("#ECTSonADD").val("1");
+    $("#DirectionOnAdd").val("");
+
+    $("#Exam1o").prop( "checked", false );
+    $("#Exam3o").prop( "checked", false );
+    $("#Exam5o").prop( "checked", false );
+    $("#Exam7o").prop( "checked", false );
+    $("#Exam9o").prop( "checked", false );
+    $("#Exam2o").prop( "checked", false );
+    $("#Exam4o").prop( "checked", false );
+    $("#Exam6o").prop( "checked", false );
+    $("#Exam8o").prop( "checked", false );
+    $("#Exam10o").prop( "checked", false );
+
 
 }
 
  //==========Open-DELETE Popup======================
 function DeleteLessonPopUp() {
     document.getElementById("popupDeleteLesson").classList.toggle("active");
-    $('html, body').css("overflow","hidden");
+    // $('html, body').css("overflow","hidden");
     $('html, body').animate({scrollTop:0}, '300');
 }
 
@@ -236,7 +240,7 @@ function checkLessonOnAdd(){
             var Lesson1 = document.getElementById("LessonOnADD").value;
             $.ajax({
                 type: 'POST',
-                url: myURL+"/php/checkLesson.php",
+                url: "http://localhost/Thesis/php/checkLesson.php",
                 data:{  
                     "Lesson":Lesson1,  
                 }, 

@@ -47,6 +47,6 @@ if(isset($_POST['Exam10oInputOnEdit'])){
 $query = "UPDATE  lessons_table SET  Lesson = '$Lesson' , Required = '$Required', Exam = '$exam',Infos = '$Infos',ECTS = $ECTS, Direction= '$Direction' WHERE id=$id;";
 $result = mysqli_query($con,$query);
 
-header('Location: '."../tmpMod.php");
+header('Location: '."../Moderator.php");
 ?>
 

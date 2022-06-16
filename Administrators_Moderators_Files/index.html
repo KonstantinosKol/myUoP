@@ -32,12 +32,13 @@
                     </div>
                     
                     <div class="col-6">
-                        <img src="./media/Berlin.png" >
+                        <img src="./styles/TwoPhones.png" >
                     </div>
 
                 </div>
               
                 <script>
+                     //==============ajax for check users========================
                     function displayErrors() {
         
                         var username=document.getElementById("username").value;
@@ -52,12 +53,17 @@
                                 if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                                     if(xmlhttp.responseText =="doneAdmin" || xmlhttp.responseText =="doneMod"){
                                         if(xmlhttp.responseText == "doneAdmin"){
-                                            window.location.href = "Main.php";
+                                            window.location.href = "Administrator.php";
                                         }else{
-                                            window.location.href = "tmpMod.php";
+                                            window.location.href = "Moderator.php";
                                         }
                                     }else{
                                         document.getElementById("warning").innerHTML = xmlhttp.responseText;
+                                      
+
+                                        setTimeout(function() {
+                                            document.getElementById("warning").innerHTML = "";
+                                        }, 3000);
                                     }
                                     
                                 }
@@ -66,6 +72,9 @@
                             xmlhttp.open("GET","./php/login.php?username="+username+"&password="+password, true);
                             xmlhttp.send();
                     }
+
+
+                    //==============Reveal Password========================
 
                     var togglePassword = document.querySelector("#togglePassword");
                     var password = document.querySelector("#password");
