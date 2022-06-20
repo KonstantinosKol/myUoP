@@ -11,10 +11,10 @@ $Direction = $_POST['DirectionInputOnEdit'];
 
 $exam="";
 
-// echo "--->".$_POST['DepartmentInputOnEdit']."<--";
 
 if(isset($_POST['Exam1oInputOnEdit'])){
     $exam= $exam."1/";
+    
 }
 if(isset($_POST['Exam2oInputOnEdit'])){
     $exam= $exam."2/";
@@ -44,7 +44,12 @@ if(isset($_POST['Exam10oInputOnEdit'])){
     $exam= $exam."0/";
 }
 
+if(empty($Required)){
+   $Required="-";
+}
+
 $query = "UPDATE  lessons_table SET  Lesson = '$Lesson' , Required = '$Required', Exam = '$exam',Infos = '$Infos',ECTS = $ECTS, Direction= '$Direction' WHERE id=$id;";
+// echo $query ;
 $result = mysqli_query($con,$query);
 
 header('Location: '."../Moderator.php");

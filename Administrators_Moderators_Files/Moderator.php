@@ -22,11 +22,11 @@
         <!-- ==============================================Lessons===================================== -->
              <div id="LessonsSection" >
                     <button id="addNewLesson" onclick="AddNewLessonPopUp(1)">Νέο Μάθημα</button>
-                    <p style="color:white;font-size:18px;margin-bottom:2%;margin-top:2%;"><?php  echo $_SESSION["Department"]; ?></p>
+                    <p id="DepartmentTitle" style="color:white;font-size:18px;margin-bottom:2%;margin-top:2%;"><?php  echo $_SESSION["Department"]; ?></p>
                     <a class="LinkForLogout" href="php/logout.php">Αποσύνδεση</a>  
                     <table id="LessonTable">
                        <thead>
-                            <tr >
+                            <tr > 
                                 <th  class="hidden" scope="col">id</th>
                                 <th class="hidden"  scope="col">University</th>
                                 <th class="hidden" scope="col">Department</th>
@@ -112,30 +112,31 @@
 
                                     <p><b>Χειμερινό Εξάμηνα</b></p>
                                     <div class="radioButtonsGroup">
-                                        <input type="checkbox" id="Exam1oInputOnEdit" name="Exam1oInputOnEdit" value="1">
-                                        <label for="Exam1o">1ο</label><br>
+                                        <!--<input type="checkbox" id="test1" name="test1" value="value1"> Option 1-->
+                                        <input type="checkbox" id="Exam1oInputOnEdit" name="Exam1oInputOnEdit" value="1">1o
+                                        <!--<label for="Exam1oInputOnEdit">1ο</label><br>-->
                                         <input type="checkbox" id="Exam3oInputOnEdit" name="Exam3oInputOnEdit" value="3">
-                                        <label for="Exam3o">3ο</label><br>
+                                        <label for="Exam3oInputOnEdit">3ο</label><br>
                                         <input type="checkbox" id="Exam5oInputOnEdit" name="Exam5oInputOnEdit" value="5">
-                                        <label for="Exam5o">5ο</label>
+                                        <label for="Exam5oInputOnEdit">5ο</label>
                                         <input type="checkbox" id="Exam7oInputOnEdit" name="Exam7oInputOnEdit" value="7">
-                                        <label for="Exam7o">7ο</label>
+                                        <label for="Exam7oInputOnEdit">7ο</label>
                                         <input type="checkbox" id="Exam9oInputOnEdit" name="Exam9oInputOnEdit" value="9">
-                                        <label for="Exam9o">9ο</label>
+                                        <label for="Exam9oInputOnEdit">9ο</label>
                                     </div>
 
                                     <p><b>Εαρινά Εξάμηνα</b></p>
                                     <div class="radioButtonsGroup">
                                         <input type="checkbox" id="Exam2oInputOnEdit" name="Exam2oInputOnEdit" value="2">
-                                        <label for="Exam2o">2ο</label><br>
+                                        <label for="Exam2oInputOnEdit">2ο</label><br>
                                         <input type="checkbox" id="Exam4oInputOnEdit" name="Exam4oInputOnEdit" value="4">
-                                        <label for="Exam4o">4ο</label><br>
+                                        <label for="Exam4oInputOnEdit">4ο</label><br>
                                         <input type="checkbox" id="Exam6oInputOnEdit" name="Exam6oInputOnEdit" value="6">
-                                        <label for="Exam6o">6ο</label>
+                                        <label for="Exam6oInputOnEdit">6ο</label>
                                         <input type="checkbox" id="Exam8oInputOnEdit" name="Exam8oInputOnEdit" value="8">
-                                        <label for="Exam8o">8ο</label>
+                                        <label for="Exam8oInputOnEdit">8ο</label>
                                         <input type="checkbox" id="Exam10oInputOnEdit" name="Exam10oInputOnEdit" value="0">
-                                        <label for="Exam10o">10ο</label>
+                                        <label for="Exam10oInputOnEdit">10ο</label>
                                     </div>
                                 </div>
 
@@ -152,7 +153,7 @@
                                     <button class="btn" onclick="checkLessonOnEdit()" type="button" >Αποθήκευση</button>
                                     <button class="btn2" onclick="EditLesson(2)" type="button">Κλείσιμο</button>
 
-                                    <button id="submitButtonOnEditLesson" style="display:none" class="btn" onclick="EditLesson(2)" type="submit" value="Edit"></button>
+                                    <button id="submitButtonOnEditLesson" style="display:none" class="btn"  type="submit" value="Edit"></button>
 
                                     <p id="warningOnEditLesson" ></p>
                                 </div>

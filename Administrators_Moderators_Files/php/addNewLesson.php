@@ -10,6 +10,7 @@
     $Direction = $_POST['DirectionOnAdd'];
 
     $exam="";
+    
 
     if(isset($_POST['Exam1o'])){
         $exam= $exam."1/";
@@ -41,21 +42,17 @@
     if(isset($_POST['Exam10o'])){
         $exam= $exam."0/";
     }
+    if(empty($Required)){
+        $Required="-";
+    }
 
   
 
     $query = "insert into lessons_table (Department,Lesson,Required,Exam,Infos,ECTS,Direction) values ('$Department','$Lesson','$Required','$exam','$Infos','$ECTS','$Direction')";
-    // if( 
-        mysqli_query($con, $query)  ;
 
-        $error_message = mysqli_error($con);
-        echo "Query Failed: ".$error_message;
-    // {
-    //     echo "11";
-    // }else{
-    //     echo "222";
-    // }
+    mysqli_query($con, $query)  ;
+
     header('Location: '."../Moderator.php");
 
-    // mysqli_query($db,"INSERT INTO stockdetails (`itemdescription`,`itemnumber`,`sellerid`,`purchasedate`,`otherinfo`,`numberofitems`,`isitdelivered`,`price`) VALUES ('$itemdescription','$itemnumber','$sellerid','$purchasedate','$otherinfo','$numberofitems','$numberofitemsused','$isitdelivered','$price')") or die(mysqli_error($db));
+    
 ?>

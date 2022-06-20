@@ -62,7 +62,7 @@
                                     <td data-label="Ρόλος"><?php echo $row["role"]; ?></td>
                                     <td data-label="Τμήμα"><?php echo $row["Department"]; ?></td>
                                     <td ><button class="EditButton" onclick="editModerator()">Επεξεργασία</button></td>
-                                    <td ><button class="DeleteButton" onclick="deleteModeratorPopUp()">Διαγραφή</button></td>
+                                    <td ><button class="DeleteButton" onclick="deleteModeratorPopUp()">Διαγραφή</button></td> 
                                 
                                 </tr>
                                 <?php
@@ -218,10 +218,12 @@
                                                         <td style=" background:#F0F0F0; color:#06817F; font-size:15px;" width="25%"><p>Site Τμήματος</p></td>
                                                         <td style="background:#F0F0F0; font-size:15px;" width="75%"><a target="_blank" href="<?php echo $row["Site"]; ?>">Site</a></td>
                                                     </tr>
+                                                    <?php  if($row["PathWinter"] != "-"){?>
                                                     <tr data-id="infos" >
                                                         <td style=" background:#F0F0F0; color:#06817F; font-size:15px;" width="25%"><p>Χειμερινό Εξαμ.<p></td>
                                                         <td style="background:#F0F0F0; font-size:15px;"  width="75%"><a href="<?php echo "https://undes1red.com/ThesisWebSite".substr($row["PathWinter"],2); ?>" target="_blank">Χειμερινό Εξάμηνο</a></td>
                                                     </tr>
+                                                   <?php } ?>
                                                     <?php  if($row["PathSummer"] != "-"){?>
                                                     <tr data-id="infos" >
                                                         <td style=" background:#F0F0F0; color:#06817F; font-size:15px;"  width="25%"><p>Εαρινό Εξαμ.</p></td>

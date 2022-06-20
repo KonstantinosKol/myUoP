@@ -1,5 +1,7 @@
 
+var URL="";
 
+//Open or close Help PopUp in menu 
 function OpenCloseHelpPopUp(){
     document.getElementById("popup-1").classList.toggle("active");
 
@@ -17,7 +19,7 @@ function OpenCloseHelpPopUp(){
 
 
 
-
+//toggle sqitch open/close dark theme 
 function swapStyleSheet(sheet) {
 
     if($(sheet).prop("checked") == true){
@@ -31,6 +33,7 @@ function swapStyleSheet(sheet) {
 
 }
 
+//set Dark theme in app
 function setDarkTheme(){
     $('#Menu').css("background","#1a1a1a");
     $('.button3').css({"background":"#333333","color":"#e1e1e1"});
@@ -65,6 +68,7 @@ function setDarkTheme(){
     $('.button4 img').attr("src","./img/Untitled-2White.png");
 }
 
+//set Light theme in app
 function setLightTheme(){
     $('#Menu').css("background","rgb(231, 240, 240)");
 
@@ -80,7 +84,7 @@ function setLightTheme(){
     $('.content2').css("background","rgb(231, 240, 240)");
     $('.contentAlert').css("background","rgb(231, 231, 231)");
 
-    $('#DepartmentInfos').css({"background":"#E7F0F0","color":"#black"});
+    $('#DepartmentInfos').css({"background":"#E7F0F0","color":"#106b67"});
 
     $('#Array').css({"background":"#82b3b0"});
 
@@ -93,7 +97,7 @@ function setLightTheme(){
 }
 
 
-
+//Back button on Deopartment list (2nd screen -> 1st screen menu)
 function back(){
     document.querySelector('.containerS').classList.toggle('view-change');
 
@@ -119,11 +123,12 @@ function back(){
 
 
 var mode;
+//Go to Department list (1st screen menu -> 2nd screen) Lessons path
 function GoToDepartments1(){
 
     document.querySelector('.containerS').classList.toggle('view-change');
     mode=0;
-
+    //If List isnt filled desappear search 
     if($('#myUL li').length == 0){
         // $('#svg__No_Connection').hide();
         $('#GroupOfButtons').append("<div id='svg__No_Connection' class='lottie' style='display: none'></div>");
@@ -141,16 +146,12 @@ function GoToDepartments1(){
         $('#svg__No_Connection').hide();
     }
   
-    // else{
-    //     $('#GroupOfButtons').append("<div id='svg__No_Connection' class='lottie' style='display: none'></div>");
-    //     $('#svg__No_Connection').show();
-    // }
   
 }
 
 
 
-
+//Go to Department list (1st screen menu -> 2nd screen) Tome Sh. path
 function GoToDepartments2(){
     document.querySelector('.containerS').classList.toggle('view-change');
     mode=1;
@@ -175,7 +176,7 @@ function GoToDepartments2(){
 
 
 
-
+//Close season bottomsheet
 document.querySelector(".overlaySeason").addEventListener("click",e=>{
     $('#popupSeason2').animate({
         top: 1000
@@ -215,27 +216,14 @@ document.querySelector(".overlaySeason").addEventListener("click",e=>{
 
 var DepartmentsInfoTable;
 
-// var mysql = require('mysql');
 
+//When app is starting
 document.addEventListener("deviceready", function() {
-
-    // alert("2222")  
-
-    // SqlServer.testConnection(function(event) {
-    //     alert(JSON.stringify(event));
-    // }, function(error) {
-    //     alert("Error : " + JSON.stringify(error));
-    // });	
-
-    // alert("3333") 
-   
-
-    
 
    // ================Ajax for Departments=======================
     $.ajax({
         type: 'GET',
-        url: "https://undes1red.com/FindDepartment.php",
+        url: URL+"/FindDepartment.php",
         dataType: 'jsonp',
         jsonp:"callback",
         success: function (data) {
@@ -244,7 +232,6 @@ document.addEventListener("deviceready", function() {
 
             for(var i=0; i<len; i++){
                 Department=data[i].Department;
-                // alert(data[i].id);
                 var tr_str = `<li class="button1" >${Department}</li>`;
                 $("#myUL").append(tr_str);
 
@@ -253,10 +240,10 @@ document.addEventListener("deviceready", function() {
     });//===End AJAX
 
 
-    //================Ajax for ECTS/TotalExam//..=======================
+    //================Ajax for ECTS/TotalExam//.. infos=======================
     $.ajax({
         type: 'GET',
-        url: "https://undes1red.com/DepartmentsAllInfos.php",
+        url: URL+"/DepartmentsAllInfos.php",
         dataType: 'jsonp',
         jsonp:"callback",
         success: function (data) { 
@@ -277,13 +264,59 @@ document.addEventListener("deviceready", function() {
         }//====End success
     });//===End AJAX
 
+    db = window.sqlitePlugin.openDatabase({
+        name: 'my.db',
+        location: 'default',
+    });
+
+    var DBidsArray = new Array()
+     //================Ajax for all lessons IDs in online db=======================
+     $.ajax({
+        type: 'GET',
+        url: URL+"/FindAllIDs.php",
+        dataType: 'jsonp',
+        jsonp:"callback",
+        success: function (data) { 
+
+            //fill array with online db lessons ID's
+            for(var i=0; i<data.length ;i++){
+                DBidsArray.push(data[i].id)
+            }
+
+            var localDBidsArray = new Array();
+            db.executeSql("SELECT *  FROM savedLessonsTable ", [], function(results) { 
+
+                 //fill array with local db lessons ID's
+                for (var i=0; i<results.rows.length; i++){
+                    localDBidsArray.push(results.rows.item(i).id)
+                }
+              
+                //find the defernce between those two arrays
+                const dif1 = localDBidsArray.diff(DBidsArray );  
+              
+                 //delete the defernces of those two arrays
+                for(var i=0; i<dif1.length ;i++){
+                    db.executeSql("DELETE FROM savedLessonsTable WHERE id=?", [dif1[i]], function(results) { 
+                       
+                    });
+                }
+            });
+
+        }//====End success
+    });//===End AJAX
+
 
 }, false);
 
 
+ //function for finding the defernce between two arrays
+Array.prototype.diff = function(a) {
+    return this.filter(function(i) {return a.indexOf(i) < 0;});
+};
 
 
 
+//When app is starting check if dark theme is ON
 document.addEventListener("deviceready", function() {
 
     if(localStorage.getItem("darkTheme") !== null){
@@ -297,8 +330,6 @@ document.addEventListener("deviceready", function() {
         }
     }
 
-    
-
 }, false);
 
 
@@ -311,7 +342,7 @@ function getEventTarget(e) {
 
 
 
-
+//Press list to open Exam/Season bottomsheet
 $('#myUL').on('click', 'li', function(event){
     var target = getEventTarget(event);
 
@@ -323,6 +354,8 @@ $('#myUL').on('click', 'li', function(event){
     target.className="pressedButton";
     Department=target.innerHTML;
 
+
+    //Saved pressed Department from list
     document.getElementById("HiddenDepartment").innerHTML=target.innerHTML;            //<<<<<<<<===================Tmima
 
 
@@ -363,8 +396,7 @@ $('#myUL').on('click', 'li', function(event){
 
 
 
-//=====================Close-PopUp-Examina==============================
-
+//Close-bottomsheet-Examina
 document.querySelector(".overlayExamina").addEventListener("click",e=>{
 
     $('#popupExamina2').animate({
@@ -382,7 +414,7 @@ document.querySelector(".overlayExamina").addEventListener("click",e=>{
 
 
 
-
+//Function for redirect user to URL
 function redirectToPDF(Season1){
     $('#popupSeason2').animate({
         top: 1000
@@ -391,7 +423,7 @@ function redirectToPDF(Season1){
 
 
     var Department=document.getElementById("HiddenDepartment").innerHTML;
-
+    var link
     var today = new Date();
     var month = String(today.getMonth() + 1).padStart(2, '0');
     if(month=="03" ||  month=="04" || month=="05" || month=="06" || month=="07"){
@@ -400,7 +432,8 @@ function redirectToPDF(Season1){
             for(var i=0;i<DepartmentsInfoTable.length;i++){
                 if(DepartmentsInfoTable[i][0] == Department){
                     if(DepartmentsInfoTable[i][2] != "-"){
-                        window.location = DepartmentsInfoTable[i][2];
+                        link = DepartmentsInfoTable[i][2]
+                        window.location = link;
                     }else{
                         $('#alertText').html("Δεν είναι διαθέσιμο το συγκεκριμένο Ωρολόγιο. Πρόγραμμα")
                         document.getElementById("Alert-1").classList.toggle("activeAlert");
@@ -421,7 +454,8 @@ function redirectToPDF(Season1){
             for(var i=0;i<DepartmentsInfoTable.length;i++){
                 if(DepartmentsInfoTable[i][0] == Department){
                     if(DepartmentsInfoTable[i][5] != "-"){
-                        window.location = DepartmentsInfoTable[i][5];
+                        link = URL+"/ThesisWebSite"+DepartmentsInfoTable[i][5].slice(2)
+                        window.location = link;
                     }else{
                         $('#alertText').html("Δεν είναι διαθέσιμο το συγκεκριμένο Ωρολόγιο Πρόγραμμα")
                         document.getElementById("Alert-1").classList.toggle("activeAlert");
@@ -443,7 +477,8 @@ function redirectToPDF(Season1){
             for(var i=0;i<DepartmentsInfoTable.length;i++){
                 if(DepartmentsInfoTable[i][0] == Department){
                     if(DepartmentsInfoTable[i][2] !="-"){
-                        window.location = DepartmentsInfoTable[i][2];
+                        link =DepartmentsInfoTable[i][2]
+                        window.location = link;
                     }else{
                         $('#alertText').html("Δεν είναι διαθέσιμο το συγκεκριμένο Ωρολόγιο. Πρόγραμμα")
                         document.getElementById("Alert-1").classList.toggle("activeAlert");
@@ -463,7 +498,9 @@ function redirectToPDF(Season1){
             for(var i=0;i<DepartmentsInfoTable.length;i++){
                 if(DepartmentsInfoTable[i][0] == Department){
                     if(DepartmentsInfoTable[i][4] !="-"){
-                        window.location = DepartmentsInfoTable[i][4];
+                        // window.location = DepartmentsInfoTable[i][4];
+                        link = URL+"/ThesisWebSite"+DepartmentsInfoTable[i][4].slice(2)
+                        window.location = link;
                     }else{
                         $('#alertText').html("Δεν είναι διαθέσιμο το συγκεκριμένο Ωρολόγιο. Πρόγραμμα")
                         document.getElementById("Alert-1").classList.toggle("activeAlert");
@@ -483,36 +520,7 @@ function redirectToPDF(Season1){
 }
 
 
-
-
-
-//===============================Portofolio-List===Slide============================
-
-
-
-// document.addEventListener("deviceready", function() {
-//     var networkState = navigator.connection.type;
-// }, false);
-
-
-
-// document.addEventListener("online", function() {
-//     // device went online
-//     var networkState = navigator.connection.type; // Get new network state
-//     alert("Connection on");
-// }, false);
-
-// document.addEventListener("offline", function() {
-//     // device went offline
-//     var networkState = navigator.connection.type; // Get new network state
-//     alert("No connection");
-// }, false);
-
-//=========================================================================================================================
-//=========================================================================================================================
-
-
-
+//Download Lessons in lessons screen(3rd)
 function aJaxCall(examino){
 
     
@@ -520,7 +528,6 @@ function aJaxCall(examino){
     var networkState = navigator.connection.type; 
     //=========================== Animation for No Network ====================
     if(networkState == "none"){
-        // alert(networkState)
         $('#noConnAnim').append('<div id="svg__No_Connection2" class="lottie" ></div>');
         const animationInline2 = bodymovin.loadAnimation({
             container: document.getElementById('svg__No_Connection2'),
@@ -532,24 +539,26 @@ function aJaxCall(examino){
     }
     //====================================================
 
+    //Get pressed Department
     var Department = document.getElementById("HiddenDepartment").innerHTML;
     
     document.getElementById("HiddenExam").innerHTML=examino;                            //<<<<<<===================Examino
 
     $("#tableBodyId").empty();  //<<=====clear table from 'Nothing'
     
-    //----------Close pop-up----------
+    //----------Close Exam bottomsheet----------
     $('#popupExamina2').animate({
         top: 10000
     });
     document.getElementById("popupExamina").classList.toggle("activeExamina");
-    //---------------Animation------------------
+    //--------------------------------
 
+    //Go to Lessons screen (2nd screen -> 3rd screen)
     document.querySelector('.containerS').classList.toggle('view-change2');
 
     $.ajax({
         type: 'GET',
-        url: "https://undes1red.com/FindLessons.php",
+        url: URL+"/FindLessons.php",
         data:{  
             "tmima":Department,  
             "examino":examino,  
@@ -593,7 +602,7 @@ function aJaxCall(examino){
         }  
     }
 
-    //Save 'Infos' for Departmnet its time
+    //Put 'Infos' in infos div on saved lessonns 4rd screen
      for(var i=0;i<DepartmentsInfoTable.length;i++){
         if(DepartmentsInfoTable[i][0] == Department){
             if(DepartmentsInfoTable[i][3] != "-"){
@@ -607,7 +616,7 @@ function aJaxCall(examino){
 }//====End function()
 
 
-
+//Fill its row of lessons table with items
 function fillLessonsTable(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino) {
                 
         var db = null;
@@ -622,7 +631,7 @@ function fillLessonsTable(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino)
                 darkTheme=true;
             }
         }
-
+        // var flag = false;
         db.executeSql("SELECT count(*) AS mycount FROM savedLessonsTable WHERE id=?", [id], function(rs) {
           
             var tr_str = 
@@ -631,6 +640,7 @@ function fillLessonsTable(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino)
             if (rs.rows.item(0).mycount!=0) {
                 //Remove
                 tr_str=tr_str+"<td  width='20%'  ><button class='removeFromArray' id='addButton' data-id="+id+"><i class='far fa-trash-alt'></i></button></td>" 
+                updateLesson(id,Lesson,ECTS,Direction,Examino)
             } else {
                 //ADD
                 tr_str=tr_str+"<td  width='20%'  ><button class='addToList' id='addButton' data-id="+id+"><i class='fas fa-plus'></i></button></td>";
@@ -696,8 +706,22 @@ function fillLessonsTable(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino)
 }//===End fillLessonsTable
 
 
+//Update saved Lesson that sees user
+function updateLesson(id,Lesson,ECTS,Direction,Examino){
+    var db = null;
+    db = window.sqlitePlugin.openDatabase({
+        name: 'my.db',
+        location: 'default',
+    });
+    var Department = document.getElementById("HiddenDepartment").innerHTML; 
+    db.executeSql("UPDATE savedLessonsTable SET Lesson = ? , Examino =?, ECTS = ?,Department = ?, Direction = ? WHERE id=?", [Lesson,Examino,ECTS,Department,Direction,id], function(rs) {
 
+    }, function(error) { 
 
+    }); 
+}
+
+//Exam:   1/9/0 -> 1 9 10
 function changeZero(Examino){
     var tmpExamino;
     if(Examino.includes("0")){
@@ -712,7 +736,7 @@ function changeZero(Examino){
     return tmpExamino;
 }
 
-
+//Required A && B -> A KAI B
 function changeOperators(Required){
     var tmpRequired = Required;
     if(Required.includes("||")){
@@ -731,7 +755,7 @@ function changeOperators(Required){
 }
 
          
-    
+//Make slided table for more infos in lessons table    
 function format ( d ) {
     if(localStorage.getItem("darkTheme") !== null){
         if(localStorage.getItem("darkTheme") == "on"){
@@ -833,7 +857,7 @@ function format ( d ) {
 }
 
 
-
+//Make ordering of table lessons
 function formLessonsTable() {
     
     var table =$('#userTable').DataTable({
@@ -841,7 +865,7 @@ function formLessonsTable() {
         "deferRender": true,
         "destroy": true,
         "retrieve": false,
-        "paging":   false,              //Ta epipleon features pou exei to DataTable
+        "paging":   false,              
         "ordering": true,
         "info":     false,
         "searching":   false,
@@ -897,7 +921,7 @@ function formLessonsTable() {
 
 
 
-//Add event listener for opening and closing details
+//Open/close more infos in lessons table
 $('#userTable tbody').on('click', 'td', function(e){
     var table =$('#userTable').DataTable();
     var tr = $(this).closest('tr');
@@ -938,38 +962,8 @@ $('#userTable tbody').on('click', 'td', function(e){
 });
 
 
-
-
-
-
-//==================Function for open table/array=======================
-//======================https://stackoverflow.com/questions/3897396/can-a-table-row-expand-and-close================
-//==========https://newbedev.com/how-to-return-the-row-and-column-index-of-a-table-cell-by-clicking================
-// $(function() {
-//     $("td[colspan=3]").find("div").hide();
-
-//     $('#userTable tbody').on('click', 'td', function (event) {
-               
-
-//         if($(this).parent().find('td').index(this)==0){
-//             event.stopPropagation();
-//             var $target = $(event.target);
-//             if ( $target.closest("td").attr("colspan") > 1 ) {
-//                 $target.parent().slideUp();
-//                 //$("td[colspan=3]").slideUp();
-//                 //alert("111=>>"+$target.slideUp());
-//             } else {
-//                 $target.closest("tr").next().find("div").slideToggle();
-//                 //alert(2);
-//             }
-//             //alert(3);
-//         }
-            
-//     });
-
-// });
-
 //========================https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_list=================================
+//Search Department in 2nd screen
 function searchFunc() {
     var input, filter, ul, li, a, i, txtValue;
     input = document.getElementById("myInput");

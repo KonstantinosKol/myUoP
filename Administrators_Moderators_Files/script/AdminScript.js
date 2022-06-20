@@ -282,7 +282,7 @@ function checkNewUser(){
             var username = document.getElementById("AddModeratorUsername").value;
             $.ajax({
                 type: 'POST',
-                url: "http://localhost/Thesis/php/CheckUser.php",
+                url: "https://undes1red.com/ThesisWebSite/CheckUser.php",
                 data:{  
                     "username":username,  
                 }, 

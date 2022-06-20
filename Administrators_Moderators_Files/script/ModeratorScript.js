@@ -109,10 +109,10 @@ function AddNewLessonPopUp(str) {
     }
       
    
-    $("#DepartmentInputOnAdd").val("");
+    // $("#DepartmentInputOnAdd").val("");
     $("#LessonOnADD").val("");
     $("#RequiredOnAdd").val("");
-    $("#InfosOnAdd").val("");
+    $("#InfosOnAdd").val(""); 
     $("#InfosOnAdd").val("");
     $("#ECTSonADD").val("1");
     $("#DirectionOnAdd").val("");
@@ -125,7 +125,7 @@ function AddNewLessonPopUp(str) {
     $("#Exam2o").prop( "checked", false );
     $("#Exam4o").prop( "checked", false );
     $("#Exam6o").prop( "checked", false );
-    $("#Exam8o").prop( "checked", false );
+    $("#Exam8o").prop( "checked", false ); 
     $("#Exam10o").prop( "checked", false );
 
 
@@ -149,7 +149,12 @@ for (var i=0; i<moderatorTable.rows.length; i++) {
         document.getElementById("id1").value = this.cells[0].innerHTML;
         document.getElementById("DepartmentInputOnEdit").value = this.cells[2].innerHTML;
         document.getElementById("LessonInputOnEdit").value = this.cells[3].innerHTML;
-        document.getElementById("RequiredInputOnEdit").value = this.cells[4].innerHTML;
+        if(this.cells[4].innerHTML != "-"){
+             document.getElementById("RequiredInputOnEdit").value = this.cells[4].innerHTML;
+        }else{
+             document.getElementById("RequiredInputOnEdit").value = "";
+        }
+      
 
         if(this.cells[5].innerHTML.includes("1")){
             document.getElementById("Exam1oInputOnEdit").checked = true;
@@ -215,7 +220,7 @@ function checkLessonOnAdd(){
 
     if(document.getElementById('Exam2o').checked){
         checkbox = 1;
-    }
+    } 
     if(document.getElementById('Exam4o').checked){
         checkbox = 1;
     }
@@ -232,17 +237,19 @@ function checkLessonOnAdd(){
 
     var Lesson = document.getElementById("LessonOnADD").value.replace(/\s+/, '').length;
     var Direction = document.getElementById("DirectionOnAdd").value.replace(/\s+/, '').length;
-    var Required = document.getElementById("RequiredOnAdd").value.replace(/\s+/, '').length
+    // var Required = document.getElementById("RequiredOnAdd").value.replace(/\s+/, '').length
     var ECTS = document.getElementById("ECTSonADD").value;
     var Infos = document.getElementById("InfosOnAdd").value.replace(/\s+/, '').length;
-    if(ECTS != "" && Required != 0 && Lesson != 0 && Direction !=0 && checkbox==1 && Infos!=0){
+    if(ECTS != "" &&  Lesson != 0 && Direction !=0 && checkbox==1 && Infos!=0){
         // if(password1 == password2){
             var Lesson1 = document.getElementById("LessonOnADD").value;
+            var Department = document.getElementById("DepartmentTitle").innerHTML;
             $.ajax({
                 type: 'POST',
-                url: "http://localhost/Thesis/php/checkLesson.php",
+                url: "https://undes1red.com/ThesisWebSite/php/checkLesson.php",
                 data:{  
                     "Lesson":Lesson1,  
+                    "Department":Department,  
                 }, 
                 success: function (data) {
                   if(data == "ok"){
@@ -257,13 +264,6 @@ function checkLessonOnAdd(){
                 }//====End Success    
             });//===End AJAX
 
-        // }else{
-        //     $("#warningOnAddUser").html("Οι κωδικοί δεν είναι όμοιοι");
-        //     $("#warningOnAddUser").css("display","block")
-        //     setTimeout(function() {
-        //         $("#warningOnAddUser").css("display","none")
-        //     }, 2500);
-        // }
     }else{
         $("#warningOnAddLesson").html("Συμπληρώστε όλα τα στοιχεία");
         $("#warningOnAddLesson").css("display","block")
@@ -313,11 +313,31 @@ function checkLessonOnEdit(){
 
     var Lesson = document.getElementById("LessonInputOnEdit").value.replace(/\s+/, '').length;
     var Direction = document.getElementById("DirectionInputOnEdit").value.replace(/\s+/, '').length;
-    var Required = document.getElementById("RequiredInputOnEdit").value.replace(/\s+/, '').length
+    // var Required = document.getElementById("RequiredInputOnEdit").value.replace(/\s+/, '').length
     var ECTS = document.getElementById("ECTSInputOnEdit").value;
     var Infos = document.getElementById("InfosInputOnEdit").value.replace(/\s+/, '').length;
-    if(ECTS != "" && Required != 0 && Lesson != 0 && Direction !=0 && checkbox==1 && Infos!=0){
-        document.getElementById("submitButtonOnEditLesson").click();
+    if(ECTS != "" &&  Lesson != 0 && Direction !=0 && checkbox==1 && Infos!=0){
+        var Department = document.getElementById("DepartmentTitle").innerHTML;
+         var Lesson1 = document.getElementById("LessonInputOnEdit").value;
+            $.ajax({
+                type: 'POST',
+                url: "https://undes1red.com/ThesisWebSite/php/checkLesson.php",
+                data:{  
+                    "Lesson":Lesson1,  
+                    "Department":Department,  
+                }, 
+                success: function (data) {
+                  if(data == "ok"){
+                       document.getElementById("submitButtonOnEditLesson").click();
+                  }else{
+                    $("#warningOnEditLesson").html("Το μάθημα υπάρχει")
+                    $("#warningOnEditLesson").css("display","block")
+                    setTimeout(function() {
+                        $("#warningOnEditLesson").css("display","none")
+                    }, 2500);
+                  }
+                }//====End Success    
+            });//===End AJAX
     }else{
         $("#warningOnEditLesson").html("Συμπληρώστε όλα τα στοιχεία");
         $("#warningOnEditLesson").css("display","block")
