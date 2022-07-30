@@ -1,5 +1,5 @@
 
-var URL="";
+var URL="https://undes1red.com";
 
 //Open or close Help PopUp in menu 
 function OpenCloseHelpPopUp(){
