@@ -282,7 +282,7 @@ function checkNewUser(){
             var username = document.getElementById("AddModeratorUsername").value;
             $.ajax({
                 type: 'POST',
-                url: "https://undes1red.com/ThesisWebSite/CheckUser.php",
+                url: "/CheckUser.php",
                 data:{  
                     "username":username,  
                 }, 
@@ -329,7 +329,7 @@ function checkNewInfo(){
             var Department1 = document.getElementById("DepartmentOnAdd").value;
             $.ajax({
                 type: 'POST',
-                url: "http://localhost/Thesis/php/CheckInfo.php",
+                url: "/CheckInfo.php",
                 data:{  
                     "Department":Department1,  
                 }, 

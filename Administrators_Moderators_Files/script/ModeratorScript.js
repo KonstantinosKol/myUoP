@@ -246,7 +246,7 @@ function checkLessonOnAdd(){
             var Department = document.getElementById("DepartmentTitle").innerHTML;
             $.ajax({
                 type: 'POST',
-                url: "https://undes1red.com/ThesisWebSite/php/checkLesson.php",
+                url: "/checkLesson.php",
                 data:{  
                     "Lesson":Lesson1,  
                     "Department":Department,  
@@ -321,7 +321,7 @@ function checkLessonOnEdit(){
          var Lesson1 = document.getElementById("LessonInputOnEdit").value;
             $.ajax({
                 type: 'POST',
-                url: "https://undes1red.com/ThesisWebSite/php/checkLesson.php",
+                url: "/checkLesson.php",
                 data:{  
                     "Lesson":Lesson1,  
                     "Department":Department,  
