@@ -5,20 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale-1.0">
         <title>index</title>
 
-        <!-- <script src="script.js"></script> -->
-        <!-- <script type="text/javascript" src="index.js"></script> -->
         <link rel="stylesheet" type="text/css" href="font-awesome-css/all.min.css">
         <link rel="stylesheet" type="text/css" href="font-awesome-css/fontawesome.css">
         <link rel="stylesheet" type="text/css" href="font-awesome-css/fontawesome.min.css">
-        <!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
 
         <link rel="stylesheet" type="text/css" href="./css/index.css" />
         <link rel="stylesheet" type="text/css" href="./css/departments.css" />
 
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> Info icon -->
         <script src="./js/jquery.min.js"></script>
         <script src="./js/lottie.min.js"></script>
-        <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script> -->
         
     </head>
     <script src="cordova.js"></script>
@@ -26,12 +21,8 @@
     <body>
       
          <!-- ============================ Splach Screen ============================================-->
-        <div id="slide" class="Splach_Screen">
-            <!--  <img  class="before" src="./img/tree-3.jpg"> -->
-        
-            <!-- <div class="animate seven before">
-                <span>U</span><span>n</span><span>i</span><span>v</span><span>e</span><span>r</span><span>s</span><span>i</span><span>t</span><span>y</span>&nbsp;<span>A</span><span>p</span><span>p</span>
-            </div> --> 
+        <!-- <div id="slide" class="Splach_Screen">
+          
             <img  class="Label" src="./img/Label.png">
 
             <div class="animated-title">
@@ -46,7 +37,7 @@
               </div>
             </div>
 
-        </div>
+        </div> -->
 
 
 <div class="containerS">
@@ -122,16 +113,43 @@
         <!-- ==========================Tmimata======================== -->
       <div id="GroupOfButtons" class="GroupOfButtons secondScreen view">
 
-          <button class="backButton" onclick="back()"><i class="fa fa-long-arrow-left"></i></button>
+        <!-- <div id="test"> -->
+          <div id="searchSection">
+            <button class="backButton" onclick="back()"><i class="fa fa-long-arrow-left"></i></button>
+  
+            <input type="text" id="myInput1" onkeyup="searchFunc1()" placeholder="Ψάξε Τμήμα..." >
+            <input type="text" id="myInput2" onkeyup="searchFunc2()" style="display:none" placeholder="Ψάξε Τμήμα..." >
 
-          <input type="text" id="myInput" onkeyup="searchFunc()" placeholder="Ψάξε Τμήμα..." >
+          </div>
+  
+          <div id="listsSection">
+            <div id="allListButton" data-id="closed">Όλα</div>
+            <div id="savedListButton">Αποθηκευμένα</div>
+          </div>
 
-          <ul id="myUL">
+          <div id="svg__No_Connection" class="lottie" ></div>
           
-          </ul>
+        <div class="containerForLists">
+          <div class="view2">
 
-          <!-- <div id="loading1" class="loader1 show"></div> -->
-          <!-- <div id="svg__No_Connection" class="lottie" style="display: none"></div> -->
+            <div id="List1"  >
+              <ul id="myUL">
+          
+              </ul>
+            </div>
+  
+            <div id="List2" class="secondList" >
+              <ul id="myUL1">
+          
+              </ul>
+              <div id="NoSavedDepartmentDiv" style="display:none">
+                <div id="NoSavedDepartments" class="lottie" ></div>
+              </div>
+            </div>
+
+          </div>
+         </div>
+
 
       </div> 
 
@@ -141,7 +159,7 @@
                 <div class="overlayExamina"></div>
                 <div id="popupExamina2" class="contentExamina">
 
-
+                
                   <div class="scrollingExam">
                     <p style="font-family: 'Anton', Arial, sans-serif;font-size: 25px;color: #14A098; margin-bottom: 20px; margin-top: 10px">Διάλεξε εξάμηνο</p>
         
@@ -212,9 +230,7 @@
               <button class="PortfolioButton" onclick="">Μαθήματα <i class='fas fa-inbox'></i></button>
             </div>
             
-            <div id="noConnAnim">
-
-            </div>
+           <div id="svg__No_Connection2" class="lottie" ></div>
 
 
             <div class="scrollableArray">
@@ -274,10 +290,11 @@
                         </table>
                     
 
-                      <p id="noSavedLesson">Δεν υπάρχουν αποθηκευμένα μαθήματα</p>
+                      <div id="noSavedLessons" class="lottie">Δεν υπάρχουν αποθηκευμένα μαθήματα ακόμη</div>
+
                     </div>
 
-                    <div class="DepartmentInfos" id="DepartmentInfos"></div>
+                    <div class="DepartmentInfos" id="DepartmentInfos"> </div>
 
                     <button id="clearPortfolio" ><i class="far fa-trash-alt" ></i></button>
 
@@ -294,16 +311,14 @@
         <div class="overlayAlert"></div>
          <div class="contentAlert">
 
-                <div class="warningSection2">
-
-                </div>
+                <div class="warningSection"><div id="svg__Warning" class="lottie" ></div></div>
                           
                 <div class="contentSection">
                   <p >Είσαι σίγουρος πως θέλεις να διαγράψεις όλα τα αποθηκευμένα μαθήματα;</p>
 
                   <div class="AlertButtons">
-                    <button class="closeAlert">Κλείσιμο</button>
                     <button class="deleteList">Διαγραφή</button>
+                    <button class="closeAlert">Κλείσιμο</button>
                   </div>
                 </div>
             
@@ -317,9 +332,7 @@
         <div class="overlayAlert"></div>
          <div class="contentAlert">
 
-              <div class="warningSection1">
-                <!-- <i class='fas fa-exclamation-circle'></i> -->
-              </div>
+              <div class="warningSection"><div id="svg__Warning1" class="lottie" ></div></div>
 
               <div class="contentSection">
                 <p id="alertText">Δεν είναι αποθηκευμένο κάποιο από τα Προαπαιτούμενα Μαθήματα</p>
