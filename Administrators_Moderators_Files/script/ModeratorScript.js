@@ -33,7 +33,7 @@ $(function() {
         document.getElementById("Exam6o").checked = false;
         document.getElementById("Exam8o").checked = false;
         document.getElementById("Exam10o").checked = false;
-        
+         
         document.getElementById("LessonOnADD").value ="";
         document.getElementById("RequiredOnAdd").value =""; 
         document.getElementById("InfosOnAdd").value =""; 
@@ -52,6 +52,8 @@ $(function() {
  
     
 });
+
+let DB_URL= '';
 
  //==========Close-EDIT Popup======================
 $("#popup-1 .overlay").click(function(event) {
@@ -246,7 +248,7 @@ function checkLessonOnAdd(){
             var Department = document.getElementById("DepartmentTitle").innerHTML;
             $.ajax({
                 type: 'POST',
-                url: "/checkLesson.php",
+                url: DB_URL+"/ThesisWebSite/php/checkLesson.php",
                 data:{  
                     "Lesson":Lesson1,  
                     "Department":Department,  
@@ -317,27 +319,7 @@ function checkLessonOnEdit(){
     var ECTS = document.getElementById("ECTSInputOnEdit").value;
     var Infos = document.getElementById("InfosInputOnEdit").value.replace(/\s+/, '').length;
     if(ECTS != "" &&  Lesson != 0 && Direction !=0 && checkbox==1 && Infos!=0){
-        var Department = document.getElementById("DepartmentTitle").innerHTML;
-         var Lesson1 = document.getElementById("LessonInputOnEdit").value;
-            $.ajax({
-                type: 'POST',
-                url: "/checkLesson.php",
-                data:{  
-                    "Lesson":Lesson1,  
-                    "Department":Department,  
-                }, 
-                success: function (data) {
-                  if(data == "ok"){
-                       document.getElementById("submitButtonOnEditLesson").click();
-                  }else{
-                    $("#warningOnEditLesson").html("Το μάθημα υπάρχει")
-                    $("#warningOnEditLesson").css("display","block")
-                    setTimeout(function() {
-                        $("#warningOnEditLesson").css("display","none")
-                    }, 2500);
-                  }
-                }//====End Success    
-            });//===End AJAX
+        document.getElementById("submitButtonOnEditLesson").click();
     }else{
         $("#warningOnEditLesson").html("Συμπληρώστε όλα τα στοιχεία");
         $("#warningOnEditLesson").css("display","block")
@@ -351,7 +333,8 @@ function checkLessonOnEdit(){
 
 
 // $(document).ready(function() {
-//     var delayInMilliseconds = 5000;  //<<<<<<<<====================SOS=======================
+//     var delayInMilliseconds = 5000;  //<<<<<<<< logout after time expires
+
 
 //     setTimeout(function() {
 //         window.location="./php/logout.php"

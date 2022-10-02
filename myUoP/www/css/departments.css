@@ -343,7 +343,7 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	padding-right: 25px;
 }
 
-#myInput1, #myInput2{
+#myInput{
 	/* background-position: 10px 12px; */
 	background-repeat: no-repeat;
 	width: 72%;
@@ -430,7 +430,7 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 }
 
 
-#myUL li, #myUL1 li {
+#DepartmentsList li, #savedDepartmentsList li {
 	width: 100%;
 	margin: 0 auto;
 	/* margin-bottom: 20px; */
@@ -442,7 +442,7 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 }
 
 
-#myUL , #myUL1 {
+#DepartmentsList , #savedDepartmentsList {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
@@ -525,15 +525,14 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	height: 100%;
 	width: 100%;
 	background:transparent;
-	border-collapse:separate;
-	border-spacing:0 10px;
-	background:transparent;
+	/* border-collapse:separate;
+	border-spacing:0 10px; */
 	
 }
 
 #userTable tbody tr { 
 	box-shadow:0px 3px 3px rgba(41, 41, 41, 0.3);
-	
+	border-radius:20px ;
 }
 
 
@@ -546,13 +545,70 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	align-items: left;
 	padding: 0px ;
 	border: none;
+	/* padding-top:10px; padding-bottom:5px; */
 	
 }
 
 
+
+#userTable  tr.spaceUnder>td:first-child { 
+	border-bottom-left-radius: 10px;
+	font-family: "Open Sans", sans-serif;
+	font-size: 20px;
+	font-weight:500;
+
+	overflow: hidden;
+
+	height: 100%;
+}
+
+
+#userTable  tr.spaceUnder>td:nth-child(2)  {
+	border-bottom-right-radius: 10px;
+	overflow: hidden;
+  }
+
+#userTable  tr.spaceUnder>td {
+	padding-top: 20px;
+}
+
 .infosTableDiv{
 	padding-bottom: 5%;
 }
+
+.lessonText{
+	background:#E7F0F0;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:15px;
+	padding-bottom:15px;
+	height:100%;
+}
+
+.buttonDiv{
+	background:#E7F0F0;
+	height:100%;
+	/* padding-top: 30%;
+	padding-bottom: 20%; */
+	display: grid;
+	place-items: center;
+	padding-right: 5%;
+}
+
+/* .lessonInsideRows{
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	font-size: 20px;
+	font-weight:500;
+	border-top: 5px solid transparent;
+
+	overflow: hidden;
+
+  text-overflow: ellipsis;
+ 
+	max-height: 50px;
+} */
+
 
 table {
     border-collapse: separate;
@@ -561,29 +617,22 @@ table {
 }
 
 #slidedTable td{
-	border: none;
+	border-top:1px solid rgb(6,129,127);
 	padding: 10px 10px 10px 10px;
 }
 
 
-#slidedTable  tr:last-child td{
-
-	border-top:1px solid rgb(6,129,127);
-}
-
 
 
 #slidedTable2{
-	border: none;
+	border-top:1px solid rgb(6,129,127);
 	background:transparent;
 }
 
 
 
 #slidedTable2 td{
-	border-top:1px solid rgb(6,129,127);
-	border-bottom:1px solid rgb(6,129,127);
-	border-bottom:none;
+	
 	padding: 10px 10px 10px 10px;
 }
 
@@ -596,7 +645,7 @@ table {
 #slidedTable2  tr:last-child td{
 	border-bottom-right-radius:20px;
 	border-bottom-left-radius:20px;
-	border-bottom:1px solid rgb(6,129,127);
+	border-top:1px solid rgb(6,129,127);
 }
 
 
@@ -648,35 +697,24 @@ table {
   }
  
 
-  .foo{
-	position: relative;
-	padding-bottom: 20px;
-}
 
 #infosTable td{
 	padding: 10px 10px 10px 10px;
 	font-family: "Open Sans", sans-serif;
 	border: 0px ;
-	border-bottom:1px solid rgb(6,129,127);
+	border-top:1px solid rgb(6,129,127);
 }
 
-/* .tmp{
-	padding: 0px 0px 0p 0px;
-	margin: 0px 0px 0px 0px;
-	background-color: white;
-	height: 100%;
-} */
 
-.lessonInsideRows{
-	font-family: "Open Sans", sans-serif;
-	font-size: x-large;
-	font-size: 20px;
-	font-weight:500;
-	border-top: 5px solid transparent;
-	
-	/* padding-right: 10px; */
-
-	height: 50px;
+.lessonDownArrow{
+	color: #b6b4b4;
+	justify-content: center;
+	text-align: center;
+	width: 100%;
+	display: grid;
+	place-items: center;
+	margin-top: 5px;
+	padding-left: 25%;
 }
 .ECTSInsideRows{
 	font-family: "Open Sans", sans-serif;
@@ -725,7 +763,6 @@ p {
 .addToList{
 	width: 90%;
 	height: 40px;
-	/* background-color: #d3134d; */
 	background-color: #4ECB96;
 	color: #1d1d1d;
 	border-radius: 5px;
@@ -823,6 +860,159 @@ p {
   .show2{
 	display:table-row;
 	}
+/*=======================================================Notifications-Screen===========================================================*/
+
+.NotificationsScreen .content {
+	position:absolute;
+	top:0%;
+	left:-100%;
+	background:rgb(231, 240, 240);
+	width:80%;
+	height: 100%;
+	padding: 0px 0px 0px 0px;
+	z-index: 10;
+
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	color: rgb(0, 0, 0);
+	word-wrap: break-word;
+
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+
+  }
+
+  .NotificationsScreen .overlay {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:100vh;
+	background:rgba(0,0,0,0.7);
+	z-index:5;
+	display:none;
+	backdrop-filter: blur(5px);
+  }
+   
+  .NotificationsScreen.active .overlay {
+	display:block;
+  }
+
+
+  .clearNotification{
+	border-radius: 10px;
+	border: 1px solid #14A098;
+	color: #14A098;
+	font-family: "Open Sans", sans-serif;
+	text-align: center;
+	font-weight:500 ;
+	font-size: large;   
+	padding: 10px 10px 10px 10px;
+	position: absolute;
+	top: 3%;
+	left: 5%;
+	box-shadow: rgba(54, 54, 54, 0.20) 0px 6px 6px, rgba(54, 54, 54, 0.20) 0px 5px 5px;
+
+  }
+
+  .closeNotification{
+	border-radius: 10px;
+	color: #14A098;
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	position: absolute;
+	top: 4%;
+	right: 12%;
+  }
+
+  .NotificationsLine{
+	background-color: #14A098;
+	width: 100%;
+	height: 2px;
+	position: absolute;
+	top: 13%;
+  }
+
+  #NotificationsList{
+	position: absolute;
+	top: 15%;
+	left: 5%;
+  }
+
+  #NotificationsList li{
+	border-radius: 10px;
+	border: 1px solid #14A098;
+	color: #14A098;
+	width: 90%;
+	list-style-type: none;
+	margin-bottom: 5%;
+	padding: 2% 2% 2% 2%;
+	display: inline-block;
+	font-family: "Open Sans", sans-serif;
+	text-align: center;
+	font-weight:500 ;
+	font-size: large;
+	box-shadow: rgba(54, 54, 54, 0.20) 0px 4px 4px, rgba(54, 54, 54, 0.20) 0px 3px 3px;
+
+  }
+
+  .oldItem{
+	color:#d42b0e;
+	font-family: "Open Sans", sans-serif;
+	text-align: center;
+	font-weight:bold ;
+	font-size: large;
+
+}
+.newItem{
+	color:#14a01b;
+	font-family: "Open Sans", sans-serif;
+	text-align: center;
+	font-weight:bold ;
+	font-size: large;
+}
+
+  .NotificationsIcon{
+	width:  5%;
+    height: 5%;
+	position: absolute;
+	top: 4%;
+	left: 7%;
+  }
+
+  .NotificationsIcon span {
+    position: absolute;
+    top: 0;
+    right: 0;
+	color: #14A098;
+    width: 2.5%;
+    height:  2.5%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+  /* ============================================================================== */
+   
+  
+
+
+
+  .hidden{
+	  display: none;
+  }
+
+  .show{
+	  display: inline;
+  }
+
+  .show2{
+	display:table-row;
+	}
+
 
   /*==========================================No-Connection-Screeen==============================================*/
   .NoConnectionScreen{
@@ -1364,7 +1554,6 @@ p {
   #noSavedLessons{
 	color: #14A098;
 	font-family: "Open Sans", sans-serif;
-	font-size: x-large;
 	text-align: center;
 	font-weight:700 ;
 	font-size: large;
@@ -1409,6 +1598,8 @@ p {
 	font-size: 20px;
 	padding: 10px 5px 10px 10px;
 }
+
+
 
   @media screen and (min-width:768px){
 	.button1{

@@ -38,12 +38,33 @@
             </div>
 
         </div> -->
+    <!-- ========================== Notifications Screen======================== -->
+    <div class="NotificationsScreen" id="NotificationsScreen">
+      <div class="overlay"></div>
+      <div class="content">
 
+        <div class="clearNotification">Καθαρισμός</div>
+        <div class="closeNotification"><i class="fa fa-close"></i></div>
+        <div class="NotificationsLine"></div>
+
+        <ul id="NotificationsList">
+
+        </ul>
+              
+      
+      </div>
+    </div>
 
 <div class="containerS">
 
         <!-- ============================ Menu ============================================-->
         <div id="Menu" class="view" >
+
+          <div class="NotificationsIcon">
+            <i class="fa fa-bell" style=" font-size: 1.6rem; color:#525357"></i>
+            <span></span>
+          </div>
+
             <p class="title">myUoP</p>
         
               <div class="MenuButton1-2">
@@ -117,9 +138,7 @@
           <div id="searchSection">
             <button class="backButton" onclick="back()"><i class="fa fa-long-arrow-left"></i></button>
   
-            <input type="text" id="myInput1" onkeyup="searchFunc1()" placeholder="Ψάξε Τμήμα..." >
-            <input type="text" id="myInput2" onkeyup="searchFunc2()" style="display:none" placeholder="Ψάξε Τμήμα..." >
-
+            <input type="text" id="myInput" onkeyup="searchFunc()" placeholder="Ψάξε Τμήμα..." >
           </div>
   
           <div id="listsSection">
@@ -133,13 +152,13 @@
           <div class="view2">
 
             <div id="List1"  >
-              <ul id="myUL">
+              <ul id ='DepartmentsList'>
           
               </ul>
             </div>
   
             <div id="List2" class="secondList" >
-              <ul id="myUL1">
+              <ul id="savedDepartmentsList">
           
               </ul>
               <div id="NoSavedDepartmentDiv" style="display:none">
@@ -206,20 +225,18 @@
              </div>
        </div>  
 
-        <!-- =============================================================================== -->
-        <!-- <div  class="middle" id="middle"></div> -->
         <!-- =======================================SlideUpGiaProgrammata=========================================== -->
-              <div class="popupSeason" id="popupSeason">
-                <div class="overlaySeason"></div>
-                <div id="popupSeason2" class="contentSeason">
+        <div class="popupSeason" id="popupSeason">
+          <div class="overlaySeason"></div>
+          <div id="popupSeason2" class="contentSeason">
 
-                    <p style="font-family: 'Anton', Arial, sans-serif;font-size: 25px;color: #14A098; margin-bottom: 20px; margin-top: 10px">Διάλεξε εξάμηνο</p>
-                   
-                    <button  class="Season1" onclick="redirectToPDF('Winter')">Χειμερινό Εξάμηνο</button>
-                    <button  class="Season2" onclick="redirectToPDF('Summer')">Εαρινό Εξάμηνο</button>
-                    
-                </div>
-              </div> 
+              <p style="font-family: 'Anton', Arial, sans-serif;font-size: 25px;color: #14A098; margin-bottom: 20px; margin-top: 10px">Διάλεξε εξάμηνο</p>
+              
+              <button  class="Season1" onclick="redirectToPDF('Winter')">Χειμερινό Εξάμηνο</button>
+              <button  class="Season2" onclick="redirectToPDF('Summer')">Εαρινό Εξάμηνο</button>
+              
+          </div>
+        </div> 
 
 
         <!-- ============================================Table===================================== -->
@@ -258,7 +275,7 @@
  </div> <!-- End od containerS -->
    
        <!-- ==========================Portfolio======================== -->
-        <div class="popup2" id="popup-2">
+      <div class="popup2" id="popup-2">
             <div class="content2">
 
                       <div class="single-skill">
@@ -302,9 +319,7 @@
             
             </div>
       </div>
-
-
-     
+  
       <!-- =================================Alert-PopUp for Delete All===================================== -->
       <!-- ================================================================================= -->
       <div class="Alert2" id="Alert-2">
@@ -348,19 +363,6 @@
      
     </body>
 
-
-    <script>
-
-
-        // var queryString = location.search.substring(1);             //========SOS(pernei to "false" apo to line PROSOXI)==========
-        // var a = queryString.split("|"); 
-
-        // //alert("->"+a[0]+"<");
-        // if(a[0]=="false"){
-        //     document.getElementById("slide").className="after"
-        // }                                                        
-     
-    </script>
      
      <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
 

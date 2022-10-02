@@ -1,4 +1,5 @@
-  var adminTable = document.getElementById("UsersTable");
+var adminTable = document.getElementById("UsersTable");
+let DB_URL= '';
 for (var i=0; i<adminTable.rows.length; i++) {
     adminTable.rows[i].onclick = function() {
         document.getElementById("moderatorIDText").value = this.cells[0].innerHTML;
@@ -30,7 +31,7 @@ togglePassword2.addEventListener("click", function () {
     const type = password2.getAttribute("type") === "password" ? "text" : "password";
     password2.setAttribute("type", type);
     
-    // toggle the icon
+    // toggle the icon 
     this.classList.toggle("bi-eye");
 });    
 //===========Add-moderator==================================================
@@ -255,12 +256,10 @@ $(function() {
       
         event.stopPropagation();
         var $target = $(event.target);
-        // console.log($target.contents().get(0));
         console.log($target.tagName);
         // if($target.tagName != 'a'){
              $target.parent().parent().parent().parent().parent().slideToggle();
         // }
-        //td      tr        //next tr                              
     });
 
 
@@ -282,7 +281,7 @@ function checkNewUser(){
             var username = document.getElementById("AddModeratorUsername").value;
             $.ajax({
                 type: 'POST',
-                url: "/CheckUser.php",
+                url: DB_URL+"/ThesisWebSite/php/CheckUser.php",
                 data:{  
                     "username":username,  
                 }, 
@@ -325,17 +324,15 @@ function checkNewInfo(){
     var ECTS = document.getElementById("ECTSonADD").value;
     var Exam = document.getElementById("ExamOnADD").value;
     if(ECTS != "" && Exam != "" && Department != 0  && Site !=0){
-
             var Department1 = document.getElementById("DepartmentOnAdd").value;
             $.ajax({
                 type: 'POST',
-                url: "/CheckInfo.php",
+                url: DB_URL+"/ThesisWebSite/php/CheckInfo.php",
                 data:{  
                     "Department":Department1,  
                 }, 
                 success: function (data) {
                   if(data == "ok"){
-                    //   alert("ok");
                     document.getElementById("submitButtonOnAddNewInfo").click();
                     console.log("click")
                   }else{

@@ -18,14 +18,12 @@ function closePortfolio() {
       top: "55%",
   }, 500 );
  
-
   setTimeout(function() {
   
     var table = $('#portfolioTable').DataTable();
         table.clear().destroy();
   }, 500);
   
-
 }
 
 
@@ -312,7 +310,6 @@ function displayPortfolioTable() {
                                   <td class="hidden" width="0%" >${results.rows.item(i).Examino}</td>
                                   <td width="20%" style="background-color: #19afa8;"><button data-id="${results.rows.item(i).id}" class="removeFromList"><i class="far fa-trash-alt"></i></button></td>
                                 </tr>`;
-
               portfolioTableContent.querySelector("tbody").innerHTML = productMarkup;
 
               if(i==len-1){
@@ -463,7 +460,7 @@ function format2 ( d ) {
     // vars
     const productId = clickedBtn.getAttribute("data-id");
     //const card = clickedBtn.parentElement.parentElement;
-    const tr = clickedBtn.parentElement.parentElement;        //<<====<tr>      portfolioTableContent.querySelectorAll("tr td:nth-child(3)");
+    const tr = clickedBtn.parentElement.parentElement.parentElement;        //<<====<tr>      portfolioTableContent.querySelectorAll("tr td:nth-child(3)");
     //const td = tr.querySelector("td");
     const Lesson =tr.cells[0].querySelector("p").innerHTML;
     const ECTS = tr.cells[2].innerHTML;
@@ -488,7 +485,6 @@ function format2 ( d ) {
 
 
     if (!isProductInCart) {
-
       if(Required !="-" ){
 
         checkRequired(Required,clickedBtn,productId,Lesson,ECTS,Examino,Direction)
@@ -666,7 +662,6 @@ lessonsTable.addEventListener("click", function(e) {
 
      //---if Add is pressed-------
     if (clickedBtn.classList.contains("addToList")) {
-
       saveProduct(clickedBtn);
     
     }//---if Delete is pressed-------
@@ -855,7 +850,7 @@ clearPortfolioBtn.addEventListener("click", function(e) {
 
   });
 
-})();//============================end 0f function==========================================
+})();//============================ end 0f function ==========================================
 
 
 
@@ -936,45 +931,49 @@ function fillLessonsTable2(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino
 
   db.executeSql("SELECT count(*) AS mycount FROM savedLessonsTable WHERE id=?", [id], function(rs) {
     
-      var tr_str = 
-      "<tr data-id='mainTr'>" +
-          "<td  width='80%' class='lessonInsideRows' data-id='closed'><p style='padding-left:5px;padding-right:10px; padding-top:5px; padding-bottom:5px;'>" +Lesson + "</p></td>" ;     //<<<=====0
-      if (rs.rows.item(0).mycount!=0) {
-          //Remove
-          tr_str=tr_str+"<td  width='20%' id='aa' class='tmp' ><button class='removeFromArray' id='addButton' data-id="+id+"><i class='far fa-trash-alt'></i></button></td>" 
-          updateLesson(id,Lesson,ECTS,Direction,Examino)
-
-        } else {
-          //ADD
-          tr_str=tr_str+"<td  width='20%' id='aa' class='tmp' ><button class='addToList' id='addButton' data-id="+id+"><i class='fas fa-plus'></i></button></td>";
-      }
-      tr_str=tr_str+ 
-          "<td  width='0%' class='hidden'>" +ECTS + "</td>" +     //<<<=====2
-          "<td  width='0%' class='hidden'>" +changeZero(Examino) + "</td>"+ //<<<=====3
-          "<td  width='0%' class='hidden'>" +Infos + "</td>" +         //<<<=====4
-          "<td  width='0%' class='hidden'>" +Direction + "</td>" +         //<<<=====5
-          "<td  width='0%' class='hidden'>" +changeOperators(Required) + "</td>" +              //<<<=====6
-      "</tr>"
-      $("#userTable tbody").append(tr_str);
+    var tr_str = 
+    "<tr data-id='mainTr' class='spaceUnder'>" +
+        "<td  width='80%'  data-id='closed'><p class='lessonText' >" +Lesson + "</p></td>" ;     //<<<=====0
+    if (rs.rows.item(0).mycount!=0) {
+        //Remove
+        tr_str=tr_str+"<td  width='20%'  ><div class='buttonDiv'><button class='removeFromArray' data-id="+id+"><i class='far fa-trash-alt'></i></button></div></td>" 
+        updateLesson(id,Lesson,ECTS,Direction,Examino)
+    } else {
+        //ADD
+        tr_str=tr_str+`<td  width='20%'  ><div class='buttonDiv' ><button class='addToList' data-id=`+id+`> <i class='fas fa-plus'></i> </button></div></td>`;
+    }
+    tr_str=tr_str+ 
+        "<td  width='0%' class='hidden'>" +ECTS + "</td>" +     //<<<=====2
+        "<td  width='0%' class='hidden'>" +changeZero(Examino) + "</td>"+ //<<<=====3
+        "<td  width='0%' class='hidden'>" +Infos + "</td>" +         //<<<=====4
+        "<td  width='0%' class='hidden'>" +Direction + "</td>" +         //<<<=====5
+        "<td  width='0%' class='hidden'>" +changeOperators(Required) + "</td>" +              //<<<=====6
+    "</tr>"
+    $("#userTable tbody").append(tr_str);
 
       if(i==len-1){
+          //dark theme
           if(darkTheme == true){
-              $('#userTable tr').each(function() {
-                  $(this).find("td").css({"background":"#525252","color":"#e1e1e1"});
-              });
-          }else{
-              $('#userTable tr').each(function() {
-                  $(this).find("td").css({"background":"#E7F0F0","color":"black"});
-              });
-          }
-          formLessonsTable2();
+            $('#userTable tr').each(function() {
+                $(this).find("td").find("p").css({"background":"#525252","color":"#EFEFEF"});
+                $(this).find("td").next().find("div").css({"background":"#525252","color":"#EFEFEF"});
+            });
+        }else{
+            $('#userTable tr').each(function() {
+                $(this).find("td").find("p").css({"background":"#E7F0F0","color":"#black"});
+                $(this).find("td").next().find("div").css({"background":"#E7F0F0"});
+            });
+        }
+         //make ordering with by Direction
+        formLessonsTable2();
       }
   }, function(error) {
+
     var tr_str = 
-    "<tr data-id='mainTr'>" +
-        "<td  width='80%' class='lessonInsideRows' data-id='closed'><p style='padding-left:5px;padding-right:10px; padding-top:5px; padding-bottom:5px;'>" +Lesson + "</p></td>" ;     //<<<=====0
-        //ADD
-        tr_str=tr_str+"<td  width='20%' id='aa' class='tmp' ><button class='addToList' id='addButton' data-id="+id+"><i class='fas fa-plus'></i></button></td>";
+    "<tr data-id='mainTr' class='spaceUnder'>" +
+        "<td  width='80%'  data-id='closed'><p class='lessonText' >" +Lesson + "</p></td>" ;     //<<<=====0
+    //ADD
+    tr_str=tr_str+`<td  width='20%'  ><div class='buttonDiv' ><button class='addToList' data-id=`+id+`> <i class='fas fa-plus'></i> </button></div></td>`;
     tr_str=tr_str+ 
         "<td  width='0%' class='hidden'>" +ECTS + "</td>" +     //<<<=====2
         "<td  width='0%' class='hidden'>" +changeZero(Examino) + "</td>"+ //<<<=====3
@@ -985,16 +984,21 @@ function fillLessonsTable2(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino
     $("#userTable tbody").append(tr_str);
 
     if(i==len-1){
-        if(darkTheme == true){
-            $('#userTable tr').each(function() {
-                $(this).find("td").css({"background":"#525252","color":"#EFEFEF"});
-            });
-        }else{
-            $('#userTable tr').each(function() {
-                $(this).find("td").css({"background":"#E7F0F0","color":"black"});
-            });
-        }
-        formLessonsTable2();
+      //dark theme
+      if(darkTheme == true){
+        $('#userTable tr').each(function() {
+            $(this).find("td").find("p").css({"background":"#525252","color":"#EFEFEF"});
+            $(this).find("td").next().find("div").css({"background":"#525252","color":"#EFEFEF"});
+        });
+      }else{
+          $('#userTable tr').each(function() {
+              // $(this).find("td").css({"background":"#E7F0F0","color":"black"});
+              $(this).find("td").find("p").css({"background":"#E7F0F0","color":"#black"});
+              $(this).find("td").next().find("div").css({"background":"#E7F0F0"});
+          });
+      }
+      //make ordering with by Direction
+      formLessonsTable2();
     }
   });
  
@@ -1040,23 +1044,23 @@ function formLessonsTable2() {
   
                   api.column(5, { page: 'current' }).data().each(function (group, i) {
   
-                      if (last !== group) {
-                        if(i==0){
+                    if (last !== group) {
+                      if(i==0){
                           $(rows).eq(i).before(
                             '<tr class="group" style="box-shadow: none;">'+
                                   '<td colspan="8"  style="background-color:transparent;  padding-left: 10px;" class="orderingClass"><i class="fas fa-caret-right"></i> '+ group  + '</td>'
                               +'</tr>'
                         );
-                    }else{
+                      }else{
                       $(rows).eq(i).before(
                         '<tr style="box-shadow: none;"><td colspan="8" style="padding: 20px 20px;background:#transparent; style="box-shadow: none;""></td></tr>'+
                         '<tr class="group" style="box-shadow: none;">'+
                             '<td colspan="8"  style="background-color:transparent;  padding-left: 10px;" class="orderingClass" ><i class="fas fa-caret-right"></i> ' + group  + '</td>'
                         +'</tr>'
                         );
-                    }
-                          last = group;
                       }
+                      last = group;
+                    }
                   });
               }
   } );

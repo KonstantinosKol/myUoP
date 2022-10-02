@@ -19,6 +19,122 @@ function OpenCloseHelpPopUp(){
 
 
 
+// Open Notifications Screen
+$('.NotificationsIcon').on('click', function(e){
+    $('#NotificationsScreen .content').animate({
+        left: "0%"
+    });
+    document.getElementById("NotificationsScreen").classList.toggle("active");
+});
+
+
+// Close Notifications Screen
+$('.closeNotification').on('click', function(e){
+    
+    calculateNotifications();
+
+    $('#NotificationsScreen .content').animate({
+        left: "-100%"
+    });
+    document.getElementById("NotificationsScreen").classList.toggle("active");
+});
+
+
+// Clear Notifications
+$('.clearNotification').on('click', function(e){
+
+    var  ul, li,  i;
+    ul = document.getElementById("NotificationsList");
+    li = ul.getElementsByTagName("li");
+    for (i = li.length-1; i >= 0 ; i--) {
+        $(li[i]).delay(150).animate({
+            opacity: "0"
+        });
+        setTimeout(function() {
+            li[i].remove();
+        }, 300);
+    }
+
+
+
+    db = window.sqlitePlugin.openDatabase({
+        name: 'my.db',
+        location: 'default',
+    });
+
+    db.executeSql("DROP TABLE NotificationsTable ", [], function(resultsNotifications) {});
+
+    $('.NotificationsIcon').find("span").css("color","#DF5858")
+    $('.NotificationsIcon').find("span").html("0")
+
+
+});
+
+
+//Count Notifications
+function calculateNotifications(){
+
+
+    db = window.sqlitePlugin.openDatabase({
+        name: 'my.db',
+        location: 'default',
+    });
+
+
+    $("#NotificationsList").empty();
+
+    db.executeSql("SELECT *  FROM NotificationsTable ", [], function(resultsNotifications) {
+        //fill notifications list
+        for(var i=0; i<resultsNotifications.rows.length; i++){
+            $("#NotificationsList").append("<li>"+resultsNotifications.rows.item(i).Notification +"</li>");
+        }
+        //check dark theme
+        if(localStorage.getItem("darkTheme") !== null){
+            if(localStorage.getItem("darkTheme") == "on"){
+                $('#NotificationsList li').css({"background":"#525252","color":"#EFEFEF"});
+            }else{
+                $('#NotificationsList li').css({"background":"rgb(231, 240, 240)","color":"#14A098"});
+            }
+        }
+        //make notifications icon
+        if(resultsNotifications.rows.length == 0){
+            $('.NotificationsIcon').find("span").css("color","#DF5858")
+            $('.NotificationsIcon').find("span").html("0")
+        }else{
+            $('.NotificationsIcon').find("span").css("color","#14A098")
+            if(resultsNotifications.rows.length > 20){
+                $('.NotificationsIcon').find("span").html("20+")
+            }else{
+                $('.NotificationsIcon').find("span").html(resultsNotifications.rows.length)
+            }
+        }
+    },function(error){
+        $('.NotificationsIcon').find("span").css("color","#DF5858")
+        $('.NotificationsIcon').find("span").html("0")
+    });
+
+       
+
+
+    // var  ul, li,  i;
+    // ul = document.getElementById("NotificationsList");
+    // li = ul.getElementsByTagName("li");
+    // if(li.length > 0){
+    //     if( li.length == 0 ){
+    //         $('.NotificationsIcon').find("span").css("color","#DF5858")
+    //         $('.NotificationsIcon').find("span").html("0")
+    //     }else{
+    //         $('.NotificationsIcon').find("span").css("color","#14A098")
+    //         if(li.length > 20){
+    //             $('.NotificationsIcon').find("span").html("20+")
+    //         }else{
+    //             $('.NotificationsIcon').find("span").html(li.length)
+    //         }
+    //     }
+    // }
+
+}
+
 //toggle sqitch open/close dark theme 
 function swapStyleSheet(sheet) {
 
@@ -40,14 +156,21 @@ function setDarkTheme(){
     $('.button4').css({"background":"#333333","color":"#e1e1e1"});
 
     $('#GroupOfButtons').css("background","#1a1a1a");
-    $('#myInput1').css({"background":"#333333","color":"#969696"});
-    $('#myInput2').css({"background":"#333333","color":"#969696"});
+    $('#myInput').css({"background":"#333333","color":"#969696"});
 
     $('.contentExamina').css("background","#333333");
     $('.contentSeason').css("background","#333333");
 
     $('.PortfolioButton').css("background","rgb(215, 215, 215)");
     $('.CurvedSection').css("background","#333333");
+
+    $('.button1').css({"background":"#525252","color":"#EFEFEF"});
+
+    $('.clearNotification').css({"background":"#525252","color":"#EFEFEF"});
+
+    $('.NotificationsScreen .content').css({"background":"#333333"});
+
+    $('#NotificationsList li').css({"background":"#525252","color":"#EFEFEF"});
 
     $('.content2').css({
         background:"linear-gradient(to top,#333333 0%,#333333 40%,#1a1a1a 40%,#1a1a1a 100%)"
@@ -77,14 +200,23 @@ function setLightTheme(){
     $('.button4').css({"background":"rgb(231, 240, 240)","color":"#14A098"});
     
     $('#GroupOfButtons').css("background","rgb(231, 240, 240)");
-    $('#myInput1').css("background","rgb(240, 239, 239)");
-    $('#myInput2').css("background","rgb(240, 239, 239)");
+    $('#myInput').css("background","rgb(240, 239, 239)");
     $('.contentExamina').css("background","rgb(231, 240, 240)");
     $('.contentSeason').css("background","rgb(231, 240, 240)");
     $('.PortfolioButton').css("background","white");
     $('.CurvedSection').css("background","rgb(231, 240, 240)");
     $('.content2').css("background","rgb(231, 240, 240)");
     $('.contentAlert').css("background","rgb(231, 231, 231)");
+
+    $('.lessonText').css("background","#E7F0F0");
+    $('.buttonDiv').css("background","#E7F0F0");
+
+    $('.button1').css({"background":"rgb(231, 240, 240)","color":"#14A098"});
+    $('.clearNotification').css({"background":"rgb(231, 240, 240)","color":"#14A098"});
+
+    $('.NotificationsScreen .content').css({"background":"rgb(231, 240, 240)"});
+
+    $('#NotificationsList li').css({"background":"rgb(231, 240, 240)","color":"#14A098"});
 
     $('#DepartmentInfos').css({"background":"#E7F0F0","color":"#106b67"});
 
@@ -104,17 +236,17 @@ function back(){
     document.querySelector('.containerS').classList.toggle('view-change');
 
     setTimeout(function() {
-        var  ul, li,  i;
-        ul = document.getElementById("myUL");
-        li = ul.getElementsByTagName("li");
-        for (i = 0; i < li.length; i++) {
-                li[i].style.display = "block";
-                li[i].className="button1";
-                // li[i].style.color = "white";
+        let ul = document.querySelectorAll('#DepartmentsList li');
+        for (let i = 0; i <= ul.length - 1; i++) {
+            ul[i].className="button1";
+        }
+
+        ul = document.querySelectorAll('#savedDepartmentsList li');
+        for (let i = 0; i <= ul.length - 1; i++) {
+            ul[i].className="button1";
         }
     
-        document.getElementById("myInput1").value="";
-        document.getElementById("myInput2").value="";
+        document.getElementById("myInput").value="";
       }, 400);
      
 }
@@ -146,19 +278,18 @@ const NoSavedDepartments = bodymovin.loadAnimation({
 
 
 var mode;
-//Go to Department list (1st screen menu -> 2nd screen) Lessons path
+//Go to Department list (1st screen menu -> 2nd screen) if user want to see Lessons
 function GoToDepartments1(){
 
     document.querySelector('.containerS').classList.toggle('view-change');
     mode=0;
     //If List isnt filled desappear search 
-    if($('#myUL li').length == 0){
-        $('#myInput1').hide();
-        $('#myInput2').hide();
+    if($('#DepartmentsList li').length == 0){
+        $('#myInput').hide();
         $('#listsSection').hide();
         NoConnection1.goToAndPlay(0,true);
     }else{
-        $('#myInput1').show();
+        $('#myInput').show();
         // $('#myInput2').show();
         $('#listsSection').show();
     }
@@ -168,19 +299,17 @@ function GoToDepartments1(){
 
 
 
-//Go to Department list (1st screen menu -> 2nd screen) Tome Sh. path
+//Go to saved Department list (1st screen menu -> 2nd screen) if users want to see time sche.
 function GoToDepartments2(){
     document.querySelector('.containerS').classList.toggle('view-change');
     mode=1;
 
-    if($('#myUL li').length == 0){
-        $('#myInput1').hide();
-        $('#myInput2').hide();
+    if($('#DepartmentsList li').length == 0){
+        $('#myInput').hide();
         $('#listsSection').hide();
         NoConnection1.goToAndPlay(0,true);
     }else{
-        $('#myInput1').show();
-        $('#myInput2').show();
+        $('#myInput').show();
         $('#listsSection').show();
     }
 }
@@ -197,39 +326,9 @@ document.querySelector(".overlaySeason").addEventListener("click",e=>{
 })
 
 
-
-
-
-
-
-// setInterval(function() {
-//     if($('#myUL li').length != 0){
-//         // document.getElementById("loading1").className="loader1 hidden"
-//         $('#svg__No_Connection').hide();
-//     }
-//     else{
-//         // document.getElementById("loading1").className="loader1 show"
-//         $('#svg__No_Connection').show();
-//     }
-
-//     if( document.getElementById("tableBodyId").innerHTML != ""){
-//         document.getElementById("loading2").className="loader2 hidden"
-//     }
-//     else{
-//         document.getElementById("loading2").className="loader2 show"
-       
-//     }
-
-   
-// }, 1000); 
-
-
-
 var DepartmentsInfoTable;
 
-
-
-function fillDepartmnets(id,Department){
+function fillDepartments(id,Department){
 
     
     var db = null;
@@ -252,7 +351,16 @@ function fillDepartmnets(id,Department){
             tr_str=tr_str+`<div class="StarDiv" style="font-size:25px" ><i class='far fa-star'></i></div>
             </li>`;                                    
         }
-        $("#myUL").append(tr_str);
+        $("#DepartmentsList").append(tr_str);
+
+        //check if dark theme is ON
+        if(localStorage.getItem("darkTheme") !== null){
+            if(localStorage.getItem("darkTheme") == "on"){
+                $('.button1').css({"background":"#525252","color":"#EFEFEF"});
+            }else{
+                $('.button1').css({"background":"rgb(231, 240, 240)","color":"#14A098"});
+            }
+        }
     }, function(error) {
         alert(error)
     });
@@ -261,23 +369,75 @@ function fillDepartmnets(id,Department){
 
 
 
-function fillAllDepartmnets(){
+function getDepartments(){
+
+    var db = null;
+    db = window.sqlitePlugin.openDatabase({
+        name: 'my.db',
+        location: 'default',
+    });
+
   // ================Ajax for Departments=======================
-  $("#myUL").empty();
+  let DB_DepartmentsArray = Array();
+  $("#DepartmentsList").empty();
   $.ajax({
     type: 'GET',
-    url: URL+"/FindDepartment.php",
+    url: URL+"/FillDepartments.php",
     dataType: 'jsonp',
     jsonp:"callback",
     success: function (data) {
     
-        var len = data.length;
-
-        for(var i=0; i<len; i++){
-
-            fillDepartmnets(data[i].id,data[i].Department)
-
+        for(var i=0; i<data.length; i++){
+            fillDepartments(data[i].id,data[i].Department)
+            DB_DepartmentsArray.push({
+                id: data[i].id, 
+                Department:  data[i].Department
+            });
         }
+
+        let SavedDepartmentsArray = Array();
+        db.executeSql("SELECT *  FROM savedDepartmentsTable ", [], function(resultsSavedDepartment) {
+            for(var i=0; i<resultsSavedDepartment.rows.length; i++){
+                SavedDepartmentsArray.push({
+                    id: resultsSavedDepartment.rows.item(i).id, 
+                    Department: resultsSavedDepartment.rows.item(i).Department
+                });
+            }
+
+            for(var i=0; i<SavedDepartmentsArray.length; i++){
+
+                // ----- Delete saved Departments with saved Lessons
+                if(DB_DepartmentsArray.findIndex(DB_DepartmentsArray => DB_DepartmentsArray.id == SavedDepartmentsArray[i].id) == -1){
+                    let NotificationText ="<i class='fas fa-exclamation-circle' style='font-weight:bold;font-size: x-large; '></i> Δεν υπάρχει ποια το Τμήμα <span class='oldItem' >"+SavedDepartmentsArray[i].Department+" <i class=fa fa-close></i></span>"
+                    db.executeSql("CREATE TABLE IF NOT EXISTS  NotificationsTable (Notification)", [], function() {
+                        db.executeSql("INSERT INTO NotificationsTable (Notification) VALUES (?)" ,[NotificationText], function() {
+                                calculateNotifications();
+                         }); 
+                    });
+                    db.executeSql("DELETE FROM savedDepartmentsTable WHERE id=?" ,[SavedDepartmentsArray[i].id], function() {}); 
+                    db.executeSql("DELETE FROM savedLessonsTable WHERE Department=?" ,[SavedDepartmentsArray[i].Department], function() { });         
+                }else{
+                     // ----- Update saved Departments with saved Lessons
+                    let index = DB_DepartmentsArray.findIndex(DB_DepartmentsArray => DB_DepartmentsArray.id == SavedDepartmentsArray[i].id)
+                    if(SavedDepartmentsArray[i].Department != DB_DepartmentsArray[index].Department){
+                        let NotificationText="<i class='fas fa-exclamation-circle' style='font-weight:bold;font-size: x-large; '></i> Το τμήμα <span class='oldItem'>"+SavedDepartmentsArray[i].Department + "</span> μετονομάστηκε σε <span class='newItem'>"+DB_DepartmentsArray[index].Department+" <i class='fa fa-check'></i></span>"
+                        db.executeSql("CREATE TABLE IF NOT EXISTS  NotificationsTable (Notification)", [], function() {
+                            db.executeSql("INSERT INTO NotificationsTable (Notification) VALUES (?)" ,[NotificationText], function() {
+                                calculateNotifications();
+                             }); 
+                        });
+                        db.executeSql("UPDATE savedDepartmentsTable SET Department=? WHERE id=?" ,[DB_DepartmentsArray[index].Department,SavedDepartmentsArray[i].id], function() {}); 
+                        db.executeSql("UPDATE savedLessonsTable SET Department=? WHERE Department=?" ,[DB_DepartmentsArray[index].Department,SavedDepartmentsArray[i].Department], function() { }); 
+                    }
+                }
+                
+            }
+            DB_DepartmentsArray = new Array();
+            SavedDepartmentsArray = Array();
+            
+        });//end select 
+
+
     }//====End Success    
     });//===End AJAX
 }
@@ -288,7 +448,11 @@ function fillAllDepartmnets(){
 document.addEventListener("deviceready", function() {
 
 
-    fillAllDepartmnets()
+    // ==================== Fill Deaprtments Screen ======================
+    getDepartments()
+
+    //Calculate Notifications
+    calculateNotifications();
     //================Ajax for ECTS/TotalExam//.. infos=======================
     $.ajax({
         type: 'GET',
@@ -318,46 +482,161 @@ document.addEventListener("deviceready", function() {
         location: 'default',
     });
 
-    var DBidsArray = new Array()
-     //================Ajax for all lessons IDs in online db=======================
-     $.ajax({
-        type: 'GET',
-        url: URL+"/FindAllIDs.php",
-        dataType: 'jsonp',
-        jsonp:"callback",
-        success: function (data) { 
+     db.executeSql("SELECT *  FROM savedDepartmentsTable ", [], function(resultsDepartment) { 
+        let Saved_Departments_Array=new Array();
+        if(resultsDepartment.rows.length>0){
 
-            //fill array with online db lessons ID's
-            for(var i=0; i<data.length ;i++){
-                DBidsArray.push(data[i].id)
+            for (var i=0; i<resultsDepartment.rows.length; i++){
+                Saved_Departments_Array.push(resultsDepartment.rows.item(i).Department);
             }
+            
+            var jsonString = JSON.stringify(Saved_Departments_Array);
 
-            var localDBidsArray = new Array();
-            db.executeSql("SELECT *  FROM savedLessonsTable ", [], function(results) { 
+            var  DB_Lessons_id = new Array()
+            
+            $.ajax({
+                type: 'GET',
+                url: URL+"/FindAllLessonsIDs.php",
+                data:{"SavedDepartments":jsonString},    
+                dataType: 'jsonp',
+                jsonp:"callback",
+                success: function (data) {  
+                    //fill array with online db lessons ID's
+                    for(var i=0; i<data.length ;i++){
 
-                 //fill array with local db lessons ID's
-                for (var i=0; i<results.rows.length; i++){
-                    localDBidsArray.push(results.rows.item(i).id)
-                }
-              
-                //find the defernce between those two arrays
-                const dif1 = localDBidsArray.diff(DBidsArray );  
-              
-                 //delete the differences of those two arrays
-                for(var i=0; i<dif1.length ;i++){
-                    db.executeSql("DELETE FROM savedLessonsTable WHERE id=?", [dif1[i]], function(results) { 
-                    });
-                }
-            });
+                        var DB_ids_JSON = new Array();
+                        DB_ids_JSON= data[i];
 
-        }//====End success
-    });//===End AJAX
+                        for(var j=0; j<DB_ids_JSON.length ;j++){
+                            let tmp_array=[DB_ids_JSON[j].id,DB_ids_JSON[j].Lesson]
+                            DB_Lessons_id.push(tmp_array)
+
+                        }
+
+                    }
+    
+                    Check_Deleted_Updated_Lessons(Saved_Departments_Array,DB_Lessons_id);
+                    
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                  alert(msg);
+                },
+            });//===End AJAX for delete/update lessons
+
+        }// end if len>0
+
+    });//end select 
 
 
 }, false);
 
 
- //function for finding the defernce between two arrays
+function Check_Deleted_Updated_Lessons(Saved_Departments_Array,DB_Lessons_id){
+
+    db = window.sqlitePlugin.openDatabase({
+        name: 'my.db',
+        location: 'default',
+    });
+
+  for (var k=0; k<Saved_Departments_Array.length; k++){
+
+    let Saved_Departments_Array_Lesson=Saved_Departments_Array[k]
+
+    db.executeSql("SELECT *  FROM savedLessonsTable WHERE Department='"+Saved_Departments_Array_Lesson+"' ", [], function(resultsLessons) {
+        let localDB_Lessons_Array=new Array();
+
+        for (var v=0; v<resultsLessons.rows.length; v++){
+            let tmp_array=[resultsLessons.rows.item(v).id,resultsLessons.rows.item(v).Lesson]
+            localDB_Lessons_Array.push(tmp_array)
+        }
+
+
+        //------------- check Deleted lesson from DB --------------
+        const dif1 = arrayColumn(localDB_Lessons_Array, 0).diff(arrayColumn(DB_Lessons_id, 0));  
+
+        for(var m=0; m<dif1.length ;m++){
+
+            db.executeSql("SELECT id,Lesson,Department FROM savedLessonsTable WHERE id=?" ,[dif1[m]], function(result) { 
+                let len = result.rows.length;
+                for (var d=0; d<len; d++){
+                    // alert("Create->"+len)
+                    // alert("Δεν υπάρχει ποία το μάθημα <span class='oldItem' >"+result.rows.item(d).Lesson+"<i class=fa fa-close></i></span> του Τμήματος "+result.rows.item(d).Department)
+                    // $("#NotificationsList").append("<li>Δεν υπάρχει ποία το μάθημα <span class='oldItem' >"+result.rows.item(d).Lesson+"<i class=fa fa-close></i></span> του Τμήματος "+result.rows.item(d).Department+"</li>");
+                    let savedLesson = result.rows.item(d).Lesson
+                    let savedLessonID =  result.rows.item(d).id
+                    let savedLessonDepartment = result.rows.item(d).Department
+                    db.executeSql("CREATE TABLE IF NOT EXISTS  NotificationsTable (Notification)", [], function() {
+                        let NotificationText = "<i class='fas fa-exclamation-circle' style='font-weight:bold;font-size: x-large; '> Δεν υπάρχει ποία το μάθημα <span class='oldItem' >"+savedLesson+"<i class=fa fa-close></i></span> του Τμήματος: <b>"+savedLessonDepartment+"<b>";
+                        db.executeSql("INSERT INTO NotificationsTable (Notification) VALUES (?)" ,[NotificationText], function() {
+                             //Calculate Notifications
+                            calculateNotifications();
+                        });
+                    });
+                    db.executeSql("DELETE FROM savedLessonsTable WHERE id=?" ,[savedLessonID], function() { });                   
+                }     
+            });   
+        }
+        
+   
+
+        //------------- check Updated lesson from DB ----------------
+        for(var p=0; p<localDB_Lessons_Array.length ;p++){            // id
+            let index = arrayColumn(DB_Lessons_id, 0).findIndex(x => x == localDB_Lessons_Array[p][0])
+          
+            if(DB_Lessons_id[index][1] != localDB_Lessons_Array[p][1]){
+                alert("upadte1")
+                let oldLessonName = localDB_Lessons_Array[p][1];
+                let newLessonName = DB_Lessons_id[index][1];
+                let department = Saved_Departments_Array[k];
+                db.executeSql("CREATE TABLE IF NOT EXISTS  NotificationsTable (Notification)", [], function() {
+                    let NotificationText = "<i class='fas fa-exclamation-circle' style='font-weight:bold;font-size: x-large; '> Tο μάθημα  <span class='oldItem' >"+oldLessonName+"<i class=fa fa-close></i></span> μετονομάστηκε σε <span class='newItem'>"+newLessonName+"<i class='fa fa-check'></i></span> του Τμήματος: <b>"+department+"</b>";
+                    db.executeSql("INSERT INTO NotificationsTable (Notification) VALUES (?)" ,[NotificationText], function() { 
+                         //Calculate Notifications
+                        calculateNotifications();
+                    }); 
+                });
+
+                db.executeSql("UPDATE savedLessonsTable SET Lesson =? WHERE id=?" ,[DB_Lessons_id[index][1],localDB_Lessons_Array[p][0]], function() {  alert("upadte5") });   
+            }
+        }
+        
+  
+
+    }, function(error) {
+        alert(JSON.stringify(error))
+    });
+
+
+    return
+
+}
+
+
+}
+
+
+//Get column of Array
+const arrayColumn = (arr, n) => arr.map(x => x[n]);
+
+
+
+ //function for finding the deference between two arrays
 Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
 };
@@ -391,10 +670,10 @@ function getEventTarget(e) {
 
 
 //Press list to open Exam/Season bottomsheet
-$('#myUL').on('click', 'li', function(event){
+$('#DepartmentsList').on('click', 'li', function(event){
     var target = getEventTarget(event);
 
-    const ul = document.querySelectorAll('#myUL li');
+    const ul = document.querySelectorAll('#DepartmentsList li');
     for (let i = 0; i <= ul.length - 1; i++) {
         ul[i].className="button1";
     }
@@ -410,10 +689,8 @@ $('#myUL').on('click', 'li', function(event){
         target.parentElement.className="pressedButton";
         Department=target.innerHTML;
     
-    
         //Saved pressed Department from list
         document.getElementById("HiddenDepartment").innerHTML=target.innerHTML;            //<<<<<<<<===================Tmima
-    
     
         if(mode==0){
     
@@ -524,10 +801,10 @@ $('#myUL').on('click', 'li', function(event){
 
 
 //Press list to open Exam/Season bottomsheet from saved Departments
-$('#myUL1').on('click', 'li', function(event){
+$('#savedDepartmentsList').on('click', 'li', function(event){
     var target = getEventTarget(event);
 
-    const ul = document.querySelectorAll('#myUL li');
+    const ul = document.querySelectorAll('#DepartmentsList li');
     for (let i = 0; i <= ul.length - 1; i++) {
         ul[i].className="button1";
     }
@@ -543,10 +820,8 @@ $('#myUL1').on('click', 'li', function(event){
         target.parentElement.className="pressedButton";
         Department=target.innerHTML;
     
-    
         //Saved pressed Department from list
         document.getElementById("HiddenDepartment").innerHTML=target.innerHTML;            //<<<<<<<<===================Tmima
-    
     
         if(mode==0){
     
@@ -580,6 +855,7 @@ $('#myUL1').on('click', 'li', function(event){
     }else if(target.className == "StarDiv"){
         //delete
 
+        //deleting <li> animation
         let id =target.parentElement.children[0].innerHTML;
         $( target.parentElement).animate({
             opacity: '0'
@@ -587,16 +863,25 @@ $('#myUL1').on('click', 'li', function(event){
 
         setTimeout(function() {
             target.parentElement.remove();
+             //animation if list size = 0
+            if($('#savedDepartmentsList li').length == 0){
+                $("#NoSavedDepartmentDiv").show()
+                NoSavedDepartments.goToAndPlay(0,true);
+                //disable search bar
+                $("#myInput").prop('disabled', true);
+            }
         }, 400);
 
+       
         db.transaction(function(tx) {
             tx.executeSql("DELETE FROM savedDepartmentsTable  WHERE id='"+id+"'");
+          
         }, function(error) {
             alert("-2"+error)
         });
     }else if(target.tagName=="I"){ //if user press the of Star icon on List  
         // delete
-
+        //deleting <li> animation
         let id = target.parentElement.parentElement.children[0].innerHTML;
         $( target.parentElement.parentElement).animate({
             opacity: '0'
@@ -604,10 +889,18 @@ $('#myUL1').on('click', 'li', function(event){
 
         setTimeout(function() {
             target.parentElement.parentElement.remove();
+             //animation if list size = 0
+             if($('#savedDepartmentsList li').length == 0){
+                $("#NoSavedDepartmentDiv").show()
+                NoSavedDepartments.goToAndPlay(0,true);
+                //disable search bar
+                $("#myInput").prop('disabled', true);
+            }
         }, 400);
 
         db.transaction(function(tx) {
             tx.executeSql("DELETE FROM savedDepartmentsTable  WHERE id='"+id+"'");
+           
         }, function(error) {
         alert("-delete1"+error)
         });
@@ -616,18 +909,25 @@ $('#myUL1').on('click', 'li', function(event){
 });
 
 
+let searchBar1Container = ""
+let searchBar2Container = ""
+let listOfDepartments = "allDepartments"
 
-//Go to List2
+//Go to Saved Departments List (List2)
 $('#savedListButton').on('click', function(e){
     if($("#allListButton").attr("data-id") == "closed"){
-        $("#myUL1").empty();
+        $("#savedDepartmentsList").empty();
         document.querySelector('.containerForLists').classList.toggle('view-change3');
         $('#allListButton').css("color","#969696");
         $('#savedListButton').css("color","#14A098");
-        $("#allListButton").attr("data-id","open")
-        $("#myInput2").show();
-        $("#myInput1").hide();
+        $("#allListButton").attr("data-id","open");
 
+        
+        searchBar1Container = $("#myInput").val()
+        $("#myInput").val(searchBar2Container)
+
+        //mode for search bar
+        listOfDepartments = "allDepartments"
 
         db = window.sqlitePlugin.openDatabase({
             name: 'my.db',
@@ -636,11 +936,15 @@ $('#savedListButton').on('click', function(e){
 
         db.executeSql("SELECT *  FROM savedDepartmentsTable", [], function(results) {
             var len = results.rows.length;
+            //check if user has any saved Department
             if(len == 0){
+                //animation
                 $("#NoSavedDepartmentDiv").show()
                 NoSavedDepartments.goToAndPlay(0,true);
+                 //disable search bar
+                 $("#myInput").prop('disabled', true);
             }else{
-                $("#NoSavedDepartment").hide()
+                $("#NoSavedDepartmentDiv").hide()
             }
 
             for (var i=0; i<len; i++){
@@ -649,11 +953,19 @@ $('#savedListButton').on('click', function(e){
                                 <div class="DepartmentListTitle">${results.rows.item(i).Department}</div>
                                 <div class="StarDiv" style="font-size:25px" ><i style='color:#E5AA5E' class='fas fa-star'></i></div>
                             </li>`;
-                $("#myUL1").append(tr_str);
-                // alert(tr_str)
-            }   
+                $("#savedDepartmentsList").append(tr_str);
+            }
+            //check if dark theme is ON
+            if(localStorage.getItem("darkTheme") !== null){
+                if(localStorage.getItem("darkTheme") == "on"){
+                    $('.button1').css({"background":"#525252","color":"#EFEFEF"});
+                }else{
+                    $('.button1').css({"background":"rgb(231, 240, 240)","color":"#14A098"});
+                }
+            }
 
           }, function(error) {
+            //animation
             $("#NoSavedDepartmentDiv").show()
             NoSavedDepartments.goToAndPlay(0,true);
           });
@@ -661,17 +973,21 @@ $('#savedListButton').on('click', function(e){
 
   });
 
-//Go to List1
+//Go to Departments List (List1)
 $('#allListButton').on('click', function(e){
     if($("#allListButton").attr("data-id") == "open"){
         document.querySelector('.containerForLists').classList.toggle('view-change3');
         $('#savedListButton').css("color","#969696");
         $('#allListButton').css("color","#14A098");
         $("#allListButton").attr("data-id","closed")
-        $("#myInput1").show();
-        $("#myInput2").hide();
-        fillAllDepartmnets();
-      
+
+        //mode for search bar
+        listOfDepartments = "savedDepartments"
+
+        searchBar2Container = $("#myInput").val()
+        $("#myInput").val(searchBar1Container)
+        $("#myInput").prop('disabled', false);
+        getDepartments();
     }
 });
 
@@ -685,7 +1001,12 @@ document.querySelector(".overlayExamina").addEventListener("click",e=>{
     });
     document.getElementById("popupExamina").classList.toggle("activeExamina");
 
-    const ul = document.querySelectorAll('#myUL li');
+    let ul = document.querySelectorAll('#DepartmentsList li');
+    for (let i = 0; i <= ul.length - 1; i++) {
+        ul[i].className="button1";
+    }
+
+    ul = document.querySelectorAll('#savedDepartmentsList li');
     for (let i = 0; i <= ul.length - 1; i++) {
         ul[i].className="button1";
     }
@@ -875,15 +1196,15 @@ function fillLessonsTable(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino)
         db.executeSql("SELECT count(*) AS mycount FROM savedLessonsTable WHERE id=?", [id], function(rs) {
           
             var tr_str = 
-            "<tr data-id='mainTr'>" +
-                "<td  width='80%' class='lessonInsideRows' data-id='closed'><p style='padding-left:5px;padding-right:10px; padding-top:5px; padding-bottom:5px;'>" +Lesson + "</p></td>" ;     //<<<=====0
+            "<tr data-id='mainTr' class='spaceUnder'>" +
+                "<td  width='80%'  data-id='closed'><p class='lessonText' >" +Lesson + "</p></td>" ;     //<<<=====0
             if (rs.rows.item(0).mycount!=0) {
                 //Remove
-                tr_str=tr_str+"<td  width='20%'  ><button class='removeFromArray' id='addButton' data-id="+id+"><i class='far fa-trash-alt'></i></button></td>" 
+                tr_str=tr_str+"<td  width='20%'  ><div class='buttonDiv'><button class='removeFromArray' data-id="+id+"><i class='far fa-trash-alt'></i></button></div></td>" 
                 updateLesson(id,Lesson,ECTS,Direction,Examino)
             } else {
                 //ADD
-                tr_str=tr_str+"<td  width='20%'  ><button class='addToList' id='addButton' data-id="+id+"><i class='fas fa-plus'></i></button></td>";
+                tr_str=tr_str+`<td  width='20%'  ><div class='buttonDiv' ><button class='addToList' data-id=`+id+`> <i class='fas fa-plus'></i> </button></div></td>`;
             }
             tr_str=tr_str+ 
                 "<td  width='0%' class='hidden'>" +ECTS + "</td>" +     //<<<=====2
@@ -895,50 +1216,59 @@ function fillLessonsTable(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino)
             $("#userTable tbody").append(tr_str);
 
             if(i==len-1){
+                //dark theme
                 if(darkTheme == true){
                     $('#userTable tr').each(function() {
-                        $(this).find("td").css({"background":"#525252","color":"#EFEFEF"});
+                        $(this).find("td").find("p").css({"background":"#525252","color":"#EFEFEF"});
+                        $(this).find("td").next().find("div").css({"background":"#525252","color":"#EFEFEF"});
                     });
                 }else{
                     $('#userTable tr').each(function() {
-                        $(this).find("td").css({"background":"#E7F0F0","color":"black"});
+                        $(this).find("td").find("p").css({"background":"#E7F0F0","color":"#black"});
+                        $(this).find("td").next().find("div").css({"background":"#E7F0F0"});
                     });
                 }
+                //make ordering with by Direction
                 formLessonsTable();
-                $("#userTable").removeAttr( 'style' );
-                $("#userTable").attr( 'style' ,'width:100%');
+                // $("#userTable").removeAttr( 'style' );
+                // $("#userTable").attr( 'style' ,'width:100%');
             }
 
         }, function(error) { //Otan tha apothikeusei kati o xristis PRWTI fora
            
             var tr_str = 
-            "<tr  data-id='mainTr'>" +
-            "<td  width='80%' class='lessonInsideRows' data-id='closed'><p style='padding-left:5px;padding-right:10px; padding-top:5px; padding-bottom:5px;'>" +Lesson + "</p></td>" ;     //<<<=====0
+            "<tr data-id='mainTr' class='spaceUnder'>" +
+                "<td  width='80%'  data-id='closed'><p class='lessonText' >" +Lesson + "</p></td>" ;     //<<<=====0
             //ADD
-            tr_str=tr_str+"<td  width='20%' id='aa' class='tmp' ><button class='addToList' id='addButton' data-id="+id+"><i class='fas fa-plus'></i></button></td>";        //<<===1
+            tr_str=tr_str+`<td  width='20%'  ><div class='buttonDiv' ><button class='addToList' data-id=`+id+`> <i class='fas fa-plus'></i> </button></div></td>`;
             tr_str=tr_str+ 
-                "<td  width='0%' class='hidden'>" +ECTS + "</td>"+      //<<<=====2
+                "<td  width='0%' class='hidden'>" +ECTS + "</td>" +     //<<<=====2
                 "<td  width='0%' class='hidden'>" +changeZero(Examino) + "</td>"+ //<<<=====3
                 "<td  width='0%' class='hidden'>" +Infos + "</td>" +         //<<<=====4
                 "<td  width='0%' class='hidden'>" +Direction + "</td>" +         //<<<=====5
                 "<td  width='0%' class='hidden'>" +changeOperators(Required) + "</td>" +              //<<<=====6
             "</tr>"
-                
             $("#userTable tbody").append(tr_str);
+                
 
             if(i==len-1){
-                if(darkTheme == true){
+                 //dark theme
+                 if(darkTheme == true){
                     $('#userTable tr').each(function() {
-                        $(this).find("td").css({"background":"#525252","color":"#e1e1e1"});
+                        $(this).find("td").find("p").css({"background":"#525252","color":"#EFEFEF"});
+                        $(this).find("td").next().find("div").css({"background":"#525252","color":"#EFEFEF"});
                     });
                 }else{
                     $('#userTable tr').each(function() {
-                        $(this).find("td").css({"background":"#E7F0F0","color":"black"});
+                        // $(this).find("td").css({"background":"#E7F0F0","color":"black"});
+                        $(this).find("td").find("p").css({"background":"#E7F0F0","color":"#black"});
+                        $(this).find("td").next().find("div").css({"background":"#E7F0F0"});
                     });
                 }
+                //make ordering with by Direction
                 formLessonsTable();
-                $("#userTable").removeAttr( 'style' );
-                $("#userTable").attr( 'style' ,'width:100%');
+                // $("#userTable").removeAttr( 'style' );
+                // $("#userTable").attr( 'style' ,'width:100%');
             }
           
         });    
@@ -954,9 +1284,14 @@ function updateLesson(id,Lesson,ECTS,Direction,Examino){
         location: 'default',
     });
     var Department = document.getElementById("HiddenDepartment").innerHTML; 
-    db.executeSql("UPDATE savedLessonsTable SET Lesson = ? , Examino =?, ECTS = ?,Department = ?, Direction = ? WHERE id=?", [Lesson,Examino,ECTS,Department,Direction,id], function(rs) {
 
-    }, function(error) { 
+    db.executeSql("SELECT * FROM savedLessonsTable WHERE id=?", [id], function(result) {
+
+        for (var i=0; i<result.rows.length; i++){
+            if(result.rows.item(i).Lesson != Lesson){
+                db.executeSql("UPDATE savedLessonsTable SET Lesson = ? , Examino =?, ECTS = ?,Department = ?, Direction = ? WHERE id=?", [Lesson,Examino,ECTS,Department,Direction,id], function(rs) {}); 
+            }
+        } 
 
     }); 
 }
@@ -1168,29 +1503,61 @@ $('#userTable tbody').on('click', 'td', function(e){
     var row = table.row( tr );
 
    if(tr.attr("data-id")=="mainTr"){
+  
         if($(this).closest("td").index()==0){
-
+         
             if ( $(this).attr("data-id") == "closed" ) {
+               
+                // $(this).find("span").html("<i class='fas fa-chevron-up' style='transform: scale(2.5,0.5)'></i>");
+                $(this).css("border-bottom-left-radius","0px");
+                $(this).next().css("border-bottom-right-radius","0px");
+                // alert($(this).prop("tagName"))
                 row.child(format(row.data())).show();
                 tr.next().find("div").slideToggle();
                 $(this).attr('data-id','open');
                 $(this).parent().next().css("box-shadow","none");
             }else{
+             
+                $(this).delay(450)
+                .queue(function (next) { 
+                    $(this).css("border-bottom-left-radius","10px");
+                    next(); 
+                });
+
+                $(this).next().delay(450)
+                .queue(function (next) { 
+                    $(this).css("border-bottom-right-radius","10px");
+                    next(); 
+                });
+
                 tr.next().find("div").slideUp();
                 $(this).attr('data-id','closed');
+                $(this).css("overflow","hidden");
+                // $(this).find("span").html("<i class='fas fa-chevron-down' style='transform: scale(2.5,0.5)'></i>");
                 setTimeout(function() {
                     row.child.hide(); 
                 }, 500);
-            
             }
            
         }
     }else{     
-  
+
     //$(this).parent().parent().parent().parent().parent().parent().parent().find("tr").slideToggle("slow");
 
         $(this).find("div").slideUp();
         $(this).find("div").parent().parent().prev().children().attr('data-id','closed');
+
+        $(this).find("div").parent().parent().prev().children().eq(0).delay(450)
+        .queue(function (next) { 
+            $(this).css("border-bottom-left-radius","10px");
+          
+        });
+        $(this).find("div").parent().parent().prev().children().eq(1).delay(450)
+        .queue(function (next) { 
+            $(this).css("border-bottom-right-radius","10px");
+            next(); 
+        });
+
         var tr =  $(this).find("div").parent().parent().prev();
         var row = table.row( tr );
         setTimeout(function() {
@@ -1204,38 +1571,39 @@ $('#userTable tbody').on('click', 'td', function(e){
 
 //========================https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_list=================================
 //Search Department in 2nd screen
-function searchFunc1() {
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("myInput1");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        a = li[i];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
+function searchFunc() {
+    if(listOfDepartments == "allDepartments"){
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("DepartmentsList");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }else{
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("savedDepartmentsList");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
         }
     }
-}
-
-function searchFunc2() {
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("myInput2");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL1");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        a = li[i];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
+  
 }
 
 
