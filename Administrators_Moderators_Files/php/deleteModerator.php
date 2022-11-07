@@ -5,7 +5,7 @@ include("connection.php");
 
 $id=$_POST['moderatorIDText'];
 
-$query = "DELETE FROM departmentsinfos WHERE id = $id;";
+$query = "DELETE FROM users WHERE id = $id;";
 $result = mysqli_query($con,$query);
 
 header('Location: '."../Administrator.php");

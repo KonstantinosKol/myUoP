@@ -35,10 +35,10 @@ if(isset($_POST['Exam7oInputOnEdit'])){
     $exam= $exam."7/";
 }
 if(isset($_POST['Exam8oInputOnEdit'])){
-    $exam= $exam."9/";
+    $exam= $exam."8/";
 }
 if(isset($_POST['Exam9oInputOnEdit'])){
-    $exam= $exam."8/";
+    $exam= $exam."9/";
 }
 if(isset($_POST['Exam10oInputOnEdit'])){
     $exam= $exam."0/";

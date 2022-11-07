@@ -21,7 +21,7 @@
     <body>
       
          <!-- ============================ Splach Screen ============================================-->
-        <!-- <div id="slide" class="Splach_Screen">
+        <div id="slide" class="Splach_Screen">
           
             <img  class="Label" src="./img/Label.png">
 
@@ -37,9 +37,9 @@
               </div>
             </div>
 
-        </div> -->
+        </div>
     <!-- ========================== Notifications Screen======================== -->
-    <div class="NotificationsScreen" id="NotificationsScreen">
+    <div class="NotificationsScreen" id="NotificationsScreen" data-id="closed">
       <div class="overlay"></div>
       <div class="content">
 
@@ -50,12 +50,13 @@
         <ul id="NotificationsList">
 
         </ul>
+
+        <div class="noNotifications">Δεν υπάρχουν ειδοποιήσεις ακόμη</div>
               
-      
       </div>
     </div>
 
-<div class="containerS">
+<div class="MultipleScreens">
 
         <!-- ============================ Menu ============================================-->
         <div id="Menu" class="view" >
@@ -67,15 +68,15 @@
 
             <p class="title">myUoP</p>
         
-              <div class="MenuButton1-2">
-                  <button  class="MenuButton1" onclick="GoToDepartments1()"><p>Μαθήματα</p><img src="./img/Untitled-3.png" alt=""></button>
-                  <button  class="MenuButton2" onclick="GoToDepartments2()"><p>Ωρολόγια Προγράμματα</p><img src="./img/Untitled-4.png" alt=""></button>
-              </div>
+            <div class="MenuButton1-2">
+                <button  class="MenuButton1" onclick="GoToDepartments1()"><p>Μαθήματα</p><img src="./img/Untitled-3.png" alt=""></button>
+                <button  class="MenuButton2" onclick="GoToDepartments2()"><p>Ωρολόγια Προγράμματα</p><img src="./img/Untitled-4.png" alt=""></button>
+            </div>
 
-              <button  class="button3" onclick="location.href='https://eclass.uop.gr/';"><p>e - Class</p><img src="./img/Untitled-1.png"  alt=""></button>
-              <button  class="button4" onclick="location.href='https://e-secretary.uop.gr/UniStudent/';" ><p>Ηλεκτρονική Γραμματεία </p><img src="./img/Untitled-2Black.png" alt=""></button>
-              
-              <button  class="Help" onclick="OpenCloseHelpPopUp()">Βοήθεια &#9432;</button>
+            <button  class="button3" onclick="location.href='https://eclass.uop.gr/';"><p>e - Class</p><img src="./img/Untitled-1.png"  alt=""></button>
+            <button  class="button4" onclick="location.href='https://e-secretary.uop.gr/UniStudent/';" ><p>Ηλεκτρονική Γραμματεία </p><img src="./img/Untitled-2Black.png" alt=""></button>
+            
+            <button  class="Help" onclick="OpenCloseHelpPopUp()">Βοήθεια &#9432;</button>
 
         </div>
 
@@ -134,7 +135,6 @@
         <!-- ==========================Tmimata======================== -->
       <div id="GroupOfButtons" class="GroupOfButtons secondScreen view">
 
-        <!-- <div id="test"> -->
           <div id="searchSection">
             <button class="backButton" onclick="back()"><i class="fa fa-long-arrow-left"></i></button>
   
@@ -230,10 +230,10 @@
           <div class="overlaySeason"></div>
           <div id="popupSeason2" class="contentSeason">
 
-              <p style="font-family: 'Anton', Arial, sans-serif;font-size: 25px;color: #14A098; margin-bottom: 20px; margin-top: 10px">Διάλεξε εξάμηνο</p>
+              <p style="font-family: 'Anton', Arial, sans-serif;font-size: 25px;color: #14A098; margin-bottom: 7.5%; margin-top: 7.5%">Διάλεξε εξάμηνο</p>
               
-              <button  class="Season1" onclick="redirectToPDF('Winter')">Χειμερινό Εξάμηνο</button>
-              <button  class="Season2" onclick="redirectToPDF('Summer')">Εαρινό Εξάμηνο</button>
+              <button  class="Season1" onclick="redirectToPDF('Winter')"><i class='fas fa-cloud-sun'></i> Χειμερινό Εξάμηνο</button>
+              <button  class="Season2" onclick="redirectToPDF('Summer')"><i class='fas fa-sun'></i> Εαρινό Εξάμηνο</button>
               
           </div>
         </div> 
@@ -244,7 +244,7 @@
 
             <div class="navbar">
               <button class="backButtonNavBar" ><i class="fa fa-long-arrow-left"></i></button>
-              <button class="PortfolioButton" onclick="">Μαθήματα <i class='fas fa-inbox'></i></button>
+              <button class="PortfolioButton" >Μαθήματα <i class='fas fa-inbox'></i></button>
             </div>
             
            <div id="svg__No_Connection2" class="lottie" ></div>
@@ -265,59 +265,78 @@
                 </thead>
                 <tbody id="tableBodyId"></tbody>
               </table>
-            </div>
-            
-            <!-- <div id="loading2" class="loader2 show"></div> -->
-         
+            </div> 
              
         </div>
 
- </div> <!-- End od containerS -->
+ </div> <!-- End od MultipleScreens -->
    
        <!-- ==========================Portfolio======================== -->
       <div class="popup2" id="popup-2">
             <div class="content2">
 
-                      <div class="single-skill">
-                              
-                        <svg class="circle-chart"  >
-                          <circle class="circle-chart__background" cx="16.9" cy="16.9" r="15.9"></circle>
-                          <circle class="circle-chart__circle success-stroke" stroke-dasharray="0,100" cx="16.9" cy="16.9" r="15.9"></circle>
-                          <g class="circle-chart__info"> 
-                            <text id="ECTSunits" class="circle-chart__percent" x="17.9" y="15.5">0</text>
-                            <text class="circle-chart__subline" x="16.91549431" y="22">ECTS </text> 
-                          </g>
-                        </svg>
-                    
-                      </div>
+                <div class="card">
 
-                      <div class="CurvedSection">
-                        <table id="portfolioTable">
-                          <thead>
-                            <tr id="tableHeadPortfolio" >
-                              <th  width="80%" ></th>
-                              <th   width="20%"  ></th>
-                              <th   width="20%"  ></th>
-                              <th  width="20%" ></th>
-                            </tr>
-                          </thead>
-                          <tbody id="tableBodyPortfolio">
+                  <div id="back" class="cardBack">
+                    <div class="DepartmentInfos" id="DepartmentInfos" data-id="closed"> </div>
+                  </div>
 
-                          </tbody>
-                        </table>
-                    
-
-                      <div id="noSavedLessons" class="lottie">Δεν υπάρχουν αποθηκευμένα μαθήματα ακόμη</div>
-
+                  <div id="front" class="cardFront"> 
+                    <div class="single-skill" data-id="open">
+                      <svg class="circle-chart"  >
+                      <circle class="circle-chart__background" cx="16.9" cy="16.9" r="15.9"></circle>
+                      <circle class="circle-chart__circle success-stroke" stroke-dasharray="0,100" cx="16.9" cy="16.9" r="15.9"></circle>
+                      <g class="circle-chart__info"> 
+                        <text id="ECTSunits" class="circle-chart__percent" x="17.9" y="15.5">0</text>
+                        <text class="circle-chart__subline" x="16.91549431" y="22">ECTS </text> 
+                      </g>
+                    </svg>
                     </div>
+                  </div>
 
-                    <div class="DepartmentInfos" id="DepartmentInfos"> </div>
+                </div>
 
-                    <button id="clearPortfolio" ><i class="far fa-trash-alt" ></i></button>
 
-                    <button  class="ClosePortfolio" onclick="closePortfolio()" ><i class="fa fa-long-arrow-left"></i> </button>
+              <div class="gradeSection"></div>
+
+              <div class="CurvedSection">
+
+                <div id="lessonsSum" ></div>
+                
+                <select name="OrderingBy" id="OrderingBy" required>                     
+                  <option value="Exam" >Ανά: Εξάμηνο</option>
+                  <option value="Direction" selected >Ανά: Κατεύθυνση</option>
+                </select>
+
+                <table id="portfolioTable">
+                  <thead>
+                    <tr id="tableHeadPortfolio" >
+                      <th  width="80%" ></th>
+                      <th   width="20%"  ></th>
+                      <th   width="20%"  ></th>
+                      <th  width="20%" ></th>
+                      <th  width="20%" ></th>
+                      <th  width="20%" ></th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableBodyPortfolio">
+
+                  </tbody>
+                </table>
             
+
+              <div id="noSavedLessons" class="lottie">Δεν υπάρχουν αποθηκευμένα μαθήματα ακόμη</div>
+
             </div>
+
+          
+
+            <button id="clearPortfolio" ><i class="far fa-trash-alt" ></i></button>
+
+            <button  class="ClosePortfolio" onclick="closePortfolio()" ><i class="fa fa-long-arrow-left"></i> </button>
+    
+            <div class="gradeWarning">cvfgbndfrbn</div>
+          </div>
       </div>
   
       <!-- =================================Alert-PopUp for Delete All===================================== -->
@@ -341,23 +360,47 @@
          </div>
       </div>
 
-        <!-- =================================Alert-PopUp for No-Sche/No-Required===================================== -->
+      <!-- =================================Alert-PopUp for No-Sche/No-Required===================================== -->
       <!-- ================================================================================= -->
       <div class="Alert1" id="Alert-1">
         <div class="overlayAlert"></div>
          <div class="contentAlert">
 
-              <div class="warningSection"><div id="svg__Warning1" class="lottie" ></div></div>
+                <div class="warningSection"><div id="svg__Warning1" class="lottie" ></div></div>
 
-              <div class="contentSection">
-                <p id="alertText">Δεν είναι αποθηκευμένο κάποιο από τα Προαπαιτούμενα Μαθήματα</p>
+                <div class="contentSection">
+                  <p id="alertText">Δεν είναι αποθηκευμένο κάποιο από τα Προαπαιτούμενα Μαθήματα</p>
 
-                <div class="AlertButtons">
-                  <button class="closeAlert">Κλείσιμο</button>
+                  <div class="AlertButtons">
+                    <button class="closeAlert">Κλείσιμο</button>
+                  </div>
                 </div>
-              </div>
 
-         </div>
+          </div>
+      </div>
+
+      <!-- ================================= Pick Grade Bottom sheet ===================================== -->
+      <!-- ================================================================================= -->
+      <div class="GradePopUp" id="GradePopUp">
+        <div class="overlayGrade"></div>
+         <div class="content">
+
+          <div class="GradePicker">
+            <div class="number" onscroll="moveNumber(this)" >
+              <ul>
+                <li> </li><li> </li><li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li> </li><li> </li>
+              </ul>
+            </div> 
+            <div class="gradeComma">.</div>
+              <div class="fractionalPart"  onscroll="moveFractionalPart(this)" >
+                <ul id='FractionalPartList'>
+                </ul>
+              </div>
+            </div>
+
+            <button class="saveGrade" >Αποθήκευση</button>
+            
+          </div>
       </div>
    
      
@@ -365,7 +408,6 @@
 
      
      <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
-
    
      <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" ></script>
  
@@ -375,8 +417,4 @@
  
      <script src="./js/functionality.js"></script>    <!--======================SOS============================-->
  
-
-   
-    
-  
 </html>

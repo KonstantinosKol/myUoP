@@ -1,7 +1,5 @@
 <?php
 
-
-// $con = mysqli_connect($dbhost, $dbusername, $dbpassword, $dbname);
 include "connection.php";
 
 $tmima=$_GET['tmima'];

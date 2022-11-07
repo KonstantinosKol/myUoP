@@ -1,8 +1,15 @@
+//open Local DataBase
+var db = null;
+document.addEventListener('deviceready', function() {
+  db = window.sqlitePlugin.openDatabase({
+    name: 'my.db',
+    location: 'default',
+  });
+});
 
 //Close portfolio screen (4rd screen)
 function closePortfolio() {
   
-  aJaxCall2(); 
   $('.popup2').animate({
     left: "-100%"
   });
@@ -10,38 +17,45 @@ function closePortfolio() {
   $('.content2').animate({
     left: "-100%"
   });
-
-  $( ".single-skill" ).animate({
-    top: "10%",
-  }, 500 );
-  $( "#DepartmentInfos" ).animate({
-      top: "55%",
-  }, 500 );
  
   setTimeout(function() {
-  
     var table = $('#portfolioTable').DataTable();
         table.clear().destroy();
   }, 500);
+
+  if($('#DepartmentInfos').attr("data-id") == "open"){
+    document.getElementById('front').classList.toggle('flipped')
+    document.getElementById('back').classList.toggle('flipped')
+    $('.single-skill').attr("data-id","open")
+    $('#DepartmentInfos').attr("data-id","closed")
+    $('#DepartmentInfos').css("overflow","hidden")
+  }
+
+
+  screen = 2
   
 }
 
+//object of pressed td from saved lesson, first number of grade, fractional part of grade
+var currentGradeObject,currentGradeNumber,currentGradeFractionalPart
 
 
 (function() {
   // VARS
   const lessonsTable = document.querySelector("#userTable");              //---------Table with lessons
  
-  const portfolioTableContent = document.querySelector("#portfolioTable");        //---table  in cart
+  const portfolioTableContent = document.querySelector("#portfolioTable");      
 
   const clearPortfolioBtn = document.querySelector("#clearPortfolio");         //----Button for "Clear all"
 
   const openDiv = document.querySelector("#Array");         //----Button for Open popup
 
+  let orderBy = "Direction"
+
   //Open portfolio screen (4rd screen)
   openDiv.addEventListener("click", function(e) {
     if (e.target.classList.contains("PortfolioButton")) {
-
+      screen = 3
       $('.popup2').animate({
         left: "0%"
       });
@@ -53,6 +67,7 @@ function closePortfolio() {
     displayPortfolioTable();             
 
     displayTotal("OpenScreen");     
+    displayGrade()
   
     }
   });
@@ -62,51 +77,36 @@ function closePortfolio() {
 
   //Go to second screen (3rd screen -> 2nd screen)
   $('.backButtonNavBar').on('click', function(e){
-    document.querySelector('.containerS').classList.toggle('view-change2');
+    screen = 1
+    document.querySelector('.MultipleScreens').classList.toggle('view-change2');
   
     setTimeout(function() {
-    //your code to be executed after 1 second
     var table = $('#userTable').DataTable();
         table.clear().destroy();
     }, 500);
   });
 
- 
-
-  // tmimata.addEventListener("click", function(e) {
-  //   alert("1111")
-  //   if (e.target.classList.contains("button1")) {
-      
-  //     e.preventDefault();
-
-  //     const tmp=e.target;
-      
-  //   }
-
-  // });
 
 
 //Open infos window on portfolio screen
   $('.single-skill').on('click', '.circle-chart', function(e){
-    $( ".single-skill" ).animate({
-        top: "55%",
-    }, 500 );
-    $( "#DepartmentInfos" ).animate({
-        top: "11.5%",
-    }, 500 );
-   
+    document.getElementById('front').classList.toggle('flipped')
+    document.getElementById('back').classList.toggle('flipped')
+    $('.single-skill').attr("data-id","closed")
+    $('#DepartmentInfos').attr("data-id","open")
+    setTimeout(function() {
+      $('#DepartmentInfos').css("overflow","scroll")
+    }, 500);
 });
 
 
 //Close infos window on portfolio screen
 $('#DepartmentInfos').on('click', function(e){
-    $( ".single-skill" ).animate({
-        top: "10%",
-    }, 500 );
-    $( "#DepartmentInfos" ).animate({
-        top: "55%",
-    }, 500 );
-  
+  document.getElementById('front').classList.toggle('flipped')
+  document.getElementById('back').classList.toggle('flipped')
+  $('#DepartmentInfos').attr("data-id","closed")
+  $('.single-skill').attr("data-id","open")
+  $('#DepartmentInfos').css("overflow","hidden")
 });
 
 const NoSavedLessons = bodymovin.loadAnimation({
@@ -123,18 +123,6 @@ const NoSavedLessons = bodymovin.loadAnimation({
 
 //Display saved lessons ECTS on progress 1circle 
   function displayTotal(str) {
-    // display the total cost in the cart
-
-     //+++++++++++++++++++++++++++++++++++++++++Create+++++++++++++++++++++++++++++++++++++
-    var db = null;
-
-    document.addEventListener('deviceready', function() {
-      db = window.sqlitePlugin.openDatabase({
-        name: 'my.db',
-        location: 'default',
-      });
-    });
-         
    
     var total = 0;
     db.executeSql("SELECT ECTS FROM savedLessonsTable WHERE Department='"+document.getElementById("HiddenDepartment").innerHTML+"'", [], function(results) {
@@ -153,11 +141,16 @@ const NoSavedLessons = bodymovin.loadAnimation({
 
               if(total>0){
                 $("#clearPortfolio").show();
+                $("#OrderingBy").show();
                 $("#noSavedLessons").hide();
+                $("#lessonsSum").show();
+                $("#lessonsSum").html("Σύνολο: <b>"+len+"</b>")
               }else{
                 $("#clearPortfolio").hide();
+                $("#OrderingBy").hide();
                 $("#noSavedLessons").show();
                 NoSavedLessons.goToAndPlay(0,true);
+                $("#lessonsSum").hide();
               }
           }else{
               var number1 =total;                          
@@ -166,10 +159,15 @@ const NoSavedLessons = bodymovin.loadAnimation({
               animateCounter(total);
               if(total>0){
                 $("#clearPortfolio").show();
+                $("#OrderingBy").show();
                 $("#noSavedLessons").hide();
+                $("#lessonsSum").show();
+                $("#lessonsSum").html("Σύνολο: <b>"+len+"</b>")
               }else{
                 $("#clearPortfolio").hide();
+                $("#OrderingBy").hide();
                 $("#noSavedLessons").show();
+                $("#lessonsSum").hide();
                 NoSavedLessons.goToAndPlay(0,true);
               } 
           }
@@ -179,7 +177,9 @@ const NoSavedLessons = bodymovin.loadAnimation({
       makeCircleAnimation(percentage,0,TotalMinECTS,"0");
       animateCounter(0);  
       $("#clearPortfolio").hide();
+      $("#OrderingBy").hide();
       $("#noSavedLessons").show();
+      $("#lessonsSum").hide();
       NoSavedLessons.goToAndPlay(0,true);
     });
     return total;
@@ -210,7 +210,7 @@ function animateCounter(value1){
 }
   
 
-//Making cicle progress
+//Making circle progress
 function makeCircleAnimation(percentage,total,totalECTS,Status){
 
   var abs_percentage = Math.abs(percentage).toString();
@@ -277,17 +277,7 @@ function displayPortfolioTable() {
 
     var Dep=document.getElementById("HiddenDepartment").innerHTML
 
-     //+++++++++++++++++++++++++++++++++++++++++Create+++++++++++++++++++++++++++++++++++++
-     var db = null;
-
-     document.addEventListener('deviceready', function() {
-       db = window.sqlitePlugin.openDatabase({
-         name: 'my.db',
-         location: 'default',
-       });
-     });
-
-    let productMarkup = "";
+    let savedLessonLine = "";
   
     var table = $('#portfolioTable').DataTable();
     table.clear().destroy();
@@ -304,13 +294,19 @@ function displayPortfolioTable() {
             // $("#clearPortfolio").css("display", "block");
             // $("#noSavedLesson").css("display", "none");
             for (var i=0; i<len; i++){
-              productMarkup +=` <tr data-id='mainTr'>
+              savedLessonLine +=` <tr data-id='mainTr' class="spaceUnder">
                                   <td data-id="closed" ><p class="listLesson" width="80%">${results.rows.item(i).Lesson}</p></td>
                                   <td class="hidden" width="0%" >${results.rows.item(i).Direction}</td>
                                   <td class="hidden" width="0%" >${results.rows.item(i).Examino}</td>
-                                  <td width="20%" style="background-color: #19afa8;"><button data-id="${results.rows.item(i).id}" class="removeFromList"><i class="far fa-trash-alt"></i></button></td>
+                                  <td width="20%" ><div class="listButtonDiv" ><button data-id="${results.rows.item(i).id}" class="removeFromList"><i class="far fa-trash-alt"></i></button></div></td>`
+                                  if(!(results.rows.item(i).Grade+"").includes(".")){
+                                    savedLessonLine = savedLessonLine + `<td class="hidden" width="0%" >${results.rows.item(i).Grade}.00</td>`
+                                  }else{
+                                    savedLessonLine = savedLessonLine + `<td class="hidden" width="0%" >${results.rows.item(i).Grade}</td>`
+                                  }
+                                  savedLessonLine = savedLessonLine + `<td class="hidden" width="0%" >${results.rows.item(i).id}</td>
                                 </tr>`;
-              portfolioTableContent.querySelector("tbody").innerHTML = productMarkup;
+              portfolioTableContent.querySelector("tbody").innerHTML = savedLessonLine;
 
               if(i==len-1){
                 OrderingSavedLessons();
@@ -332,41 +328,50 @@ function displayPortfolioTable() {
   }
 
 
-//Making slided row with exam in saved lesson on 4rd screen
+//Making slide row with exam in saved lesson on 4rd screen
 function format2 ( d ) {
     // `d` is the original data object for the row
     if(localStorage.getItem("darkTheme") !== null){
       if(localStorage.getItem("darkTheme") == "on"){
-        return '<div style="display:none"  ><table id="innerLessonTable"  >'+
-        '<tbody>'+
-        '<tr  >'+
-            '<td style=" background:#707070; color:#46AFA9; ">Εξάμηνο</td>'+
-            '<td style="background:#707070;  color:#e1e1e1;">'+changeZero(d.Examino)+'</td>'+
-        '</tr>'+
-        '</tbody> '+
-        
-      '</table> </div>';
+        let slideDIV = '<div style="display:none"  ><div id="innerLessonDIV" style="background:#6A6B6B;" >';
+        if(orderBy == "Direction"){
+          slideDIV = slideDIV +'<p style="color:#e1e1e1; border-bottom: solid #14A098 2px ">Εξάμηνο</p>'+
+          '<p style="color:#e1e1e1;border-bottom: solid #14A098 2px ">'+changeZero(d.Examino)+'</p>';
+        }else{
+          slideDIV = slideDIV +'<p style=" color:#e1e1e1; border-bottom: solid #14A098 2px ">Κατεύθυνση</p>'+
+          '<p style="color:#e1e1e1;border-bottom: solid #14A098 2px ">'+d.Direction+'</p>';
+        }
+        slideDIV = slideDIV +'<p style="color:#e1e1e1">Βαθμός</p>'+
+            '<p id="gradeText" data-id='+d.id+'>'+d.Grade+'</p>';
+        slideDIV=slideDIV+'</div></div>'
+        return slideDIV
       }else{
-        return '<div style="display:none" ><table id="innerLessonTable"  >'+
-        '<tbody>'+
-        '<tr  >'+
-            '<td style=" background:#E7F0F0; color:#14A098; ">Εξάμηνο</td>'+
-            '<td style="background:#E7F0F0;  color:black;">'+changeZero(d.Examino)+'</td>'+
-        '</tr>'+
-        '</tbody> '+
-        
-      '</table> </div>';
+        let slideDIV = '<div style="display:none"  ><div id="innerLessonDIV" style="background:#e8ebea;">';
+        if(orderBy == "Direction"){
+          slideDIV = slideDIV +'<p style="color:#46AFA9;border-bottom: solid #14A098 2px  ">Εξάμηνο</p>'+
+          '<p style="color:black;border-bottom: solid #14A098 2px ">'+changeZero(d.Examino)+'</p>';
+        }else{
+          slideDIV = slideDIV +'<p style=" color:#46AFA9; border-bottom: solid #14A098 2px ">Κατεύθυνση</p>'+
+          '<p style="color:black;border-bottom: solid #14A098 2px ">'+d.Direction+'</p>';
+        }
+        slideDIV = slideDIV +'<p style="color:#46AFA9">Βαθμός</p>'+
+        '<p id="gradeText" data-id='+d.id+'>'+d.Grade+'</p>';
+        slideDIV=slideDIV+'</div></div>'
+        return slideDIV
       }
     }else{
-      return '<div style="display:none"  ><table id="innerLessonTable"  >'+
-      '<tbody>'+
-      '<tr  >'+
-          '<td style=" background:#E7F0F0; color:#14A098;">Εξάμηνο</td>'+
-          '<td style="background:#E7F0F0;  color:black;">'+changeZero(d.Examino)+'</td>'+
-      '</tr>'+
-      '</tbody> '+
-      
-    '</table> </div>';
+      let slideDIV = '<div style="display:none"  ><div id="innerLessonDIV" style="background:#e8ebea;">';
+      if(orderBy == "Direction"){
+        slideDIV = slideDIV +'<p style="color:#46AFA9; border-bottom: solid #14A098 2px ">Εξάμηνο</p>'+
+        '<p style="color:black;border-bottom: solid #14A098 2px ">'+changeZero(d.Examino)+'</p>';
+      }else{
+        slideDIV = slideDIV +'<p style=" color:#46AFA9; border-bottom: solid #14A098 2px ">Κατεύθυνση</p>'+
+        '<p style="color:black;border-bottom: solid #14A098 2px ">'+d.Direction+'</p>';
+      }
+      slideDIV = slideDIV +'<p style="color:#46AFA9">Βαθμός</p>'+
+      '<p id="gradeText" data-id='+d.id+'>'+d.Grade+'</p>';
+      slideDIV=slideDIV+'</div></div>'
+      return slideDIV
     }
   
   }
@@ -375,6 +380,11 @@ function format2 ( d ) {
 //Ordering saved lesson with Direction
   function OrderingSavedLessons() {
     
+    let orderColummn = 1
+    if(orderBy == "Exam"){
+      orderColummn = 2
+    }
+    let groupsSum = 0;
     var table =$('#portfolioTable').DataTable({
         destroy : true,
         "deferRender": true,
@@ -388,9 +398,11 @@ function format2 ( d ) {
           {'data': 'Lesson'},
           { 'data': 'Direction' },
           { 'data': 'Examino' },
-          { 'data': 'id' }
+          { 'data': 'Button' },
+          { 'data': 'Grade' },
+          { 'data': 'id' },
       ],
-        'order': [[1, 'asc']],
+        'order': [[orderColummn, 'asc']],
          "responsive": true,
          "initComplete": function(settings, json) {
             $('th.sorting').off();
@@ -404,8 +416,10 @@ function format2 ( d ) {
                  
                     var last = null;
     
-                    api.column(1, { page: 'current' }).data().each(function (group, i) {
-    
+                    api.column(orderColummn, { page: 'current' }).data().each(function (group, i) {
+                        if(orderBy == "Exam"){
+                          group = group + " Εξάμηνο"
+                        }
                         if (last !== group) {
     						            if(i==0){
                                 $(rows).eq(i).before(
@@ -416,41 +430,32 @@ function format2 ( d ) {
                             }else{
                                 $(rows).eq(i).before(
                                 '<tr class="group" style="box-shadow: none;">'+
-                                    '<td colspan="8" class="orderingClass3" style="background-color: Transparent ;"><i class="fas fa-caret-right"></i> ' + group  + '</td>'
+                                    '<td colspan="8" class="orderingClass3" style="background-color: Transparent ; padding-top:40px;"><i class="fas fa-caret-right"></i> ' + group  + '</td>'
                                 +'</tr>'
                                 );
                             }
-                            
-    
+
                             last = group;
                         }
                     });
 
-                    $('#portfolioTable tbody').find('.group').each(function (i,v) {
-                      var rowCount = $(this).nextUntil('.group').length;
-                      $(this).find('td:first').append($('<span />', { 'class': 'rowCount-grid' }).append($('<b />', { 'text': ' ('+rowCount+')' })));
-                    });
         }
                 
     } );
+
+    $('#portfolioTable tbody').find('.group').each(function (i,v) {
+      var rowCount = $(this).nextUntil('.group').length;
+      $(this).find('td:first').append($('<span />', { 'class': 'rowCount-grid' }).append($('<b />', { 'text': ' ('+rowCount+')' })));
+    });
          
 }
 
 
-//save Lesson drom lessons table
-  function saveProduct(clickedBtn) {
+//save Lesson from lessons table
+  function saveLesson(clickedBtn) {
      
-    var db = null;
-
-    document.addEventListener('deviceready', function() {
-      db = window.sqlitePlugin.openDatabase({
-        name: 'my.db',
-        location: 'default',
-      });
-    });
-
     db.transaction(function(tx) {
-      tx.executeSql('CREATE TABLE IF NOT EXISTS savedLessonsTable (id, Lesson,ECTS,Department,Examino,Direction)');
+      tx.executeSql('CREATE TABLE IF NOT EXISTS savedLessonsTable (id, Lesson,ECTS,Department,Examino,Direction,Grade)');
     }, function(error) {
 
     }, function() {
@@ -458,24 +463,24 @@ function format2 ( d ) {
     });
 
     // vars
-    const productId = clickedBtn.getAttribute("data-id");
+    const LessonID = clickedBtn.getAttribute("data-id");
     //const card = clickedBtn.parentElement.parentElement;
     const tr = clickedBtn.parentElement.parentElement.parentElement;        //<<====<tr>      portfolioTableContent.querySelectorAll("tr td:nth-child(3)");
     //const td = tr.querySelector("td");
     const Lesson =tr.cells[0].querySelector("p").innerHTML;
     const ECTS = tr.cells[2].innerHTML;
-    const Examino = tr.cells[3].innerHTML;
-    const Direction=tr.cells[5].innerHTML;
-    const Required = tr.cells[6].innerHTML;
-    const Department1 = document.getElementById("HiddenDepartment").innerHTML;                 //tr.cells[3].innerHTML;
+    const Examino = tr.cells[3].innerText+" ";
+    const Direction=tr.cells[5].innerText;
+    const Required = tr.cells[6].innerText;
+    const Department = document.getElementById("HiddenDepartment").innerHTML;                 //tr.cells[3].innerHTML;
 
-    let isProductInCart = false;
+    let isLessonSaved = false;
 
   //check if lessons isnt inside saved lessons
     db.transaction(function(tx) {
-      tx.executeSql('SELECT count(*) AS mycount FROM savedLessonsTable WHERE id='+productId, [], function(tx, rs) {
+      tx.executeSql('SELECT count(*) AS mycount FROM savedLessonsTable WHERE id='+LessonID, [], function(tx, rs) {
         if(rs.rows.item(0).mycount!=0){
-          isProductInCart = true;
+          isLessonSaved = true;
         }
       }, function(tx, error) {
     
@@ -483,20 +488,18 @@ function format2 ( d ) {
     });
 
 
-
-    if (!isProductInCart) {
+    if (!isLessonSaved) {
       if(Required !="-" ){
 
-        checkRequired(Required,clickedBtn,productId,Lesson,ECTS,Examino,Direction)
+        checkRequired(Required,clickedBtn,LessonID,Lesson,ECTS,Examino,Direction)
     
       }else{
-        //===================All Good save lesson============================
       
         clickedBtn.className ="removeFromArray";
         clickedBtn.innerHTML="<i class='far fa-trash-alt'></i>";
 
         db.transaction(function(tx) {
-          tx.executeSql('INSERT INTO savedLessonsTable (id, Lesson,ECTS,Department,Examino,Direction) VALUES (?,?,?,?,?,?)', [productId, Lesson,ECTS,Department1,Examino,Direction]);
+          tx.executeSql('INSERT INTO savedLessonsTable (id, Lesson,ECTS,Department,Examino,Direction,Grade) VALUES (?,?,?,?,?,?,?)', [LessonID, Lesson,ECTS,Department,Examino,Direction,0.00]);
         }, function(error) {
            
         });
@@ -508,16 +511,9 @@ function format2 ( d ) {
 
 
 //Check if saved lessons  contains required lessons
-  function checkRequired(Required,clickedBtn,productId,Lesson,ECTS,Examino,Direction){
+  function checkRequired(Required,clickedBtn,LessonID,Lesson,ECTS,Examino,Direction){
 
-    document.addEventListener('deviceready', function() {
-      db = window.sqlitePlugin.openDatabase({
-        name: 'my.db',
-        location: 'default',
-      });
-    });
-
-    const Department1 = document.getElementById("HiddenDepartment").innerHTML;                 //tr.cells[3].innerHTML;
+    const Department = document.getElementById("HiddenDepartment").innerHTML;                 //tr.cells[3].innerHTML;
 
     var tmpRequired=Required;
   
@@ -536,7 +532,7 @@ function format2 ( d ) {
 
   //=====================Union1=============================
       var LessonArray=[];
-      db.executeSql("SELECT * FROM savedLessonsTable  WHERE Department='"+Department1+"'", [], function(result) {
+      db.executeSql("SELECT * FROM savedLessonsTable  WHERE Department='"+Department+"'", [], function(result) {
   
           var len = result.rows.length;
           for (var i=0; i<len; i++){
@@ -575,20 +571,20 @@ function format2 ( d ) {
           var result = !!eval(safe);
 
           if(result){
-                //===================All-Good============================
-                
-                clickedBtn.className ="removeFromArray";
-                clickedBtn.innerHTML="<i class='far fa-trash-alt'></i>";
+              
+              clickedBtn.className ="removeFromArray";
+              clickedBtn.innerHTML="<i class='far fa-trash-alt'></i>";
 
-                db.transaction(function(tx) {
-                  tx.executeSql('INSERT INTO savedLessonsTable (id, Lesson,ECTS,Department,Examino,Direction) VALUES (?,?,?,?,?,?)', [productId, Lesson,ECTS,Department1,Examino,Direction]);
-                }, function(error) {
-             
-                });
+              db.transaction(function(tx) {
+                tx.executeSql('INSERT INTO savedLessonsTable (id, Lesson,ECTS,Department,Examino,Direction,Grade) VALUES (?,?,?,?,?,?,?)', [LessonID, Lesson,ECTS,Department,Examino,Direction,0.00]);
+              }, function(error) {
+            
+              });
           }
           else{ //if required isnt in saved lessons
             $('#alertText').html("Δεν είναι αποθηκευμένο κάποιο από τα Προαπαιτούμενα Μαθήματα")
             document.getElementById("Alert-1").classList.toggle("activeAlert");
+            $("#Alert-1").attr("data-id","open")
             warningAnimation1.goToAndPlay(0,true);
           }
           
@@ -596,56 +592,44 @@ function format2 ( d ) {
   }
 
 
-
-
-
 //Remove lesson from local db
-  function removeLessonFromSQL(productId) {
+function removeLessonFromSQL(LessonID) {
 
-    //+++++++++++++++++++++++++++++++++++++++++Open+++++++++++++++++++++++++++++++++++++
-    var db = null;
-
-    document.addEventListener('deviceready', function() {
-      db = window.sqlitePlugin.openDatabase({
-        name: 'my.db',
-        location: 'default',
-      });
+  db.transaction(function(tx) {
+    tx.executeSql("DELETE FROM savedLessonsTable WHERE id='"+LessonID+"'");
+    $('#userTable tr').each(function() {
+      let id =  $(this).children(1).find("div").find("button").attr("data-id")
+      //find this id in lesson table and change button 
+      if(id == LessonID){
+        $(this).children().find("div").html(`<button class='addToList' data-id=`+id+`> <i class='fas fa-plus'></i> </button>`) 
+      }
     });
+  }, function(error) {
+  
+  });
 
-    db.transaction(function(tx) {
-          tx.executeSql("DELETE FROM savedLessonsTable WHERE id='"+productId+"'");
-        
-    }, function(error) {
-    
-    });
-
-  }
+}
 
 
 
 //Delete ALL lessons in this Department
-  function clearPortfolioTable() {
-    // clear all products from cart (and local storage)
-    //+++++++++++++++++++++++++++++++++++++++++Open+++++++++++++++++++++++++++++++++++++
-    var db = null;
+function clearPortfolioTable() {
+  //make GREEN all the buttons in Lessons table
+  $('#userTable tr').each(function() {
+    let id =  $(this).children(1).find("div").find("button").attr("data-id")
+    $(this).children(1).find("div").html(`<button class='addToList' data-id=`+id+`> <i class='fas fa-plus'></i> </button>`) 
+  });
 
-    document.addEventListener('deviceready', function() {
-      db = window.sqlitePlugin.openDatabase({
-        name: 'my.db',
-        location: 'default',
-      });
-    });
-    
-    //++++++++++++++++++++++++++++++++++++++Delete++++++++++++++++++++++++++
-    db.executeSql("DELETE FROM savedLessonsTable WHERE Department='"+document.getElementById("HiddenDepartment").innerHTML+"'", [], function() {
+  //delete from Local DB
+  db.executeSql("DELETE FROM savedLessonsTable WHERE Department='"+document.getElementById("HiddenDepartment").innerHTML+"'", [], function() {
 
-      displayPortfolioTable();
-          
-    }, function(error) {
-     
-    });
+    displayPortfolioTable();
+        
+  }, function(error) {
     
-  }
+  });
+  
+}
 
 
 //Which one of button (green/red) (add/remove) lesson from Lessons table
@@ -662,12 +646,12 @@ lessonsTable.addEventListener("click", function(e) {
 
      //---if Add is pressed-------
     if (clickedBtn.classList.contains("addToList")) {
-      saveProduct(clickedBtn);
+      saveLesson(clickedBtn);
     
     }//---if Delete is pressed-------
     else if(clickedBtn.classList.contains("removeFromArray")){
-      const productId = clickedBtn.getAttribute("data-id");
-      removeLessonFromSQL(productId);
+      const LessonID = clickedBtn.getAttribute("data-id");
+      removeLessonFromSQL(LessonID);
       displayPortfolioTable();
       
       clickedBtn.className ="addToList";
@@ -684,124 +668,237 @@ lessonsTable.addEventListener("click", function(e) {
     var table =$('#portfolioTable').DataTable();
     var tr = $(this).closest('tr');
     var row = table.row( tr );
-  
-    if(tr.attr("data-id")=="mainTr"){
-        if($(this).closest("td").index()==0){
-  
-          if ( $(this).attr("data-id") == "closed" ) {
-              row.child(format2(row.data())).show();
-              tr.next().find("div").slideToggle();
-              $(this).attr('data-id','open');
 
-          }else{
-              tr.next().find("div").slideUp();
-              $(this).attr('data-id','closed');
-              setTimeout(function() {
-                  //your code to be executed after 1 second
-                  row.child.hide(); 
-                  // tr.remove();
-              }, 500);
+   if(tr.attr("data-id")=="mainTr"){
+  
+      if($(this).closest("td").index()==0){
+        
+        if ( $(this).attr("data-id") == "closed" ) {
+          $(this).attr('data-id','open');
+          $(this).queue(function (next) { 
+            $(this).css("border-bottom-left-radius","0px");
+            next(); 
+          });
+            $(this).next().next().next().queue(function (next) { 
+              $(this).css("border-bottom-right-radius","0px");
+              next(); 
+          });
+          // alert($(this).prop("tagName"))
+          row.child(format2(row.data())).show();
+          tr.next().children().children().slideToggle();
+          $(this).parent().next().css("box-shadow","none");
+        }else{
+          $(this).attr('data-id','closed');
+          $(this).delay(460).queue(function (next) { 
+              $(this).css("border-bottom-left-radius","15px");
+              next(); 
+          });
 
-          }
-           
+          $(this).next().next().next().delay(460).queue(function (next) { 
+              $(this).css("border-bottom-right-radius","15px");
+              next(); 
+          });
+
+          tr.next().find("div").slideUp(450);
+            // $(this).css("overflow","hidden");
+            // $(this).find("span").html("<i class='fas fa-chevron-down' style='transform: scale(2.5,0.5)'></i>");
+            // setTimeout(function() {
+            //     row.child.hide(); 
+            // }, 500);
         }
-      }else{     
-  
-        //$(this).parent().parent().parent().parent().parent().parent().parent().find("tr").slideToggle("slow");
-    
-            $(this).find("div").slideUp();
-            $(this).find("div").parent().parent().prev().children().attr('data-id','closed');
-            var tr =  $(this).find("div").parent().parent().prev();
-            var row = table.row( tr );
-            setTimeout(function() {
-                //your code to be executed after 1 second
-                row.child.hide(); 
-            }, 500);
-    
-        }    
+      }
+    }else{     
+
+
+      if( $(e.target).attr("id") != "gradeText"){
+        $(this).find("div").parent().parent().prev().children().attr('data-id','closed');
+        $(this).find("div").slideUp(450);
+
+        $(this).find("div").parent().parent().prev().children().eq(0).delay(460).queue(function (next) { 
+            $(this).css("border-bottom-left-radius","15px");
+            next(); 
+        });
+
+        $(this).find("div").parent().parent().prev().children().eq(3).delay(460).queue(function (next) { 
+            $(this).css("border-bottom-right-radius","15px");
+            next(); 
+        });
+
+        // var tr =  $(this).find("div").parent().parent().prev();
+        // var row = table.row( tr );
+        // setTimeout(function() {
+        //     row.child.hide(); 
+        // }, 500);
+
+      }else{
+        
+        let number = ($(e.target).html() + "").split(".")[0];
+        let fractionalP = ($(e.target).html() + "").split(".")[1];
+
+        $('#GradePopUp .content').animate({
+          top: "50%"
+        });
+        document.getElementById("GradePopUp").classList.toggle("activeGrade");
+        $("#GradePopUp").attr("data-id","open")
+
+        currentGradeObject = e.target
+        currentGradeNumber = parseInt(number, 10)
+        currentGradeFractionalPart = parseInt(fractionalP, 10)
+        init(number,fractionalP)
+
+      }
+    }  
   });
 
   
 //When user Deleting Lesson from saved Lessons
   $('#portfolioTable tbody').on('click', '.removeFromList', function(e){
-
     e.preventDefault();
    
-      var rowCount = document.getElementById('portfolioTable').rows.length;
-      rowCount--;   //beacuse count the 'tr' of thead
+    var rowCount = document.getElementById('portfolioTable').rows.length;
+    rowCount = rowCount-2;   //because count the 'tr' of thead and tr of ordering
      
-      if(rowCount == 2){
-        var tr=$(this).parent().parent();
+    if(rowCount == 1){ //if table has only one row
+      var tr = $(this).parent().parent().parent()
+      // if(e.target.tagName == "I"){
+      //   tr=$(this).parent().parent().parent();
+      // }else{
+      //   tr=$(this).parent().parent().parent();
+      // }
 
+      //------ animation ----
+      $(tr).animate({
+        left: '-1000%'
+      },600);
+      
+      setTimeout(function() {
+        //make GREEN the button in Lessons table
+        let LessonID
+        if(e.target.tagName == "I"){
+          LessonID = $(e.target).parent().attr("data-id");
+        }else{
+          LessonID = $(e.target).attr("data-id");
+        }
+
+        removeLessonFromSQL(LessonID);
+        displayTotal("screen");
+        displayGrade()
+        
+        //delete saved Lessons table
+        var table = $('#portfolioTable').DataTable();
+        table.clear().destroy();
+        $('#tableBodyPortfolio').empty();
+
+      }, 400);
+      
+    }else{ //if table has more than one row
+      //if table has one row with open slide section
+      if(rowCount == 2 &&  $(this).parent().parent().prev().prev().prev().attr("data-id") != "closed"){ 
+        var tr = $(this).parent().parent().parent()
+        //animation
         $(tr).animate({
           left: '-1000%'
         },600);
-        
+
+        tr.next().animate({
+          left: '-1000%'
+        },600);
+
         setTimeout(function() {
-          clearPortfolioTable();
+          //make GREEN the button in Lessons table
+          let LessonID
+          if(e.target.tagName == "I"){
+            LessonID = $(e.target).parent().attr("data-id");
+          }else{
+            LessonID = $(e.target).attr("data-id");
+          }
+          removeLessonFromSQL(LessonID);
           displayTotal("screen");
+          displayGrade()
+
+          //delete saved Lessons table
+          var table = $('#portfolioTable').DataTable();
+          table.clear().destroy();
+          $('#tableBodyPortfolio').empty();
         }, 400);
-        
+
       }else{
-        if(rowCount == 3 && $(this).parent().prev().prev().prev().attr("data-id") != "closed"){
-          var tr=$(this).parent().parent();
+        //Closed slide section and more than one row
+        if($(this).parent().parent().prev().prev().prev().attr("data-id") == "closed"){
+          var table =  $('#portfolioTable').DataTable();
+
+          //---animation------ 
+          var tr = $(this).parent().parent().parent()
           $(tr).animate({
             left: '-1000%'
           },600);
 
-          tr.next().animate({
+
+          //--- make GREEN the button in lessons table ------ 
+          let LessonID
+          if(e.target.tagName == "I"){
+            LessonID = $(e.target).parent().attr("data-id");
+          }else{
+            LessonID = $(e.target).attr("data-id");
+          }
+          removeLessonFromSQL(LessonID);
+
+          displayTotal("screen");
+          displayGrade()
+
+          //---delete row ------ 
+          setTimeout(function() {
+            tr.next().remove();
+            table.row(tr).remove().draw( false );
+          }, 400);
+
+        }else{//Open slide section and more than one row
+          var table =  $('#portfolioTable').DataTable();
+          var tr = $(this).parent().parent().parent()
+
+          //---animation-----
+          $(tr).animate({
             left: '-1000%'
           },600);
 
-          setTimeout(function() {
-            clearPortfolioTable();
-            displayTotal("screen");
-          }, 400);
+          $(tr).next().animate({
+            left: '-1000%'
+          },600);
 
-        }else{
-          if($(this).parent().prev().prev().prev().attr("data-id") == "closed"){
-            var table =  $('#portfolioTable').DataTable();
-            const productId =$(this).attr("data-id");
-            removeLessonFromSQL(productId);
-            displayTotal("screen");
-            var tr=$(this).parent().parent();
-            $(tr).animate({
-              left: '-1000%'
-            },600);
-  
-            setTimeout(function() {
-              tr.next().remove();
-              table.row(tr).remove().draw( false );
-            }, 400);
-
+          //--- make GREEN the button in lessons table ------ 
+          let LessonID
+          if(e.target.tagName == "I"){
+            LessonID = $(e.target).parent().attr("data-id");
           }else{
-            var table =  $('#portfolioTable').DataTable();
-            const productId =$(this).attr("data-id");
-            removeLessonFromSQL(productId);
-            displayTotal("screen");
-            var tr=$(this).parent().parent();
-
-            $(tr).animate({
-              left: '-1000%'
-            },600);
-
-            $(tr).next().animate({
-              left: '-1000%'
-            },600);
-            // tr.next().find("div").slideUp();
-            // $(this).attr('data-id','closed');
-            // setTimeout(function() {
-            //     //your code to be executed after 1 second
-            //     row.child.hide(); 
-            // }, 500);
-            
-            setTimeout(function() {
-              table.row(tr).remove().draw( false );
-            }, 400);
+            LessonID = $(e.target).attr("data-id");
           }
+          removeLessonFromSQL(LessonID);
+
+          displayTotal("screen");
+          displayGrade()
+
+          //---delete row  ------ 
+          setTimeout(function() {
+            table.row(tr).remove().draw( false );
+          }, 400);
         }
-       
       }
+    }
+  });
+
+
+  //When user Deleting Lesson from saved Lessons
+  $('#OrderingBy').on('change',  function(e){
+    orderBy = this.value
+    
+    //change status of tr if this was "open"
+    $('#portfolioTable tbody tr').each(function() {
+      if($(this).attr("data-id") == "mainTr"){
+        $(this).children(1).attr("data-id","closed")
+      }
+    });
+
+    OrderingSavedLessons();
   });
 
 
@@ -810,17 +907,21 @@ lessonsTable.addEventListener("click", function(e) {
   $('#Alert-2').on('click', '.deleteList', function(e){
     clearPortfolioTable();
     displayTotal("screen");
+    displayGrade()
     document.getElementById("Alert-2").classList.toggle("activeAlert");
+    $("#Alert-2").attr("data-id","closed")
   });
 
 //Close PopUp no required/no Time Sch 
   $('#Alert-2').on('click', '.closeAlert', function(e){
     document.getElementById("Alert-2").classList.toggle("activeAlert");
+    $("#Alert-2").attr("data-id","closed")
   });
 
 //Close delete all lessons PopUp 
    $('#Alert-1').on('click', '.closeAlert', function(e){
     document.getElementById("Alert-1").classList.toggle("activeAlert");
+    $("#Alert-1").attr("data-id","closed")
   });
 
 
@@ -847,226 +948,229 @@ clearPortfolioBtn.addEventListener("click", function(e) {
 
     document.getElementById("Alert-2").classList.toggle("activeAlert");
     warningAnimation.goToAndPlay(0,true);
+    $("#Alert-2").attr("data-id","open")
 
   });
 
-})();//============================ end 0f function ==========================================
+})();//============================ end of function ==========================================
 
-
-
-
-//fill Lessons table when closing portfolio screen (4rd screen)
-function aJaxCall2(){
-
-  // device went offline
-  var networkState = navigator.connection.type; 
-  //=========================== Animation for No Network ====================
-  if(networkState == "none"){
-    NoConnection2.goToAndPlay(0,true);
-  }
-
-  var table = $('#userTable').DataTable();
-  table.clear().destroy();
-  
-  var HiddenDepartment=document.getElementById("HiddenDepartment").innerHTML;
-  var HiddenExam=document.getElementById("HiddenExam").innerHTML;
-
-
-  for(var i = document.getElementById("tableBodyId").rows.length; i > 0;i--)
-  {
-      document.getElementById("tableBodyId").deleteRow(i -1);
-  }
-  
-
-  $.ajax({
-    type: 'GET',
-    url: URL+"/FindLessons.php",
-    data:{  
-        "tmima":HiddenDepartment,  
-        "examino":HiddenExam,  
-    },  
-    dataType: 'jsonp',
-    jsonp:"callback",
-    success: function (data) {
-        
-        var len = data.length;
-
-        for(var i=0; i<len; i++){
-            id=data[i].id;
-            Lesson = data[i].Lesson;
-            ECTS = data[i].ECTS;
-            Infos = data[i].Infos;
-            // var Department = data[i].Department;
-            Required = data[i].Required;
-            Direction = data[i].Direction;
-            Examino = data[i].Exam;
-            
-
-            fillLessonsTable2(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino);
-
-        }//=====end for
-
-
-    }//====End success
-  });//===End AJAX
-  
-}//====End function()
-
-
-//Fill its row of lessons table with items
-function fillLessonsTable2(id,Lesson,ECTS,Infos,Required,Direction,i,len,Examino) {
-                
-  var db = null;
-  db = window.sqlitePlugin.openDatabase({
-      name: 'my.db',
-      location: 'default',
-  });
-
-  var darkTheme = false
-  if(localStorage.getItem("darkTheme") !== null){
-      if(localStorage.getItem("darkTheme") == "on"){
-          darkTheme=true;
-      }
-  }
-
-  db.executeSql("SELECT count(*) AS mycount FROM savedLessonsTable WHERE id=?", [id], function(rs) {
-    
-    var tr_str = 
-    "<tr data-id='mainTr' class='spaceUnder'>" +
-        "<td  width='80%'  data-id='closed'><p class='lessonText' >" +Lesson + "</p></td>" ;     //<<<=====0
-    if (rs.rows.item(0).mycount!=0) {
-        //Remove
-        tr_str=tr_str+"<td  width='20%'  ><div class='buttonDiv'><button class='removeFromArray' data-id="+id+"><i class='far fa-trash-alt'></i></button></div></td>" 
-        updateLesson(id,Lesson,ECTS,Direction,Examino)
-    } else {
-        //ADD
-        tr_str=tr_str+`<td  width='20%'  ><div class='buttonDiv' ><button class='addToList' data-id=`+id+`> <i class='fas fa-plus'></i> </button></div></td>`;
-    }
-    tr_str=tr_str+ 
-        "<td  width='0%' class='hidden'>" +ECTS + "</td>" +     //<<<=====2
-        "<td  width='0%' class='hidden'>" +changeZero(Examino) + "</td>"+ //<<<=====3
-        "<td  width='0%' class='hidden'>" +Infos + "</td>" +         //<<<=====4
-        "<td  width='0%' class='hidden'>" +Direction + "</td>" +         //<<<=====5
-        "<td  width='0%' class='hidden'>" +changeOperators(Required) + "</td>" +              //<<<=====6
-    "</tr>"
-    $("#userTable tbody").append(tr_str);
-
-      if(i==len-1){
-          //dark theme
-          if(darkTheme == true){
-            $('#userTable tr').each(function() {
-                $(this).find("td").find("p").css({"background":"#525252","color":"#EFEFEF"});
-                $(this).find("td").next().find("div").css({"background":"#525252","color":"#EFEFEF"});
-            });
-        }else{
-            $('#userTable tr').each(function() {
-                $(this).find("td").find("p").css({"background":"#E7F0F0","color":"#black"});
-                $(this).find("td").next().find("div").css({"background":"#E7F0F0"});
-            });
-        }
-         //make ordering with by Direction
-        formLessonsTable2();
-      }
-  }, function(error) {
-
-    var tr_str = 
-    "<tr data-id='mainTr' class='spaceUnder'>" +
-        "<td  width='80%'  data-id='closed'><p class='lessonText' >" +Lesson + "</p></td>" ;     //<<<=====0
-    //ADD
-    tr_str=tr_str+`<td  width='20%'  ><div class='buttonDiv' ><button class='addToList' data-id=`+id+`> <i class='fas fa-plus'></i> </button></div></td>`;
-    tr_str=tr_str+ 
-        "<td  width='0%' class='hidden'>" +ECTS + "</td>" +     //<<<=====2
-        "<td  width='0%' class='hidden'>" +changeZero(Examino) + "</td>"+ //<<<=====3
-        "<td  width='0%' class='hidden'>" +Infos + "</td>" +         //<<<=====4
-        "<td  width='0%' class='hidden'>" +Direction + "</td>" +         //<<<=====5
-        "<td  width='0%' class='hidden'>" +changeOperators(Required) + "</td>" +              //<<<=====6
-    "</tr>"
-    $("#userTable tbody").append(tr_str);
-
-    if(i==len-1){
-      //dark theme
-      if(darkTheme == true){
-        $('#userTable tr').each(function() {
-            $(this).find("td").find("p").css({"background":"#525252","color":"#EFEFEF"});
-            $(this).find("td").next().find("div").css({"background":"#525252","color":"#EFEFEF"});
-        });
+//set number in popup that u choose grade 
+function init(number,fractionalP) {
+    $('#FractionalPartList').append("<li></li>")
+    $('#FractionalPartList').append("<li></li>")
+    for(var i=0;i<100;i++){
+      if(i<10){
+        $('#FractionalPartList').append("<li>0"+i+"</li>")
       }else{
-          $('#userTable tr').each(function() {
-              // $(this).find("td").css({"background":"#E7F0F0","color":"black"});
-              $(this).find("td").find("p").css({"background":"#E7F0F0","color":"#black"});
-              $(this).find("td").next().find("div").css({"background":"#E7F0F0"});
-          });
+        $('#FractionalPartList').append("<li>"+i+"</li>")
       }
-      //make ordering with by Direction
-      formLessonsTable2();
     }
+    $('#FractionalPartList').append("<li></li>")
+    $('#FractionalPartList').append("<li></li>")
+
+    SetNumber(parseInt(number, 10));
+    var tp = (parseInt(number, 10)* 48);
+    document.querySelectorAll('.number')[0].scrollTop = tp;
+
+    if(fractionalP == undefined){
+      SetFractionalPart(0);
+      var tp = (0  * 48);
+      document.querySelectorAll('.fractionalPart')[0].scrollTop = tp;
+    }else{
+      SetFractionalPart(parseInt(fractionalP, 10));
+      var tp = (parseInt(fractionalP, 10)  * 48);
+      document.querySelectorAll('.fractionalPart')[0].scrollTop = tp;
+    }
+   
+  }
+  
+
+  function SetNumber(hr) {
+    setIfPresent(document.querySelectorAll('.number li')[hr+2], 'activeLeft');
+    setIfPresent(document.querySelectorAll('.number li')[hr+3], 'fade');
+    setIfPresent(document.querySelectorAll('.number li')[hr+1], 'fade');
+    setIfPresent(document.querySelectorAll('.number li')[hr+4], 'fader');
+    setIfPresent(document.querySelectorAll('.number li')[hr-1], 'fader');
+    
+  }
+  
+  function SetFractionalPart(mn) {
+    setIfPresent(document.querySelectorAll('.fractionalPart li')[mn+2], 'activeRight');
+    setIfPresent(document.querySelectorAll('.fractionalPart li')[mn+3], 'fade');
+    setIfPresent(document.querySelectorAll('.fractionalPart li')[mn+1], 'fade');
+    setIfPresent(document.querySelectorAll('.fractionalPart li')[mn+4], 'fader');
+    setIfPresent(document.querySelectorAll('.fractionalPart li')[mn-1], 'fader');
+  }
+  
+  //when first number moves
+  function moveNumber(hr) {
+    var tp = hr.scrollTop;
+    var ind = Math.floor((tp + 24) / 48) + 2;
+  
+    var d = document.querySelectorAll('.number li');
+    setIfPresent(document.querySelectorAll('.number li.activeLeft')[0], '');
+    setIfPresent(document.querySelectorAll('.number li.fade')[0], '');
+    setIfPresent(document.querySelectorAll('.number li.fade')[0], '');
+    setIfPresent(document.querySelectorAll('.number li.fader')[0], '');
+    setIfPresent(document.querySelectorAll('.number li.fader')[0], '');
+    currentGradeNumber = ind-2
+    setIfPresent(d[ind], 'activeLeft');
+    setIfPresent(d[ind-1], 'fade');
+    setIfPresent(d[ind+1], 'fade');
+    setIfPresent(d[ind+2], 'fader');
+    setIfPresent(d[ind-2], 'fader');
+    if (scrollTimer != -1)
+      clearTimeout(scrollTimer);
+      
+    scrollTimer = setTimeout(function() {
+      document.querySelectorAll('.number')[0].scrollTop = (ind - 2) * 48;
+    }, 200);
+
+    if(currentGradeNumber == 10){
+      $(".fractionalPart").scrollTop(0)
+      $(".fractionalPart").css("overflow","hidden")
+      SetFractionalPart(0);
+      currentGradeFractionalPart = 0
+    }else{
+      $(".fractionalPart").css("overflow","scroll")
+    }
+  
+  }
+  
+  var scrollTimer = -1;
+
+    //when second number (fractional part) moves
+  function moveFractionalPart(mn) {
+    if(currentGradeNumber<10){
+      var tp = mn.scrollTop;
+      var ind = Math.floor((tp + 24) / 48) + 2;
+    
+      var d = document.querySelectorAll('.fractionalPart li');
+    
+      setIfPresent(document.querySelectorAll('.fractionalPart li.activeRight')[0], '');
+      setIfPresent(document.querySelectorAll('.fractionalPart li.fade')[0], '');
+      setIfPresent(document.querySelectorAll('.fractionalPart li.fade')[0], '');
+      setIfPresent(document.querySelectorAll('.fractionalPart li.fader')[0], '');
+      setIfPresent(document.querySelectorAll('.fractionalPart li.fader')[0], '');
+      currentGradeFractionalPart = ind-2
+      setIfPresent(d[ind], 'activeRight');
+      setIfPresent(d[ind-1], 'fade');
+      setIfPresent(d[ind+1], 'fade');
+      setIfPresent(d[ind+2], 'fader');
+      setIfPresent(d[ind-2], 'fader');
+      if (scrollTimer != -1)
+        clearTimeout(scrollTimer);
+        
+      scrollTimer = setTimeout(function() {
+        document.querySelectorAll('.fractionalPart')[0].scrollTop = (ind - 2) * 48;
+      }, 200);
+    }
+
+  }
+  
+  function setIfPresent(elem, cls) {
+    if (typeof elem !== 'undefined') {
+      elem.className = cls;
+    }
+  }
+
+  //save grade from pop up and close pop up
+  $('.saveGrade').on('click',  function(e){
+
+    $("#GradePopUp").attr("data-id","closed")
+
+    let newGrade,ThisCell
+    // alert($(currentGradeObject).parent("div").parent().parent().parent().prev().find("td:nth-child(5)").html())
+    if(currentGradeFractionalPart != 0){
+      newGrade = parseInt(currentGradeNumber,10)+(parseInt(currentGradeFractionalPart,10)/100)
+      $(currentGradeObject).html(newGrade)
+      //                                   div       td      tr     prev tr     fifth td 
+      $(currentGradeObject).parent("div").parent().parent().parent().prev().find("td:nth-child(5)").html(newGrade)
+      ThisCell = $(currentGradeObject).parent("div").parent().parent().parent().prev().find("td:nth-child(5)")
+      //update data table cell also
+      $('#portfolioTable').DataTable().cell(ThisCell).data(newGrade)
+    }else{
+      newGrade = currentGradeNumber
+      $(currentGradeObject).html(newGrade+".00")
+      //                                   div       td      tr     prev tr     fifth td 
+      $(currentGradeObject).parent("div").parent().parent().parent().prev().find("td:nth-child(5)").html(newGrade+".00")
+      ThisCell = $(currentGradeObject).parent("div").parent().parent().parent().prev().find("td:nth-child(5)")
+      //update data table cell also
+     $('#portfolioTable').DataTable().cell(ThisCell).data(newGrade+".00")
+    }
+
+    $('#GradePopUp .content').animate({
+      top: 1500
+    });
+
+    document.getElementById("GradePopUp").classList.toggle("activeGrade");
+      
+    db.executeSql('UPDATE savedLessonsTable SET Grade=? WHERE id=?',[newGrade,$(currentGradeObject).attr("data-id")],function() {
+     
+    }, function(error) {
+
+    });
+    $('#FractionalPartList').empty()
+
+    displayGrade()
   });
- 
-}//===End fillArray
 
 
 
+//calculate and display degree grade
+  function displayGrade(){
+    var TotalMinECTS=document.getElementById("HiddenECTS").innerHTML;
+    db.executeSql("SELECT ECTS,Grade FROM savedLessonsTable WHERE Department='"+document.getElementById("HiddenDepartment").innerHTML+"'", [], function(results) {
+      var len = results.rows.length;
+      if(len != 0){
+        if(len <= (TotalMinECTS/6)){
+        
+            let totalECTS=0,gradeECTS=0
+            
+            for (var i=0; i<len; i++){
+              totalECTS = totalECTS + parseFloat(results.rows.item(i).ECTS);
+              gradeECTS = gradeECTS + (parseFloat(results.rows.item(i).ECTS) * parseFloat(results.rows.item(i).Grade))
+            } 
 
+            if((gradeECTS/totalECTS).toFixed(2) >= 10.00){
+              $(".gradeSection").html("Βαθμός: <b>10.00</b>")
+            }else{
+              $(".gradeSection").html("Βαθμός: <b>"+(gradeECTS/totalECTS).toFixed(2)+"</b> ")
+            }
+        }else{
+            let totalECTS=0,gradeECTS=0
+    
+            for (var i=0; i<(TotalMinECTS/6); i++){
+              totalECTS = totalECTS + parseFloat(results.rows.item(i).ECTS);
+              gradeECTS = gradeECTS + (parseFloat(results.rows.item(i).ECTS) * parseFloat(results.rows.item(i).Grade))
+            }
 
-//Make slided table for more infos in lessons table  
-function formLessonsTable2() {
-  
-  var table =$('#userTable').DataTable({
-      "deferRender": true,
-      "destroy": true,
-      "retrieve": false,
-      "paging":   false,             
-      "ordering": true,
-      "info":     false,
-      "searching":   false,
-      "columns": [
-        {'data': 'Lesson'},
-        { 'data': 'id' },
-        { 'data': 'ECTS' },
-        { 'data': 'Examino' },
-        { 'data': 'Infos' },
-        { 'data': 'Direction' },
-        { 'data': 'Required' }
-      ],
-      'order': [[5, 'asc']],
-       "responsive": true,
-       "initComplete": function(settings, json) {
-        $('th.sorting').off();
-        $("th.sorting").css('cursor', 'default');
-        $("th.sorting_asc").css('cursor', 'default');
-        $("th.sorting_desc").css('cursor', 'default');
-    },
-      drawCallback: function (settings) {
-                  var api = this.api();
-                  var rows = api.rows({ page: 'current' }).nodes();
-               
-                  var last = null;
-  
-                  api.column(5, { page: 'current' }).data().each(function (group, i) {
-  
-                    if (last !== group) {
-                      if(i==0){
-                          $(rows).eq(i).before(
-                            '<tr class="group" style="box-shadow: none;">'+
-                                  '<td colspan="8"  style="background-color:transparent;  padding-left: 10px;" class="orderingClass"><i class="fas fa-caret-right"></i> '+ group  + '</td>'
-                              +'</tr>'
-                        );
-                      }else{
-                      $(rows).eq(i).before(
-                        '<tr style="box-shadow: none;"><td colspan="8" style="padding: 20px 20px;background:#transparent; style="box-shadow: none;""></td></tr>'+
-                        '<tr class="group" style="box-shadow: none;">'+
-                            '<td colspan="8"  style="background-color:transparent;  padding-left: 10px;" class="orderingClass" ><i class="fas fa-caret-right"></i> ' + group  + '</td>'
-                        +'</tr>'
-                        );
-                      }
-                      last = group;
-                    }
-                  });
-              }
-  } );
+            if((gradeECTS/totalECTS).toFixed(2) >= 10.00){
+              $(".gradeSection").html("Βαθμός: <b>10.00</b> <div class='gradeQuestionmark'></div>")
+            }else{
+              $(".gradeSection").html("Βαθμός: <b>"+(gradeECTS/totalECTS).toFixed(2)+"</b> <div class='gradeQuestionmark'></div>")
+            }
+        }
+      }else{
+        $(".gradeSection").html("Βαθμός: <b>0.00</b>")
+      }
+    },function(error){
 
-       
-}
+    })
+    
+  }
 
-
+//display warning pop up with calculation method of degree grade
+  $('.gradeSection').on('click',".gradeQuestionmark" , function(e){
+      var TotalMinECTS=document.getElementById("HiddenECTS").innerHTML;
+    $('.gradeWarning').html(`<i class='fas fa-lightbulb' style='font-size:20px;color:#F1CB3F'></i> Ο βαθμός υπολογίστηκε με τα πρώτα `+(TotalMinECTS/6)+` μαθήματα`)
+    $('.gradeWarning').animate({
+      top: 50
+    });
+    setTimeout(() => {
+      $('.gradeWarning').animate({
+        top: -100
+      });
+    }, 3000);
+  });
 

@@ -19,32 +19,8 @@ html {
 	min-height: 100%;
  }
 
- 
 
-/*=================================Διάλεξε τμήμα==============================*/						/********************************/
-  .title2{
-	font-family: "Open Sans", sans-serif;
-	font-size: 25px;
-
-	display: inline-block;
-
-	/* margin-bottom:10%; */
-	color: #14A098;
-	text-shadow: 0px 5px 10px rgba(0,0,0,0.5);
-}
-/*=================================Buttons==============================*/							/********************************/
-.backANDchoose{
-	/* display: grid;
-	grid-template-columns: repeat(2,1fr);
-	grid-row-gap: 0px;
-	grid-column-gap: 0px; */
-
-	
-	margin-bottom: 20px;
-	margin-right: 50px;
-  }
-
-/*=======================================Slide up popUp==================================================*/
+/*======================================= Slide up popUp for examina==================================================*/
 
 .popupExamina .overlayExamina {
 	position:fixed;
@@ -54,7 +30,6 @@ html {
 	height:100vh;
 	background:rgba(0,0,0,0.7);
 	display:none;
-
 	backdrop-filter: blur(5px);
   }
    
@@ -69,11 +44,10 @@ html {
 	border-top: 5px solid #14A098;
 	border-top-left-radius: 25px;
 	border-top-right-radius: 25px;
-
 	transition: all .3s ease-out;
-	
-
   }
+
+  /* =================== Slide up popUp for season  ================== */
 
   .popupSeason .overlaySeason {
 	position:fixed;
@@ -83,7 +57,6 @@ html {
 	height:100vh;
 	background:rgba(0,0,0,0.7);
 	display:none;
-
 	backdrop-filter: blur(5px);
   }
 
@@ -98,12 +71,144 @@ html {
 	border-top: 3px solid #14A098;
 	border-top-left-radius: 25px;
 	border-top-right-radius: 25px;
-
 	transition: all .3s ease-out;
-
-
   }
+
+
+   /* ==================== Slide up popUp for grade picking ================= */
+   .GradePopUp .overlayGrade {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:100vh;
+	background:rgba(0,0,0,0.7);
+	display:none;
+	backdrop-filter: blur(5px);
+  }
+
+  .GradePopUp .content {
+	position:fixed;
+	top:100%;
+	height: 50%;
+	/* transform:translate(-50%,-50%) scale(0); */
+	background:rgb(231, 240, 240);
+	width:100%;
+	border-top: 3px solid #14A098;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+	display: grid;
+	place-items: center;
+	transition: all .3s ease-out;
+	overflow: scroll;
+  }
+
+  /* ---------------------- Grade picking mechanism -------------------- */
+
+  .GradePicker {
+	
+	height: 240px;
+	width:100%;
+	margin-bottom: 0%;
+	margin-top: 5%;
+	display: grid;
+	grid-template-columns: 49% 2% 49%;
+	grid-row-gap: 0px;
+	grid-column-gap:0%;
+  }
+  .number, .fractionalPart {
+	width:100%;
+	height: 100%;
+	overflow: scroll;
+  }
+
+
+  .number ul, .fractionalPart ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 80%;
+	font-family: 'Roboto', sans-serif;
+  }
+
+  .number ul  {
+	float: right;
+  }
+  .fractionalPart ul  {
+	float: left;
+  }
+
   
+  .number li, .fractionalPart li {
+	text-align: center;
+	width: 100%;
+	height: 48px;
+  }
+  .number li {
+	text-align: right;
+  }
+  .fractionalPart li {
+	text-align: left;
+	padding-left: 3px;
+  }
+
+  .gradeComma{
+	width: 100%;
+	color: #01b3a3;
+	height: 100%;
+	display: grid;
+	place-items: center;
+	text-align: center;
+	font-size: 40px;
+  }
+
+  
+  .fader {
+	color: #ccc ;
+	font-size: 20px;
+	line-height: 26px;
+  }
+  .fade {
+	font-size: 25px;
+	line-height: 40px;
+	color: #7e828a ;
+  }
+  .activeLeft {
+	border-top: 2px solid #01b3a3;
+	border-bottom: 2px solid #01b3a3;
+	border-left: 20px;
+	border-bottom-left-radius: 20px;
+	border-top-left-radius: 20px;
+	color:  #01b3a3;
+	font-size: 42px
+  }
+
+  .activeRight {
+	border-top: 2px solid #01b3a3;
+	border-bottom: 2px solid #01b3a3;
+	border-bottom-right-radius: 20px;
+	border-top-right-radius: 20px;
+	color:  #01b3a3;
+	font-size: 42px
+  }
+
+  .saveGrade{
+	border: none;
+	background-color: #01b3a3;
+	color: #e4f5f4;
+	width: 45%;
+	height: 65%;
+	text-align: center;
+	border-radius: 20px;
+	margin-bottom:10%;
+	box-shadow:0px 3px 3px rgba(0,0,0,0.3);
+	font-family: "Open Sans", sans-serif;
+	font-size: 20px;
+  }
+
+   /* ---------------- Overlay for slide up popups--------------------- */
+  
+
    
   .popupExamina.activeExamina .overlayExamina {
 	display:block;
@@ -113,21 +218,23 @@ html {
 	display:block;
   }
 
- 
+  .GradePopUp.activeGrade .overlayGrade{
+	display:block;
+  }
+
+
+
+/*============================================== Examina bottom sheet containers=======================================================*/
 .scrollingExam {
 	width:100%;
 	height:100%;
 	overflow-x: hidden;
 	overflow-y: auto;
 	text-align: center;
-	
 	padding-bottom: 30px;
 	border-top-left-radius: 25px;
 	border-top-right-radius: 25px;
 }
-
-
-/*==============================================Line + Buttons gia examina=======================================================*/
 
 .line{
 	height: 2px;
@@ -143,7 +250,6 @@ html {
 	background-color: #41AAA8;
 	width: 150px;
 	margin-left: 5%;
-	
 	font-family: "Open Sans", sans-serif;
 	font-size: x-large;
 	color: white;
@@ -162,47 +268,6 @@ html {
 .examino:nth-of-type(odd){
 	margin-left: 5%;
 }
-.Season1{
-	margin-bottom:10%;
-	
-	/* background: rgb(65,168,170);
-	background: linear-gradient(63deg, rgba(65,168,170,1) 24%, rgba(60,209,139,1) 63%); */
-	background: rgb(6,129,127);
-	background: linear-gradient(90deg, rgba(6,129,127,1) 15%, rgba(65,168,170,1) 60%, rgba(76,180,182,1) 85%);
-	width: 65%;
-	
-	font-family: "Open Sans", sans-serif;
-	font-size: x-large;
-	color: white;
-	text-align: center;
-	padding:10px 10px 10px 10px;
-	border-radius:100px;
-	font-size: 18px;
-	font-weight: bold;
-	letter-spacing: 1px;
-	border:none;
-	box-shadow:0px 5px 5px rgba(0,0,0,0.5);
-}
-
-
-.Season2{
-	margin-bottom:10%;
-	/* background: rgb(223,62,30);
-	background: linear-gradient(63deg, rgba(223,62,30,1) 16%, rgba(209,175,60,1) 63%); */
-	background: rgb(223,62,30);
-background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%, rgba(223,185,30,1) 85%);
-	width: 65%;
-	
-	font-family: "Open Sans", sans-serif;
-	color: white;
-	padding:10px 10px 10px 10px;
-	border-radius:100px;
-	font-size: 18px;
-	font-weight: bold;
-	letter-spacing: 1px;
-	border:none;
-	box-shadow:0px 5px 5px rgba(0,0,0,0.5);
-}
 
 .year{
 	font-family: "Open Sans", sans-serif;
@@ -210,7 +275,6 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	font-size: 20px;
 	justify-items: center;
 	color: #41AAA8;
-	
 	display: inline-block;
 }
 
@@ -238,28 +302,53 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	grid-column-gap: 0px;
 }
 
-
-
-/*=====================================================Array Place+Array Design+Navbar======================================*/
-.navbar{
-	top: 0%;
-	width: 100%;;
-	height: 12.5%;
-	position: fixed;
-	z-index: -1;
-	background-color: #14A098;
-	border-bottom: 3px solid #105E62;
-	border-bottom-left-radius: 20px;
-	border-bottom-right-radius: 20px;
+/*============================================== Seasons bottom sheet containers=======================================================*/
+.Season1{
+	margin-bottom:8%;
+	/* background: rgb(65,168,170);
+	background: linear-gradient(63deg, rgba(65,168,170,1) 24%, rgba(60,209,139,1) 63%); */
+	background: rgb(6,129,127);
+	background: linear-gradient(90deg, rgba(6,129,127,1) 15%, rgba(65,168,170,1) 60%, rgba(76,180,182,1) 85%);
+	width: 65%;
+	font-family: "Open Sans", sans-serif;
+	font-size: x-large;
+	color: white;
+	text-align: center;
+	padding:10px 10px 10px 10px;
+	border-radius:100px;
+	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	border:none;
+	box-shadow:0px 5px 5px rgba(0,0,0,0.5);
 }
 
-																									
+
+.Season2{
+	margin-bottom:10%;
+	/* background: rgb(223,62,30);
+	background: linear-gradient(63deg, rgba(223,62,30,1) 16%, rgba(209,175,60,1) 63%); */
+	background: rgb(223,62,30);
+background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%, rgba(223,185,30,1) 85%);
+	width: 65%;
+	font-family: "Open Sans", sans-serif;
+	color: white;
+	padding:10px 10px 10px 10px;
+	border-radius:100px;
+	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	border:none;
+	box-shadow:0px 5px 5px rgba(0,0,0,0.5);
+}
+
+
+
+/*===================================================== Departments Picking Area screen 2 ======================================*/																								
 						
 .GroupOfButtons{
 	padding-top: 10%;
 	/* padding-bottom: 10%; */
-
-	
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -267,34 +356,11 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	top: 0;
 	transition: -webkit-transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
 	transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
-
 	background:rgb(231, 240, 240);
-
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
-
 	overflow-x: hidden; 
 	/* padding-bottom: 150px; */
-}
-
-/* #test{
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	left: 0;
-	top: 0;
-	overflow: scroll;
-	-webkit-overflow-scrolling: touch;
-} */
-
-.middle{
-	width: 100%;
-	height: 100%;
-	top: 0%;
-	left:0;
-	z-index: -4;
-	position:absolute;
-	background:#128225;
 }
 
 #searchSection{
@@ -316,18 +382,18 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 #allListButton{
 	color:#14A098;
 	font-size: 20px;
-	font-weight:600;
-	text-align: center;
-	width: 50%;
+	font-weight:500;
+	width: 100%;
 	margin-bottom: 5px;
+	padding-left: 25%;
 }
 
 #savedListButton{
 	color:#969696; 
 	font-size: 20px;
-	font-weight:600;
-	text-align: center;
-	width: 50%;
+	font-weight:500;
+	text-align: left;
+	width: 100%;
 	margin-bottom: 5px;
 }
 
@@ -358,67 +424,49 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	margin-top: 0px;
 	margin-left: 0%;
 	background:rgb(240, 239, 239);
-	box-shadow: rgba(54, 54, 54, 0.25) 0px 5px 5px, rgba(54, 54, 54, 0.25) 0px 5px 5px;
+	box-shadow: rgba(54, 54, 54, 0.2) 0px 4px 4px, rgba(54, 54, 54, 0.2) 0px 4px 4px;
 	border-radius: 20px;
-/* 
-	position: absolute;
-	left: 50%;
-	top: 2%;
-	transform: translate(-50%,-2%);  */
+	color: #1e7c77;
 }
 ::placeholder{
 	color: #969696; 
 }
 
-#myInput1 :focus,#myInput2 :focus {
+#myInput :focus {
 	border-color: #14A098; 
 }
 .button1{
-	background-color: rgb(231, 240, 240);
 	width: 100%;
 	font-family: "Open Sans", sans-serif;
 	font-size: x-large;
 	color: #14A098; 
-	
 	padding:10px 20px 10px 20px;
 	border-radius:0px;
 	font-size: 20px;
 	font-weight:500;
 	letter-spacing: 1.5px;
 	border:none;
-	
 	display: grid;
 	grid-template-columns: 75% 25%;
 	
 }
 
 .pressedButton{
-
 	background-color: rgb(213, 216, 216);
 	width: 100%;
 	font-family: "Open Sans", sans-serif;
 	font-size: x-large;
 	color: #14A098; 
-	
 	padding:10px 20px 10px 20px;
 	border-radius:0px;
 	font-size: 20px;
 	font-weight:500;
 	letter-spacing: 1.5px;
 	border:none;
-	
 	display: grid;
 	grid-template-columns: 75% 25%;
 }
 
-/* #fk{
-	display: inline-block;
-    white-space: nowrap;
-    overflow: hidden ;
-    text-overflow: ellipsis;
-	width: 100%;
-	height: 100%;
-} */
 
 .StarDiv{
 	transform: translate(25%, 25%);
@@ -433,12 +481,8 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 #DepartmentsList li, #savedDepartmentsList li {
 	width: 100%;
 	margin: 0 auto;
-	/* margin-bottom: 20px; */
-	/* border-top: 1px solid #14A098; */
 	border-bottom: 1px solid #14A098;
 	min-height: 100px;
-	
-	/* white-space: nowrap; */
 }
 
 
@@ -451,18 +495,13 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	width: 100%;
 	height: 100%;
 	z-index: 2;
-	
 }
 
 .backButton{
-
 	background-color: #14A098;
     color: rgb(255, 255, 255);
     border-radius: 20px;
     padding-top: 2px;
-    /* padding-left: 20px;
-    padding-bottom: 5px;
-    padding-right: 30px; */
     border:none;
 	font-family: "Open Sans", sans-serif;
 	font-size: x-large;
@@ -471,47 +510,45 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	width: 60px;
 	height: 40px;
 	position: fixed;
-	/* top:30px; */
-
 	margin: 0 auto;
     display: table-cell;
     vertical-align: middle;
- 
     text-align: center;
-
 	left: 5%;
     margin-top: 2%;
-    /* margin-left: 5%; */
-	box-shadow: rgba(54, 54, 54, 0.25) 0px 5px 5px, rgba(54, 54, 54, 0.25) 0px 5px 5px;
-    
+	box-shadow: rgba(54, 54, 54, 0.2) 0px 4px 4px, rgba(54, 54, 54, 0.2) 0px 4px 4px;    
   }
 
 
 
-/* ======================================================================================= */
+/* ===================================== Lesson Picking Area screen 3 ================================================== */
 
-#Array{																			/********************************/
+.navbar{
+	top: 0%;
+	width: 100%;;
+	height: 12.5%;
+	position: fixed;
+	z-index: -1;
+	background-color: #14A098;
+	border-bottom: 3px solid #105E62;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+#Array{	
 	width: 100%;
 	height: 100%;
 	top: 0%;
-	/* z-index: -8; */
 	background:#82b3b0;
 	padding-top: 10%;
-    
-	/* background-image: linear-gradient(to bottom, #41aaa8, #349696, #288385, #1c7073, #105e62); */
 }
 
 
 .scrollableArray{
-
 	position: relative;
 	width: 100%;
 	height: 100%;
-
-	/* z-index: -8; */
-
 	z-index: -2;
-	
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 }
@@ -521,22 +558,19 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	border: none;
 	border-spacing: 0px;
 	margin-bottom: 50px;
-	margin-top: 10%;
+	margin-top: 15%;
 	height: 100%;
 	width: 100%;
 	background:transparent;
-	/* border-collapse:separate;
-	border-spacing:0 10px; */
-	
 }
 
 #userTable tbody tr { 
 	box-shadow:0px 3px 3px rgba(41, 41, 41, 0.3);
-	border-radius:20px ;
+	border-radius:30px ;
 }
 
 
-/* #userTable  table,#userTable  tr,*/#userTable  td { 
+#userTable  td { 
 	font-family: "Open Sans", sans-serif;
 	border: 0px ;
 	background:transparent;
@@ -545,31 +579,26 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	align-items: left;
 	padding: 0px ;
 	border: none;
-	/* padding-top:10px; padding-bottom:5px; */
-	
 }
 
 
-
 #userTable  tr.spaceUnder>td:first-child { 
-	border-bottom-left-radius: 10px;
+	border-bottom-left-radius: 15px;
 	font-family: "Open Sans", sans-serif;
 	font-size: 20px;
 	font-weight:500;
-
 	overflow: hidden;
-
 	height: 100%;
 }
 
 
 #userTable  tr.spaceUnder>td:nth-child(2)  {
-	border-bottom-right-radius: 10px;
+	border-bottom-right-radius: 15px;
 	overflow: hidden;
   }
 
 #userTable  tr.spaceUnder>td {
-	padding-top: 20px;
+	padding-top: 15px;
 }
 
 .infosTableDiv{
@@ -577,15 +606,17 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 }
 
 .lessonText{
+	border-top-left-radius: 15px;
 	background:#E7F0F0;
 	padding-left:10px;
 	padding-right:10px;
 	padding-top:15px;
-	padding-bottom:15px;
+	padding-bottom:25px;
 	height:100%;
 }
 
 .buttonDiv{
+	border-top-right-radius: 15px;
 	background:#E7F0F0;
 	height:100%;
 	/* padding-top: 30%;
@@ -595,20 +626,6 @@ background: linear-gradient(90deg, rgba(223,62,30,1) 15%, rgba(223,143,30,1) 60%
 	padding-right: 5%;
 }
 
-/* .lessonInsideRows{
-	font-family: "Open Sans", sans-serif;
-	font-size: x-large;
-	font-size: 20px;
-	font-weight:500;
-	border-top: 5px solid transparent;
-
-	overflow: hidden;
-
-  text-overflow: ellipsis;
- 
-	max-height: 50px;
-} */
-
 
 table {
     border-collapse: separate;
@@ -616,12 +633,11 @@ table {
     border-spacing: 0px;
 }
 
+
 #slidedTable td{
 	border-top:1px solid rgb(6,129,127);
 	padding: 10px 10px 10px 10px;
 }
-
-
 
 
 #slidedTable2{
@@ -632,7 +648,6 @@ table {
 
 
 #slidedTable2 td{
-	
 	padding: 10px 10px 10px 10px;
 }
 
@@ -651,9 +666,8 @@ table {
 
 #userTable th {
 	height: 100%;
-	width:100%;						/*<<========*/
+	width:100%;	
 	background:transparent;
-
 	font-weight:800;
 	text-align: left;
 	padding-bottom: 10px; 
@@ -661,14 +675,13 @@ table {
 	padding-left: 10px;
 	font-size: 20px;
 }
-/* tr:nth-child(odd){
-	height: 50px;
-  } */
+/* ===================================== Saved Lessons Area screen 4 ================================================== */
+
   .CurvedSection{
 	background-color: rgb(231, 240, 240);
 	width: 100%;
-	height: 60%;
-	top: 50%;
+	height: auto;
+	top: 57%;
 	z-index: 2;
 	position: relative;
 	border: none;
@@ -676,6 +689,7 @@ table {
 	border-top-left-radius: 25px;
 	border-top-right-radius: 25px;
 	box-shadow: -3px -10px 10px -3px rgba(0,0,0,0.2);
+	padding-bottom:10%;
   }
 
   .DepartmentInfos{
@@ -683,19 +697,99 @@ table {
 	background-color: rgb(255, 255, 255);
 	border-radius: 25px;
 	width: 95%;
-	height: 250px;
+	height: 90%;
 	position: absolute;
 	z-index: 1;
-	top:50%;
 	font-size:18px;
 	padding:10px 10px 10px 10px;
 	margin-left: 2.5%;
-	/* color: #000000; */
-	overflow: scroll;
+	overflow: hidden;
 	color: #106b67;
 	text-align: center;
+	font-family: "Open Sans", sans-serif;
+	margin-top: 5%;
+  }
+
+  .gradeSection{
+	position: absolute;
+	top: 47%;
+	text-align: center;
+	color: #106b67;
+	font-size: 0.9em;
+	width: 100%;
+  }
+
+  .gradeWarning{
+	border-radius: 20px;
+	width: 80%;
+	color: #106b67;
+	border: 3px solid #01b3a3;
+	font-size:18px;
+	background-color: rgb(255, 255, 255);
+	text-align: center;
+	padding: 5px 5px 5px 5px;
+	position: absolute;
+	top: -100px;
+	margin-left:10%;
+  }
+
+  .gradeQuestionmark{
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	border: 2px solid #999999;
+	position: absolute;
+	text-align: center;
+	line-height: 22px;
+	font-size: 18px;
+	display:inline-block;
+	margin-left: 30px;
+  }
+
+  .gradeQuestionmark:before{
+    content:'?';
+	color: #999999;
+	font-family: "Open Sans", sans-serif;
   }
  
+  #OrderingBy{
+	background-color:  rgb(6,129,127);
+	color: rgb(255, 255, 255);
+	position:absolute;
+	top:25px;
+	right:5%;
+	border-radius: 10px;
+	padding: 10px 10px 10px 10px;
+	font-size:17px;
+	font-family: "Open Sans", sans-serif;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border-color: none;
+	border: none;
+	box-shadow:0px 3px 3px rgba(0,0,0,0.3);
+  }
+
+  select-selected {
+	background-color: rgb(6,129,127);
+  }
+
+  select-selected {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+  }
+  
+  #OrderingBy::-ms-expand {
+	display: none;
+  }
+
+  #lessonsSum{
+	color:  #1bb8b0;;
+	position:absolute;
+	top:30px;
+	left:5%;
+	font-size: 0.9em;
+	font-family: "Open Sans", sans-serif;
+  }
 
 
 #infosTable td{
@@ -705,17 +799,6 @@ table {
 	border-top:1px solid rgb(6,129,127);
 }
 
-
-.lessonDownArrow{
-	color: #b6b4b4;
-	justify-content: center;
-	text-align: center;
-	width: 100%;
-	display: grid;
-	place-items: center;
-	margin-top: 5px;
-	padding-left: 25%;
-}
 .ECTSInsideRows{
 	font-family: "Open Sans", sans-serif;
 	font-size: x-large;
@@ -786,45 +869,30 @@ p {
 	margin-right: 6%;
 	font-family: "Open Sans", sans-serif;
 	font-size: 15px;
-
 	box-shadow:0px 3px 3px rgba(0,0,0,0.4);
 }
 
 
 .backButtonNavBar{
-	/* background-color: Transparent;
-    background-repeat:no-repeat;
-    overflow: hidden;
-    outline:none;
-	border: none; */
-	
-	/* font-family: 'Anton', Arial, sans-serif; */
 	float: left;
 	margin-top: 4%;
 	margin-left: 6%;
 	font-weight: bold;
-
 	background-color: #14A098;
     color: rgb(255, 255, 255);
     border-radius: 20px;
 	border: 1px solid white;
-    /* padding-top: 0px;
-    padding-left: 5px;
-    padding-bottom: 3px;
-    padding-right: 5px; */
-   
 	font-family: "Open Sans", sans-serif;
     font-size: 25px;
 	width: 60px;
 	height: 40px;
 	position: absolute;
 	top:5%;
-
 	left: 3%;
     box-shadow:0px 3px 3px rgba(0,0,0,0.4);
 
 }
-/*=======================================================PopUp-Portfolio===========================================================*/
+/*====================================PopUp-Saved lessons=====================================*/
 
 .popup2 .content2 {
 	position:absolute;
@@ -833,22 +901,16 @@ p {
 	background:rgb(231, 240, 240);
 	width:100%;
 	height: 100%;
-
 	z-index: 0;
-
 	font-family: "Open Sans", sans-serif;
 	font-size: x-large;
 	color: rgb(0, 0, 0);
 	word-wrap: break-word;
-
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
-
   }
-  
- 
 
-
+/* ==================================== */
   .hidden{
 	  display: none;
   }
@@ -857,10 +919,7 @@ p {
 	  display: inline;
   }
 
-  .show2{
-	display:table-row;
-	}
-/*=======================================================Notifications-Screen===========================================================*/
+/*======================================================= Notifications-Screen ===========================================================*/
 
 .NotificationsScreen .content {
 	position:absolute;
@@ -871,12 +930,10 @@ p {
 	height: 100%;
 	padding: 0px 0px 0px 0px;
 	z-index: 10;
-
 	font-family: "Open Sans", sans-serif;
 	font-size: x-large;
 	color: rgb(0, 0, 0);
 	word-wrap: break-word;
-
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 
@@ -900,18 +957,18 @@ p {
 
 
   .clearNotification{
-	border-radius: 10px;
-	border: 1px solid #14A098;
+	border-radius: 30px;
+	border: 2px solid #14A098;
 	color: #14A098;
 	font-family: "Open Sans", sans-serif;
 	text-align: center;
 	font-weight:500 ;
 	font-size: large;   
-	padding: 10px 10px 10px 10px;
+	padding: 10px 15px 10px 15px;
 	position: absolute;
 	top: 3%;
 	left: 5%;
-	box-shadow: rgba(54, 54, 54, 0.20) 0px 6px 6px, rgba(54, 54, 54, 0.20) 0px 5px 5px;
+	box-shadow: rgba(54, 54, 54, 0.10) 0px 4px 4px, rgba(54, 54, 54, 0.10) 0px 5px 5px;
 
   }
 
@@ -941,7 +998,7 @@ p {
 
   #NotificationsList li{
 	border-radius: 10px;
-	border: 1px solid #14A098;
+	border: 2px solid #14A098;
 	color: #14A098;
 	width: 90%;
 	list-style-type: none;
@@ -953,11 +1010,10 @@ p {
 	font-weight:500 ;
 	font-size: large;
 	box-shadow: rgba(54, 54, 54, 0.20) 0px 4px 4px, rgba(54, 54, 54, 0.20) 0px 3px 3px;
-
   }
 
   .oldItem{
-	color:#d42b0e;
+	color:#e06a55;
 	font-family: "Open Sans", sans-serif;
 	text-align: center;
 	font-weight:bold ;
@@ -965,7 +1021,7 @@ p {
 
 }
 .newItem{
-	color:#14a01b;
+	color:#78df7e;
 	font-family: "Open Sans", sans-serif;
 	text-align: center;
 	font-weight:bold ;
@@ -995,97 +1051,33 @@ p {
     font-size: 1rem;
 }
 
-  /* ============================================================================== */
-   
-  
-
-
-
-  .hidden{
-	  display: none;
-  }
-
-  .show{
-	  display: inline;
-  }
-
-  .show2{
-	display:table-row;
-	}
-
-
-  /*==========================================No-Connection-Screeen==============================================*/
-  .NoConnectionScreen{
-	  width: 100%;
-	  height: 100%;
-	  background-color: rgb(83, 88, 94);
-	  position: absolute;
-  }
-
-/*==================================Loading Circle=========================================*/
-.loader1 {
-	
-	border: 16px solid #f3f3f3;
-	border-radius: 50%;
-	border-top: 16px solid rgba(20,160,152,0.7);
-	width: 120px;
-	height: 120px;
-	animation: spin 2s linear infinite;
-	z-index: 1;
-
-
-	position: absolute;
-	left: 38%;
-	top: 40%;
-	transform: translate(-50%,-50%);
-	
-	}
-	.loader2 {
-	
-		border: 16px solid #f3f3f3;
-		border-radius: 50%;
-		border-top: 16px solid rgba(20,160,152,0.7);
-		width: 120px;
-		height: 120px;
-		animation: spin 2s linear infinite;
-		z-index: 0;
-	
-	
-		position: absolute;
-		left: 38%;
-		top: 40%;
-		transform: translate(-50%,-50%);
-		
-		}
-	
-	
-@keyframes spin {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
+.noNotifications{
+	color: #82dbd7;
+	font-size: 1.3rem;
+	width: 100%;
+	height: 30%;
+	text-align: center;
+	position:absolute;
+	top: 45%;
+	padding-left: 15%;
+	padding-right: 15%;
 }
 
-/*===============================================*/
-
- 
-
-
-/* ============================TABLE IN PORTFOLIO=========================== */
+/* ============================ TABLE IN saved lesons =========================== */
 #portfolioTable{
-	width: 90%;
-	height: 0;
-	border-collapse:separate;
-	border-spacing:0 15px;
-	position: absolute;
-	margin-bottom: 10%;
-	top:0%;
-	margin-top: 0%;
-	margin-left: 5%;
+	width: 95%;
+	border: none;
+	border-spacing: 0px;
+	height: 100%;
+	background:transparent;
+	margin-left: 2.5%;
+	margin-top:25%;
+	padding-bottom:75px;
 }
 
 .removeFromList, .removeFromArray{
 	width: 90%;
 	height: 40px;
-	/* background-color: #d3134d; */
 	background-color: #E64949;
 	border-radius: 5px;
 	padding: 8px 5px 8px 5px; 
@@ -1098,52 +1090,65 @@ p {
 }
 
 
-#portfolioTable  tr 
-{
-	background-color: Transparent;
-	box-shadow:0px 5px 5px rgba(0,0,0,0.4);
-	border-radius: 20px;
+#portfolioTable  tbody tr {
+	box-shadow:0px 5px 3px rgba(41, 41, 41, 0.3);
+	border-radius:30px ;
 	position: relative;
-	
+}
+
+#portfolioTable  td { 
+	font-family: "Open Sans", sans-serif;
+	border: 0px ;
+	background:transparent;
+	margin:0;
+	text-align: left;
+	align-items: left;
+	padding: 0px ;
+	border: none;	
 }
 
 
-
-#portfolioTable td:first-child {
-	border-radius: 10px 0 0 10px;
+#portfolioTable  tr.spaceUnder>td:first-child { 
+	border-bottom-left-radius: 15px;
+	border-top-left-radius: 5px;
+	font-family: "Open Sans", sans-serif;
+	font-size: 20px;
+	font-weight:500;
+	overflow: hidden;
+	height: 100%;
 }
 
-#portfolioTable td:last-child {
-	border-radius: 0 10px 10px 0;
+#portfolioTable  tr.spaceUnder>td:nth-child(4)  {
+	border-bottom-right-radius: 15px;
+	border-top-right-radius: 5px;
+	overflow: hidden;
+}
+
+#portfolioTable  tr.spaceUnder>td {
+	padding-top: 15px;
 }
 
 
 .listLesson{
-	font-family: "Open Sans", sans-serif;
-	font-size: x-large;
-	font-size: 20px;
-	font-weight:500;
-	
-	/* padding-right: 10px; */
-	padding-left: 15px;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	padding-right: 10px;
-
-	overflow: hidden;
-	/* display: -webkit-box;
-	-webkit-line-clamp: 3;
-	-webkit-box-orient: vertical; */
-	color: white;
-	background-color: #19afa8;
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
+	background:#1bb8b0;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:15px;
+	padding-bottom:20px;
+	height:100%;
+	border-top-left-radius: 15px;
+	color: rgb(255, 255, 255);
 }
 
+.listButtonDiv{
+	background:#1bb8b0;
+	height:100%;
+	display: grid;
+	place-items: center;
+	padding-right: 5%;
+	border-top-right-radius: 15px;
+}
 
-/* #portfolioTable  tr:nth-child(even) td{
-	border-radius: 20px 20px 20px 20px;
-} */
 
 .DivContent{
 	background:#e4f5f4;
@@ -1154,38 +1159,70 @@ p {
 	grid-template-columns: repeat(2,1fr);
 	grid-row-gap: 10px;
 	grid-column-gap: 0px;
-
 	padding-left: 10%;
 	padding-top: 10px;
 	padding-bottom: 5px;
-
 	border-radius: 20px;
 }
 
+#innerLessonDIV{
+	background-color: #d9e6e5;
+	display: grid;
+	grid-template-columns: repeat(2,1fr);
+	grid-row-gap: 20%;
+	grid-column-gap:0%;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom: 2px solid #14A098;
+	padding-bottom: 30px;
+	padding-top: 10px;
+	box-shadow:0px 3px 3px rgba(41, 41, 41, 0.3);
+}
+
+#innerLessonDIV p:last-child{
+	color:#14A098;
+	border-radius: 10px;
+	border: solid #14A098 1px ;
+	width: 80%;
+	height: 100%;
+	text-align: center;
+	margin-left: 10%;
+	box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+}
+
+#innerLessonDIV p:nth-child(2n+1){
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-size: 20px;
+}
+
+#innerLessonDIV p:nth-child(2){
+	color:#14A098;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+
+
 #innerLessonTable tr{
-	background-color: #E7F0F0;
 	border-radius: 20px;
-	border: 2px solid #14A098;
 }
 
 #innerLessonTable td{
 	padding: 10px 5px 10px 10px;
 }
 
-#innerLessonTable td:first-child {
-	border-radius: 20px 0 0 20px;
-	border-top: 2px solid #14A098;
+#innerLessonTable tr:last-child td:first-child {
+	border-bottom-left-radius: 10px;
 	border-bottom: 2px solid #14A098;
-	border-left: 2px solid #14A098;
 }
 
-#innerLessonTable td:last-child {
-	border-radius: 0 20px 20px 0;
-	border-top: 2px solid #14A098;
+#innerLessonTable  tr:last-child td:last-child {
+	border-bottom-right-radius: 10px;
 	border-bottom: 2px solid #14A098;
-	border-right: 2px solid #14A098;
 }
-
 
 
 #clearPortfolio{
@@ -1207,12 +1244,8 @@ p {
 	font-family: "Open Sans", sans-serif;
 	color: rgb(20, 160, 152);
 	border: none;
-	/* border: 2px solid #14A098;
-	padding: 0px 10px 2px 10px;
-	border-radius: 10px; */
     border-radius: 20px;
 	border: 1px solid #14A098;
-
 	font-family: "Open Sans", sans-serif;
     font-size: 25px;
 	font-weight:500;
@@ -1233,7 +1266,7 @@ p {
 	color: black;
 }
 
-/* =================================Alert-1======================================= */
+/* ================================= Alert-1 ======================================= */
 
 .warningSection{
 	background:#E64949;
@@ -1248,7 +1281,7 @@ p {
 
 
 .contentSection{
-	padding:10px 15px 10px 15px;
+	padding:15px 15px 10px 15px;
 }
 .Alert1 .overlayAlert {
 	position:fixed;
@@ -1270,7 +1303,6 @@ p {
 	left: 50%;
 	transform: translate(-50%,0%) scale(0);
 	transform:translate(-50%,-50%) scale(0);
-	/* background:rgb(223, 88, 88); */
 	background-color: rgb(231, 240, 240);
 	color: rgb(0, 0, 0);
 	width:85%;
@@ -1297,7 +1329,6 @@ p {
   .Alert1 .closeAlert{
 	width: 80%;
 	height: 100%;
-	/* background-color: #d3134d; */
 	background-color: #534e4e;
 	border-radius: 10px;
 	padding: 15px 5px 15px 5px; 
@@ -1334,7 +1365,6 @@ p {
 	left: 50%;
 	transform: translate(-50%,0%) scale(0);
 	transform:translate(-50%,-50%) scale(0);
-	/* background:rgb(223, 88, 88); */
 	background-color: rgb(231, 240, 240);
 	color: rgb(0, 0, 0);
 	width:85%;
@@ -1361,7 +1391,6 @@ p {
   .Alert2 .closeAlert{
 	width: 100%;
 	height: 100%;
-	/* background-color: #d3134d; */
 	background-color: #534e4e;
 	border-radius: 10px;
 	padding: 15px 5px 15px 5px; 
@@ -1376,7 +1405,6 @@ p {
   .Alert2 .deleteList{
 	width: 100%;
 	height: 100%;
-	/* background-color: #d3134d; */
 	background-color: #d82a2a;
 	border-radius: 10px;
 	padding: 15px 5px 15px 5px; 
@@ -1393,9 +1421,7 @@ p {
 	grid-template-columns: repeat(1,1fr);
 	grid-row-gap: 20%;
 	grid-column-gap: 10%;
-
-	margin-top: 15%;
-
+	margin-top: 10%;
 	position: relative;
 	left: 50%;
 	transform: translate(-50%,0%);
@@ -1420,30 +1446,21 @@ p {
  * .  workaround.
  */
 
+/* -----------------------------  circle of ECTS progress  --------------------*/
 
-  
  .circle-chart__circle {
 	/* stroke: #c10000; */
 	stroke-width: 2px;
 	stroke-linecap: round;
 	fill: none;
 	animation: circle-chart-fill 1s reverse; /* 1  <<===How fast cycle animation*/ 	
-	transform: rotate(-90deg); /* 2, 3 */
-	transform-origin: center; /* 4 */
+	transform: rotate(-90deg); 
+	transform-origin: center; 
   }
   
-  /**
-   * 1. Rotate by -90 degree to make the starting point of the
-   *    stroke the top of the circle.
-   * 2. Scaling mirrors the circle to make the stroke move right
-   *    to mark a positive chart value.
-   * 3. Using CSS transforms on SVG elements is not supported by Internet Explorer
-   *    and Edge, use the transform attribute directly on the SVG element as a
-   * .  workaround.
-   */
   
   .circle-chart__circle--negative {
-	transform: rotate(-90deg) scale(0,0); /* 1, 2, 3 */
+	transform: rotate(-90deg) scale(0,0);
   }
   
   .circle-chart__background {
@@ -1454,7 +1471,6 @@ p {
 
   
   .circle-chart__info {
-	/* animation: circle-chart-appear 2s forwards; */
 	opacity: 1;
 	transform: translateY(0em);
   }
@@ -1494,15 +1510,6 @@ p {
 	to { stroke-dasharray: 0 100; }
   }
   
-  /* @keyframes circle-chart-appear {
-	to {
-	  opacity: 1;
-	  transform: translateY(0);
-	}
-  }
-   */
-  
-  
 
  @keyframes up {
 	0%   {  transform: translateY(0px);
@@ -1513,43 +1520,16 @@ p {
 
 }
 
-/* @keyframes rotate {
-	from { 
-        transform: rotateY(0deg); 
-    } 
-    to 
-    { 
-        transform: rotateY(-360deg); 
-	}
+.circle-chart {
+	width:55vw;
+	height:auto;
+	border-radius: 100%;
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+	animation: up 1s ;	
+	animation-delay: 0.5s; 
+	font-family: "Open Sans", sans-serif;
 }
-  */
-
-  /* Extra small devices (portrait phones, less than 576px) */
-  /* @media (max-width: 575.98px) { */
-  
-	  .single-skill {
-		position: absolute;
-		top: 10%;
-		width: 100%;
-		height: 35%;
-		display: grid;
-		place-items: center;
-		font-family: "Open Sans", sans-serif;
-		padding-top: 0px;
-	  }
-  
-	  .circle-chart {
-		width:55vw;
-		height:auto;
-		
-		border-radius: 100%;
-		box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
-		animation: up 1s ;	
-		animation-delay: 0.5s; 
-		font-family: "Open Sans", sans-serif;
-		}
 	  
-  /* } */
 
   #noSavedLessons{
 	color: #14A098;
@@ -1557,14 +1537,14 @@ p {
 	text-align: center;
 	font-weight:700 ;
 	font-size: large;
-	margin-top: 20%;
-	margin-bottom: 50%;
+	top: 10%;
 	padding-left: 20px;
 	padding-right: 20px;
+	position: absolute;
+	font-family: "Open Sans", sans-serif;
   }
 
   .orderingClass{
-
 	font-size:20px;
 	color:#ffffff;
 	padding-left: 20px;  
@@ -1600,11 +1580,9 @@ p {
 }
 
 
-
   @media screen and (min-width:768px){
 	.button1{
 		margin-bottom: 50px;
-
 		padding:20px 30px 20px 30px;
 	}
 	.pressedButton{
@@ -1615,10 +1593,8 @@ p {
 	.examino{
 		margin-top: 5%;
 		margin-bottom: 15px;
-
 		width: 250px;
 		margin-left: 0%;
-		
 		font-family: "Open Sans", sans-serif;
 		font-size: x-large;
 		text-align: center;
@@ -1636,15 +1612,12 @@ p {
 		font-size: x-large;
 		font-size: 25px;
 		justify-items: center;
-
 	}
 
 	.lessonInsideRows{
 		font-size: x-large;
 		font-size: 25px;
 		font-weight:500;
-	
-	
 		height: 50px;
 	}
 	.orderingClass{
@@ -1712,9 +1685,6 @@ p {
 	  height: 65%;
 	  margin-left: 20%;
 	  }
-	.DepartmentInfos{
-		height: 400px;
-	}
 	.listLesson{
 		font-size: 25px;
 		font-weight:500;
@@ -1737,7 +1707,6 @@ p {
 		font-size: 25px;
 		top:50%;
 		left: 50%;
-
 		width:65%;
 		height:30%;
 	}
@@ -1750,12 +1719,11 @@ p {
 	}
 
 	.Alert2 .contentAlert {
-	font-size: 25px;
-	top:50%;
-	left: 50%;
-
-	width:65%;
-	height:30%;
+		font-size: 25px;
+		top:50%;
+		left: 50%;
+		width:65%;
+		height:30%;
 	}
 	.contentSection{
 		padding:10px 20px 30px 20px;
@@ -1792,3 +1760,61 @@ p {
 	margin-bottom: 40%;
 }
 
+.single-skill {
+	position: absolute;
+	top: 0%;
+	font-family: "Open Sans", sans-serif;
+	padding-top: 0px;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	place-items: center;
+  }
+
+  /* ------------------------------------ flip  circle of ECTS progress and department info --------------------*/
+.card {
+	top:10%;
+	position: absolute;
+	width: 100%;
+	height: 35%;
+	display: grid;
+	place-items: center;
+  }
+  
+  .cardFront{
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	transition: transform 0.5s ease;
+	position: absolute;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+  }
+  
+  .cardBack{
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	transition: transform 0.5s ease;
+	position: absolute;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+  }
+  
+  .cardBack {
+	transform:rotateY(180deg);
+  }
+  
+  .cardBack.flipped {
+	transform: rotateY(0deg);
+  }
+  
+  .cardFront {
+	transform:  rotateY(0deg);
+  }
+  
+  .cardFront.flipped {
+	transform: rotateY(-180deg);
+  }
+  
+  

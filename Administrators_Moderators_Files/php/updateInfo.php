@@ -21,6 +21,7 @@
     while($row = mysqli_fetch_array($result)) {
         $pathWinter =  $row["PathWinter"];
         $pathSummer = $row["PathSummer"];
+        $oldDepartment = $row["Department"];
     }
 
     if (!empty($_FILES["newWinterPDF"]["name"])) {
@@ -58,9 +59,10 @@
     }
     
     $query = $query. " WHERE id=".$id.";";
-    // echo $query;
-
     $result = mysqli_query($con,$query);
+    
+    $query1 ="UPDATE lessons_table SET Department = '$Department'  WHERE Department = '$oldDepartment'";
+    $result1 = mysqli_query($con,$query1);
 
     header('Location: '."../Administrator.php");
 
